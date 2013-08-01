@@ -1,0 +1,44 @@
+/**
+ * <copyright>
+ * </copyright>
+ *
+ * $Id$
+ */
+package SadModel;
+
+import org.eclipse.emf.common.util.EList;
+
+/**
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>Sad</b></em>'.
+ * <!-- end-user-doc -->
+ *
+ * <p>
+ * The following features are supported:
+ * <ul>
+ *   <li>{@link SadModel.Sad#getSections <em>Sections</em>}</li>
+ * </ul>
+ * </p>
+ *
+ * @see SadModel.SadModelPackage#getSad()
+ * @model
+ * @generated
+ */
+public interface Sad extends Artifact {
+	/**
+	 * Returns the value of the '<em><b>Sections</b></em>' reference list.
+	 * The list contents are of type {@link SadModel.SadSection}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Sections</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Sections</em>' reference list.
+	 * @see SadModel.SadModelPackage#getSad_Sections()
+	 * @model
+	 * @generated
+	 */
+	EList<SadSection> getSections();
+
+} // Sad
