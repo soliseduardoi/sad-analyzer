@@ -1,0 +1,20 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Sadeditor
+Bundle-SymbolicName: edu.isistan.sadeditor; singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: edu.isistan.sadeditor.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.jface.text,
+ org.eclipse.core.resources,
+ org.eclipse.ui.editors,
+ org.eclipse.ui.ide,
+ org.eclipse.emf.ecore.xmi;bundle-version="2.5.0",
+ edu.isistan.softwarearchitecturedocumentationanalyzer;bundle-version="1.0.0",
+ edu.isistan.softwarearchitecturedocumentationanalyzer.edit;bundle-version="1.0.0",
+ org.eclipse.ui.forms;bundle-version="3.5.101"
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ClassPath: .,
+ libs/edu.isistan.sad.parser-0.0.1-SNAPSHOT.jar

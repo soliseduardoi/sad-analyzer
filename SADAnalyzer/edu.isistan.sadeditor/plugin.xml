@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            name="Sad Editor"
+            extensions="sad"
+            icon="icons/sample.gif"
+            contributorClass="edu.isistan.sadeditor.editor.SadEditorContributor"
+            class="edu.isistan.sadeditor.editor.SadEditor"
+            id="edu.isistan.sadeditor.editor.SadEditor">
+      </editor>
+   </extension>
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <category
+            name="Sad Wizards"
+            id="edu.isistan.sadeditor">
+      </category>
+      <wizard
+            name="Sad Editor file"
+            icon="icons/sample.gif"
+            category="edu.isistan.sadeditor"
+            class="edu.isistan.sadeditor.wizards.SadWizard"
+            id="edu.isistan.sadeditor.wizards.SadWizard">
+      </wizard>
+   </extension>
+
+</plugin>
