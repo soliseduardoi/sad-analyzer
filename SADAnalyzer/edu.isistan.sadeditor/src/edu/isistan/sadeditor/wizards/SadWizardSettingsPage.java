@@ -351,7 +351,7 @@ public class SadWizardSettingsPage extends WizardPage {
 	public String getUrl() {
 		String ret=getUrlPath().getText();
 		if(sadFromArchiveRadio.getSelection()){
-			ret=getUrlPath().getText();
+			ret=getArchivePathField().getText();
 		}
 		return ret;
 	}
