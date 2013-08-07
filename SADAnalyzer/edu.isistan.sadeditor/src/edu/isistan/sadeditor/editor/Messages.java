@@ -10,8 +10,9 @@ import org.eclipse.osgi.util.NLS;
 public class Messages extends NLS {
 	
 	private static final String BUNDLE_NAME = "edu.isistan.sadeditor.editor.messages";
-	
 
+
+	
 	public static String Sad_FilenameDefault;
 	public static String Sad_Extension;
 	public static String Sad_UrlField;
@@ -26,6 +27,12 @@ public class Messages extends NLS {
 	public static String SadWizard_Settings_Template_Field;
 	public static String SadWizard_XMLEncodingChoices;
 	public static String SadWizard_XMLEncoding;
+	public static String SadEditor_OverviewTitle;
+	public static String SadEditor_OverviewSource;
+	public static String SadEditor_OverviewTemplate;
+	public static String Sad_OverviewRun;
+	public static String Sad_OverviewDetail;
+	public static String Sad_OverviewDescription1;
 	
 	public static String SadEditor_Overview;
 	
