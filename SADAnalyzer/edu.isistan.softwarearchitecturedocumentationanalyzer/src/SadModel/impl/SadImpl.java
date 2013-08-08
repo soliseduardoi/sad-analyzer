@@ -12,10 +12,12 @@ import SadModel.SadSection;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 
 /**
@@ -26,6 +28,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  * The following features are implemented:
  * <ul>
  *   <li>{@link SadModel.impl.SadImpl#getSections <em>Sections</em>}</li>
+ *   <li>{@link SadModel.impl.SadImpl#getTemplatePath <em>Template Path</em>}</li>
  * </ul>
  * </p>
  *
@@ -41,6 +44,25 @@ public class SadImpl extends ArtifactImpl implements Sad {
 	 * @ordered
 	 */
 	protected EList<SadSection> sections;
+
+	/**
+	 * The default value of the '{@link #getTemplatePath() <em>Template Path</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTemplatePath()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String TEMPLATE_PATH_EDEFAULT = null;
+	/**
+	 * The cached value of the '{@link #getTemplatePath() <em>Template Path</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTemplatePath()
+	 * @generated
+	 * @ordered
+	 */
+	protected String templatePath = TEMPLATE_PATH_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -78,11 +100,34 @@ public class SadImpl extends ArtifactImpl implements Sad {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getTemplatePath() {
+		return templatePath;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setTemplatePath(String newTemplatePath) {
+		String oldTemplatePath = templatePath;
+		templatePath = newTemplatePath;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, SadModelPackage.SAD__TEMPLATE_PATH, oldTemplatePath, templatePath));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case SadModelPackage.SAD__SECTIONS:
 				return getSections();
+			case SadModelPackage.SAD__TEMPLATE_PATH:
+				return getTemplatePath();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -100,6 +145,9 @@ public class SadImpl extends ArtifactImpl implements Sad {
 				getSections().clear();
 				getSections().addAll((Collection<? extends SadSection>)newValue);
 				return;
+			case SadModelPackage.SAD__TEMPLATE_PATH:
+				setTemplatePath((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -115,6 +163,9 @@ public class SadImpl extends ArtifactImpl implements Sad {
 			case SadModelPackage.SAD__SECTIONS:
 				getSections().clear();
 				return;
+			case SadModelPackage.SAD__TEMPLATE_PATH:
+				setTemplatePath(TEMPLATE_PATH_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -129,8 +180,26 @@ public class SadImpl extends ArtifactImpl implements Sad {
 		switch (featureID) {
 			case SadModelPackage.SAD__SECTIONS:
 				return sections != null && !sections.isEmpty();
+			case SadModelPackage.SAD__TEMPLATE_PATH:
+				return TEMPLATE_PATH_EDEFAULT == null ? templatePath != null : !TEMPLATE_PATH_EDEFAULT.equals(templatePath);
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (templatePath: ");
+		result.append(templatePath);
+		result.append(')');
+		return result.toString();
 	}
 
 } //SadImpl

@@ -152,13 +152,22 @@ public interface SadModelPackage extends EPackage {
 	int SAD__SECTIONS = ARTIFACT_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Template Path</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SAD__TEMPLATE_PATH = ARTIFACT_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>Sad</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SAD_FEATURE_COUNT = ARTIFACT_FEATURE_COUNT + 1;
+	int SAD_FEATURE_COUNT = ARTIFACT_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link SadModel.impl.SadSectionImpl <em>Sad Section</em>}' class.
@@ -245,6 +254,17 @@ public interface SadModelPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getSad_Sections();
+
+	/**
+	 * Returns the meta object for the attribute '{@link SadModel.Sad#getTemplatePath <em>Template Path</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Template Path</em>'.
+	 * @see SadModel.Sad#getTemplatePath()
+	 * @see #getSad()
+	 * @generated
+	 */
+	EAttribute getSad_TemplatePath();
 
 	/**
 	 * Returns the meta object for class '{@link SadModel.SadSection <em>Sad Section</em>}'.
@@ -360,6 +380,14 @@ public interface SadModelPackage extends EPackage {
 		 * @generated
 		 */
 		EReference SAD__SECTIONS = eINSTANCE.getSad_Sections();
+
+		/**
+		 * The meta object literal for the '<em><b>Template Path</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SAD__TEMPLATE_PATH = eINSTANCE.getSad_TemplatePath();
 
 		/**
 		 * The meta object literal for the '{@link SadModel.impl.SadSectionImpl <em>Sad Section</em>}' class.

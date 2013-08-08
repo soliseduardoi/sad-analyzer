@@ -17,6 +17,7 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * <ul>
  *   <li>{@link SadModel.Sad#getSections <em>Sections</em>}</li>
+ *   <li>{@link SadModel.Sad#getTemplatePath <em>Template Path</em>}</li>
  * </ul>
  * </p>
  *
@@ -40,5 +41,31 @@ public interface Sad extends Artifact {
 	 * @generated
 	 */
 	EList<SadSection> getSections();
+
+	/**
+	 * Returns the value of the '<em><b>Template Path</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Template Path</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Template Path</em>' attribute.
+	 * @see #setTemplatePath(String)
+	 * @see SadModel.SadModelPackage#getSad_TemplatePath()
+	 * @model
+	 * @generated
+	 */
+	String getTemplatePath();
+
+	/**
+	 * Sets the value of the '{@link SadModel.Sad#getTemplatePath <em>Template Path</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Template Path</em>' attribute.
+	 * @see #getTemplatePath()
+	 * @generated
+	 */
+	void setTemplatePath(String value);
 
 } // Sad

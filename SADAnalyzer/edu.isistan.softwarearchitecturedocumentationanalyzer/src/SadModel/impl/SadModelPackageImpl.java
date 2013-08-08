@@ -131,6 +131,15 @@ public class SadModelPackageImpl extends EPackageImpl implements SadModelPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getSad_TemplatePath() {
+		return (EAttribute)sadEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getSadSection() {
 		return sadSectionEClass;
 	}
@@ -219,6 +228,7 @@ public class SadModelPackageImpl extends EPackageImpl implements SadModelPackage
 		// Create classes and their features
 		sadEClass = createEClass(SAD);
 		createEReference(sadEClass, SAD__SECTIONS);
+		createEAttribute(sadEClass, SAD__TEMPLATE_PATH);
 
 		sadSectionEClass = createEClass(SAD_SECTION);
 		createEAttribute(sadSectionEClass, SAD_SECTION__NAME);
@@ -264,6 +274,7 @@ public class SadModelPackageImpl extends EPackageImpl implements SadModelPackage
 		// Initialize classes and features; add operations and parameters
 		initEClass(sadEClass, Sad.class, "Sad", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getSad_Sections(), this.getSadSection(), null, "sections", null, 0, -1, Sad.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSad_TemplatePath(), ecorePackage.getEString(), "templatePath", null, 0, 1, Sad.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(sadSectionEClass, SadSection.class, "SadSection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getSadSection_Name(), ecorePackage.getEString(), "name", null, 0, 1, SadSection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

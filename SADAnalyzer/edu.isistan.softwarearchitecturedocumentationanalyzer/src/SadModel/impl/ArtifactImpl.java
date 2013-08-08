@@ -81,7 +81,7 @@ public class ArtifactImpl extends EObjectImpl implements Artifact {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String CONTENT_EDEFAULT = "";
+	protected static final String CONTENT_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getContent() <em>Content</em>}' attribute.
@@ -100,7 +100,6 @@ public class ArtifactImpl extends EObjectImpl implements Artifact {
 	 */
 	protected ArtifactImpl() {
 		super();
-		setID(EcoreUtil.generateUUID());
 	}
 
 	/**
