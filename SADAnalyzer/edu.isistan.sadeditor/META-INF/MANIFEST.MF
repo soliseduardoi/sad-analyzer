@@ -13,7 +13,11 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.emf.ecore.xmi;bundle-version="2.5.0",
  edu.isistan.softwarearchitecturedocumentationanalyzer;bundle-version="1.0.0",
  edu.isistan.softwarearchitecturedocumentationanalyzer.edit;bundle-version="1.0.0",
- org.eclipse.ui.forms;bundle-version="3.5.101"
+ org.eclipse.ui.forms;bundle-version="3.5.101",
+ org.eclipse.emf.edit.ui;bundle-version="2.7.0",
+ edu.isistan.uima.unified;bundle-version="1.0.1",
+ org.eclipse.core.databinding;bundle-version="1.4.0",
+ org.eclipse.emf.databinding;bundle-version="1.2.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ClassPath: .,

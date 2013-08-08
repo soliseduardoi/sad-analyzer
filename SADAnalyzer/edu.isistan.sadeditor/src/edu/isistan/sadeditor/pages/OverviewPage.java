@@ -1,8 +1,16 @@
 package edu.isistan.sadeditor.pages;
 
+import org.eclipse.core.databinding.DataBindingContext;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.edit.domain.EditingDomain;
+import org.eclipse.emf.edit.domain.IEditingDomainProvider;
+import org.eclipse.emf.edit.ui.util.EditUIUtil;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IEditorInput;
@@ -17,13 +25,20 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.Section;
 
+import SadModel.Sad;
 import edu.isistan.sadeditor.editor.Messages;
+import edu.isistan.sadeditor.editor.SadEditor;
+import edu.isistan.uima.unified.UIMAProcessor;
 
 
 public class OverviewPage extends FormPage {
 	
 	public static final String ID = "edu.isistan.sadeditor.pages.OverviewPage";
 	public static final String TITLE = "Overview";
+	private EditingDomain editingDomain;
+	private Sad modelRoot;
+	private DataBindingContext bindingContext;
+	
 	
 	
 
@@ -41,7 +56,9 @@ public class OverviewPage extends FormPage {
 	 */
 	public OverviewPage(FormEditor editor) {
 		super(editor, ID, TITLE);
-		// TODO Auto-generated constructor stub
+		editingDomain = ((IEditingDomainProvider)getEditor()).getEditingDomain();
+		modelRoot = ((SadEditor)getEditor()).getModelRoot();
+		bindingContext = ((SadEditor)getEditor()).getBindingContext();
 	}
 	
 	/**
@@ -81,7 +98,7 @@ public class OverviewPage extends FormPage {
 		
 		createDetailSection(managedForm, Messages.Sad_OverviewDetail, Messages.Sad_OverviewDescription1);
 		
-		createDetailSection(managedForm, Messages.Sad_OverviewDetail, Messages.Sad_OverviewDescription1);
+//		createDetailSection(managedForm, Messages.Sad_OverviewDetail, Messages.Sad_OverviewDescription1);
 		
 //		createTreeModel(managedForm, "Seccion2","Descripcion2"); 
 	}
@@ -94,23 +111,42 @@ public class OverviewPage extends FormPage {
 		GridData gd = new GridData();		
 		// Text source
 		toolkit.createLabel(client, Messages.SadEditor_OverviewSource+":");
-		Text text = toolkit.createText(client, "", SWT.SINGLE);
+		String overviewSource = modelRoot.getTitle();
+		Text text = toolkit.createText(client, overviewSource, SWT.SINGLE);
 		gd = new GridData();
 		gd.widthHint = 500;
 		text.setLayoutData(gd);
 		
+		
 		// Text Template Sad
 		toolkit.createLabel(client, Messages.SadEditor_OverviewTemplate+":");
-		text = toolkit.createText(client, "", SWT.SINGLE);
+		String overviewTemplate = modelRoot.getID();
+		text = toolkit.createText(client, overviewTemplate, SWT.SINGLE);
 		gd = new GridData();
 		gd.widthHint = 500;
 		text.setLayoutData(gd);
 		
 		// Run
-		toolkit.createButton(client, Messages.Sad_OverviewRun,SWT.BUTTON1);
+		Button btnAdd= toolkit.createButton(client, Messages.Sad_OverviewRun,SWT.BUTTON1);
 		gd = new GridData();
 		gd.widthHint = 500;
 		//toolkit.paintBordersFor(client);
+		btnAdd.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				
+				
+				URI resourceURI = EditUIUtil.getURI(getEditorInput());
+				//ver como obtener el imput full path
+				
+				String inputFile =resourceURI.toString();
+				String outputFile = "file:///G:/out.xml";
+				
+				UIMAProcessor processor = UIMAProcessor.getInstance();
+				processor.execute(inputFile, outputFile);				
+				
+			}
+		});
 	}
 	
 	
@@ -147,4 +183,6 @@ public class OverviewPage extends FormPage {
 	public void setActive(boolean active) {
 		super.setActive(active);
 	}
+	
+	
 }
