@@ -112,19 +112,21 @@ public class OverviewPage extends FormPage {
 		// Text source
 		toolkit.createLabel(client, Messages.SadEditor_OverviewSource+":");
 		String overviewSource = modelRoot.getTitle();
-		Text text = toolkit.createText(client, overviewSource, SWT.SINGLE);
+		Text overviewSourceText = toolkit.createText(client, overviewSource, SWT.SINGLE);
+		overviewSourceText.setEditable(false);
 		gd = new GridData();
 		gd.widthHint = 500;
-		text.setLayoutData(gd);
+		overviewSourceText.setLayoutData(gd);
 		
 		
 		// Text Template Sad
 		toolkit.createLabel(client, Messages.SadEditor_OverviewTemplate+":");
-		String overviewTemplate = modelRoot.getID();
-		text = toolkit.createText(client, overviewTemplate, SWT.SINGLE);
+		String overviewTemplate = modelRoot.getTemplatePath();
+		Text overviewTemplateText = toolkit.createText(client, overviewTemplate, SWT.SINGLE);
+		overviewTemplateText.setEditable(false);
 		gd = new GridData();
 		gd.widthHint = 500;
-		text.setLayoutData(gd);
+		overviewTemplateText.setLayoutData(gd);
 		
 		// Run
 		Button btnAdd= toolkit.createButton(client, Messages.Sad_OverviewRun,SWT.BUTTON1);
