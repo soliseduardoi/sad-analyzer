@@ -67,5 +67,6 @@ public interface Sad extends Artifact {
 	 * @generated
 	 */
 	void setTemplatePath(String value);
+	
 
 } // Sad

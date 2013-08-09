@@ -450,5 +450,7 @@ public interface SadModelPackage extends EPackage {
 		EAttribute ARTIFACT__CONTENT = eINSTANCE.getArtifact_Content();
 
 	}
+	
+	
 
 } //SadModelPackage
