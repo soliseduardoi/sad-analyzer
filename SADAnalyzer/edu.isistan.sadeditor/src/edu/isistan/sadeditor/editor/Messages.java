@@ -30,9 +30,14 @@ public class Messages extends NLS {
 	public static String SadEditor_OverviewTitle;
 	public static String SadEditor_OverviewSource;
 	public static String SadEditor_OverviewTemplate;
+	public static String Sad_OverviewRunSection;
 	public static String Sad_OverviewRun;
 	public static String Sad_OverviewDetail;
 	public static String Sad_OverviewDescription1;
+	public static String Sad_OverviewDescription2;
+	public static String Sad_OverviewDescription3;
+	public static String Sad_OverviewModelTree;
+	
 	
 	public static String SadEditor_Overview;
 	
