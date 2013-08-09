@@ -61,12 +61,6 @@ public class SadModelExample {
 			try {
 				Resource resource = resourceSet.createResource(URI.createURI("http:///My.sadmodel"));
 				Sad root = SadModelFactory.eINSTANCE.createSad();
-				SadSection section =  SadModelFactory.eINSTANCE.createSadSection();
-				SadSection section2 =  SadModelFactory.eINSTANCE.createSadSection();
-				section.setText("chagar");
-				root.getSections().add(section);
-				root.getSections().add(section2);
-				
 				resource.getContents().add(root);
 				resource.save(System.out, null);
 			}
