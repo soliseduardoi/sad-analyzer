@@ -5,13 +5,16 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.domain.IEditingDomainProvider;
 import org.eclipse.emf.edit.ui.util.EditUIUtil;
+import org.eclipse.jface.viewers.ListViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
@@ -22,6 +25,7 @@ import org.eclipse.ui.forms.events.ExpansionAdapter;
 import org.eclipse.ui.forms.events.ExpansionEvent;
 import org.eclipse.ui.forms.widgets.ColumnLayout;
 import org.eclipse.ui.forms.widgets.FormToolkit;
+import org.eclipse.ui.forms.widgets.Hyperlink;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.Section;
 
@@ -39,7 +43,7 @@ public class OverviewPage extends FormPage {
 	private Sad modelRoot;
 	private DataBindingContext bindingContext;
 	
-	
+	private ListViewer listViewerActors;
 	
 
 	/**
@@ -98,9 +102,24 @@ public class OverviewPage extends FormPage {
 		
 		createDetailSection(managedForm, Messages.Sad_OverviewDetail, Messages.Sad_OverviewDescription1);
 		
-//		createDetailSection(managedForm, Messages.Sad_OverviewDetail, Messages.Sad_OverviewDescription1);
+		createExecutionSection(managedForm, Messages.Sad_OverviewRunSection, Messages.Sad_OverviewDescription3);
 		
-//		createTreeModel(managedForm, "Seccion2","Descripcion2"); 
+		createTreeModel(managedForm, Messages.Sad_OverviewModelTree,Messages.Sad_OverviewDescription2); 
+		
+	}
+	
+	private void createExecutionSection(IManagedForm mform, String title, String desc) {
+		Composite client = createSection(mform, title, desc, 2);
+		FormToolkit toolkit = mform.getToolkit();
+		
+//		GridData gd = new GridData();		
+		
+		// Run
+//		Hyperlink link = toolkit.createHyperlink(mform.getForm().getBody(),Messages.Sad_OverviewRun, SWT.WRAP);
+		toolkit.createButton(client, Messages.Sad_OverviewRun,SWT.BUTTON1);
+//		gd = new GridData();
+//		gd.widthHint = 500;
+//		link.setLayoutData(gd);
 	}
 
 		
@@ -128,11 +147,7 @@ public class OverviewPage extends FormPage {
 		gd.widthHint = 500;
 		overviewTemplateText.setLayoutData(gd);
 		
-		// Run
-		Button btnAdd= toolkit.createButton(client, Messages.Sad_OverviewRun,SWT.BUTTON1);
-		gd = new GridData();
-		gd.widthHint = 500;
-		//toolkit.paintBordersFor(client);
+		
 		btnAdd.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -152,16 +167,37 @@ public class OverviewPage extends FormPage {
 	}
 	
 	
-	private void createTreeModel(IManagedForm managedForm, String title, String desc) {
 		
-	}
+	private void createTreeModel(IManagedForm managedForm, String title, String desc) {
+		Composite client = createSection(managedForm, title, desc, 2);
+				
+		listViewerActors = new ListViewer(client, SWT.BORDER | SWT.V_SCROLL);
+		
+		// TODO inicializar la listaViewer con la lista del modelo
+		listViewerActors.add("uno");
+		listViewerActors.add("dos");
+		listViewerActors.add("tres");
+		listViewerActors.add("cuatro");
+		listViewerActors.add("cinco");
+		
+		GridData gd = new GridData();
+		gd.widthHint = 500;
+		List listActors = listViewerActors.getList();
+		listActors.setLayoutData(gd);		
+	}	
 	
 	
 	private Composite createSection(IManagedForm mform, String title,
 			String desc, int numColumns) {
 		final ScrolledForm form = mform.getForm();
 		FormToolkit toolkit = mform.getToolkit();
-		Section section = toolkit.createSection(form.getBody(), Section.TWISTIE
+		
+		Composite compositeDetails = new Composite(mform.getForm().getBody(), SWT.NONE);
+		compositeDetails.setLayout(new FillLayout(SWT.HORIZONTAL));
+		toolkit.adapt(compositeDetails);
+		toolkit.paintBordersFor(compositeDetails);		
+		
+		Section section = toolkit.createSection(compositeDetails, Section.TWISTIE
 				| Section.TITLE_BAR | Section.DESCRIPTION | Section.EXPANDED);
 		section.setText(title);
 		section.setDescription(desc);
