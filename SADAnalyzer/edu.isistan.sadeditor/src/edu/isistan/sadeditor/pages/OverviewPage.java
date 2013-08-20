@@ -116,10 +116,26 @@ public class OverviewPage extends FormPage {
 		
 		// Run
 //		Hyperlink link = toolkit.createHyperlink(mform.getForm().getBody(),Messages.Sad_OverviewRun, SWT.WRAP);
-		toolkit.createButton(client, Messages.Sad_OverviewRun,SWT.BUTTON1);
+		Button btnAdd=  toolkit.createButton(client, Messages.Sad_OverviewRun,SWT.BUTTON1);
 //		gd = new GridData();
 //		gd.widthHint = 500;
 //		link.setLayoutData(gd);
+		btnAdd.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				
+				
+				URI resourceURI = EditUIUtil.getURI(getEditorInput());
+				//ver como obtener el imput full path
+				
+				String inputFile =resourceURI.toString();
+				String outputFile = "file:///G:/out.xml";
+				
+				UIMAProcessor processor = UIMAProcessor.getInstance();
+				processor.execute(inputFile, outputFile);				
+				
+			}
+		});
 	}
 
 		
@@ -145,25 +161,8 @@ public class OverviewPage extends FormPage {
 		overviewTemplateText.setEditable(false);
 		gd = new GridData();
 		gd.widthHint = 500;
-		overviewTemplateText.setLayoutData(gd);
+		overviewTemplateText.setLayoutData(gd);		
 		
-		
-		btnAdd.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				
-				
-				URI resourceURI = EditUIUtil.getURI(getEditorInput());
-				//ver como obtener el imput full path
-				
-				String inputFile =resourceURI.toString();
-				String outputFile = "file:///G:/out.xml";
-				
-				UIMAProcessor processor = UIMAProcessor.getInstance();
-				processor.execute(inputFile, outputFile);				
-				
-			}
-		});
 	}
 	
 	
