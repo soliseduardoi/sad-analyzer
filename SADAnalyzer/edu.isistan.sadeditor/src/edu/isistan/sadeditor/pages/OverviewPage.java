@@ -1,20 +1,30 @@
 package edu.isistan.sadeditor.pages;
 
+import java.util.Iterator;
+
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.domain.IEditingDomainProvider;
 import org.eclipse.emf.edit.ui.util.EditUIUtil;
+import org.eclipse.jface.action.Action;
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ListViewer;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.List;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
@@ -25,11 +35,11 @@ import org.eclipse.ui.forms.events.ExpansionAdapter;
 import org.eclipse.ui.forms.events.ExpansionEvent;
 import org.eclipse.ui.forms.widgets.ColumnLayout;
 import org.eclipse.ui.forms.widgets.FormToolkit;
-import org.eclipse.ui.forms.widgets.Hyperlink;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.Section;
 
 import SadModel.Sad;
+import SadModel.SadSection;
 import edu.isistan.sadeditor.editor.Messages;
 import edu.isistan.sadeditor.editor.SadEditor;
 import edu.isistan.uima.unified.UIMAProcessor;
@@ -41,9 +51,10 @@ public class OverviewPage extends FormPage {
 	public static final String TITLE = "Overview";
 	private EditingDomain editingDomain;
 	private Sad modelRoot;
-	private DataBindingContext bindingContext;
-	
-	private ListViewer listViewerActors;
+	private DataBindingContext bindingContext;	
+	private ListViewer listViewerSections;
+	private Text overviewSourceText;
+	private String textSection="";
 	
 
 	/**
@@ -53,6 +64,7 @@ public class OverviewPage extends FormPage {
 	 */
 	public OverviewPage() {
 		super(ID, TITLE);
+		
 	}
 
 	/**
@@ -85,57 +97,108 @@ public class OverviewPage extends FormPage {
 		ScrolledForm form = managedForm.getForm();
 		Composite body = form.getBody();
 		FormToolkit toolkit = managedForm.getToolkit();
-		form.setText(Messages.SadEditor_OverviewTitle);	
+		form.setText(Messages.SadEditor_OverviewTitle);
+		
+		Action execution = new Action("run", Action.AS_CHECK_BOX){
+			public void run() {
+				executeUimaSadProcesor();
+			}
+		};
+		execution.setToolTipText("Run"); //$NON-NLS-1$
+		execution.setEnabled(Boolean.TRUE);
+		execution.setImageDescriptor(ImageDescriptor.createFromFile(this.getClass(),"../icons/run.gif"));
+		
+		form.getToolBarManager().add(execution);
+		form.getToolBarManager().update(true);
+		
+		
+		
 		toolkit.decorateFormHeading(form.getForm());
 		toolkit.paintBordersFor(body);
-		ColumnLayout layout = new ColumnLayout();
+		
+		ColumnLayout layout = new ColumnLayout();		
 		layout.topMargin = 10;
 		layout.bottomMargin = 5;
 		layout.leftMargin = 10;
 		layout.rightMargin = 10;
-		layout.horizontalSpacing = 10;
-		layout.verticalSpacing = 10;
+		layout.horizontalSpacing = 20;
+		layout.verticalSpacing = 20;
 		layout.maxNumColumns = 2;
-		layout.minNumColumns = 1;
+		layout.minNumColumns = 2;
+		
+	
 		toolkit.paintBordersFor(body);
 		managedForm.getForm().getBody().setLayout(layout);
 		
 		createDetailSection(managedForm, Messages.Sad_OverviewDetail, Messages.Sad_OverviewDescription1);
+		createExecutionSection(managedForm, Messages.Sad_OverviewRunSection, Messages.Sad_OverviewDescription3);	
+		createTreeModel(managedForm, Messages.Sad_OverviewModelTree,Messages.Sad_OverviewDescription2); 			
+		createViewSection(managedForm, Messages.Sad_OverviewViewSection, "");
+	}
+	
+	private void createViewSection(IManagedForm managedForm, String title, String desc) {
+				
+		Composite client = createSection(managedForm, title, desc, 2);
+				
+		FormToolkit toolkit = managedForm.getToolkit();
 		
-		createExecutionSection(managedForm, Messages.Sad_OverviewRunSection, Messages.Sad_OverviewDescription3);
 		
-		createTreeModel(managedForm, Messages.Sad_OverviewModelTree,Messages.Sad_OverviewDescription2); 
+	
+		GridData gd = new GridData(GridData.FILL_BOTH);	
+		
+		toolkit.paintBordersFor(client);
+		
+		gd = new GridData(GridData.VERTICAL_ALIGN_BEGINNING);		
+		toolkit.createLabel(client,"");
+		
+		overviewSourceText = toolkit.createText(client, textSection, SWT.V_SCROLL);
+		overviewSourceText.setEditable(false);
+		gd = new GridData();
+		gd.widthHint = 700;
+		gd.heightHint= 300;
+		overviewSourceText.setLayoutData(gd);	
+							
+		listViewerSections.addSelectionChangedListener(new ISelectionChangedListener(){
+			public void selectionChanged(SelectionChangedEvent event) {
+				IStructuredSelection selection = (IStructuredSelection)event.getSelection();			
+				for(Iterator<SadSection> it = modelRoot.getSections().iterator();it.hasNext();){
+					SadSection section = it.next();
+					if(null != section.getText() && section.getName().equals(selection.getFirstElement())){
+						overviewSourceText.setText(section.getText());
+						overviewSourceText.update();
+					}
+				}			
+			}
+		});
 		
 	}
 	
 	private void createExecutionSection(IManagedForm mform, String title, String desc) {
 		Composite client = createSection(mform, title, desc, 2);
 		FormToolkit toolkit = mform.getToolkit();
-		
-//		GridData gd = new GridData();		
+			
+		ImageDescriptor image = ImageDescriptor.createFromFile(this.getClass(),"../icons/run.gif");
 		
 		// Run
-//		Hyperlink link = toolkit.createHyperlink(mform.getForm().getBody(),Messages.Sad_OverviewRun, SWT.WRAP);
 		Button btnAdd=  toolkit.createButton(client, Messages.Sad_OverviewRun,SWT.BUTTON1);
-//		gd = new GridData();
-//		gd.widthHint = 500;
-//		link.setLayoutData(gd);
+		btnAdd.setImage(image.createImage());
 		btnAdd.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				
-				
-				URI resourceURI = EditUIUtil.getURI(getEditorInput());
-				//ver como obtener el imput full path
-				
-				String inputFile =resourceURI.toString();
-				String outputFile = "file:///G:/out.xml";
-				
-				UIMAProcessor processor = UIMAProcessor.getInstance();
-				processor.execute(inputFile, outputFile);				
-				
+				executeUimaSadProcesor();			
 			}
 		});
+	}
+
+	private void executeUimaSadProcesor() {
+		URI resourceURI = EditUIUtil.getURI(getEditorInput());
+		//ver como obtener el imput full path
+		
+		String inputFile =resourceURI.toString();
+		String outputFile = "file:///C:/out.xml";
+		
+		UIMAProcessor processor = UIMAProcessor.getInstance();
+		processor.execute(inputFile, outputFile);				
 	}
 
 		
@@ -170,22 +233,21 @@ public class OverviewPage extends FormPage {
 	private void createTreeModel(IManagedForm managedForm, String title, String desc) {
 		Composite client = createSection(managedForm, title, desc, 2);
 				
-		listViewerActors = new ListViewer(client, SWT.BORDER | SWT.V_SCROLL);
+		listViewerSections = new ListViewer(client, SWT.BORDER | SWT.V_SCROLL);
 		
-		// TODO inicializar la listaViewer con la lista del modelo
-		listViewerActors.add("uno");
-		listViewerActors.add("dos");
-		listViewerActors.add("tres");
-		listViewerActors.add("cuatro");
-		listViewerActors.add("cinco");
+				
+		for(Iterator<SadSection> it = modelRoot.getSections().iterator();it.hasNext();){
+			SadSection section = it.next();
+			listViewerSections.add(section.getName());
+		}
 		
 		GridData gd = new GridData();
 		gd.widthHint = 500;
-		List listActors = listViewerActors.getList();
-		listActors.setLayoutData(gd);		
+		List listSections = listViewerSections.getList();
+		listSections.setLayoutData(gd);		
+		
 	}	
-	
-	
+			
 	private Composite createSection(IManagedForm mform, String title,
 			String desc, int numColumns) {
 		final ScrolledForm form = mform.getForm();

@@ -37,6 +37,7 @@ public class Messages extends NLS {
 	public static String Sad_OverviewDescription2;
 	public static String Sad_OverviewDescription3;
 	public static String Sad_OverviewModelTree;
+	public static String Sad_OverviewViewSection;
 	
 	
 	public static String SadEditor_Overview;
