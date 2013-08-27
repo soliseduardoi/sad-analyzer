@@ -62,7 +62,7 @@ public class PdfParser implements SadParser {
 		    	 section = parserSections(item, doc);
 		    	 section.setName( input.getName());
 		     }else{
-		       	 System.out.println( "Error en el formato del template");
+		       	section = null;
 		     }
 		     return section;
 		 } catch (IOException e) {

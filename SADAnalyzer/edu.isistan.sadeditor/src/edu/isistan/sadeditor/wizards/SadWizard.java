@@ -57,6 +57,7 @@ public class SadWizard extends Wizard implements INewWizard{
 	private SadWizardSettingsPage sadWizardSettingsPage;
 	private IStructuredSelection selection;
 	private IWorkbench workbench;
+	private Boolean validModel;
 	
 	protected SadModelPackage sadModelPackage = SadModelPackage.eINSTANCE;
 	protected SadModelFactory sadModelFactory = sadModelPackage.getSadModelFactory();
@@ -65,6 +66,7 @@ public class SadWizard extends Wizard implements INewWizard{
 	 */
 	public SadWizard() {
 		super();
+		validModel = new Boolean(Boolean.TRUE);
 		setNeedsProgressMonitor(true);
 	}
 	
@@ -149,7 +151,10 @@ public class SadWizard extends Wizard implements INewWizard{
 //							sadModel.setContent(sadWizardSettingsPage.getContent());
 							resource.getContents().add(sadModel);
 							
+						}else{
+							throw new Exception();
 						}
+						
 						// Save the contents of the resource to the file system
 						Map<Object, Object> options = new HashMap<Object, Object>();
 						//Agregar el encoding para seleccionar en la vista
@@ -157,17 +162,16 @@ public class SadWizard extends Wizard implements INewWizard{
 						resource.save(options);
 					}
 					catch (Exception exception) {
-						System.out.println("Error en save");
-						exception.printStackTrace();
-						
-						}
+						MessageDialog.openError(null, "Error Model", Messages.Sad_ErrorModel);
+						validModel=false;
+					}
 					finally {
 						progressMonitor.done();
 					}
 				}
 
 				private Sad createSadModel(Resource resource) {
-					
+					Sad sad = null;
 					//Construyo la estructura del Sad a partir de la wiki o del pdf
 					String selection=SadParserFactory.PDF;
 					if(sadWizardSettingsPage.isWikiSelection()){
@@ -177,18 +181,20 @@ public class SadWizard extends Wizard implements INewWizard{
 					SadParser parser = SadParserFactory.getParser(selection);
 //					String urlTraget= "https://wiki.sei.cmu.edu/sad/index.php/The_Java_Pet_Store_SAD";
 					Section project=  parser.getSad(sadWizardSettingsPage.getDirectoryTemplateField().getText(),sadWizardSettingsPage.getUrl());	
-										
-					Sad sad = sadModelFactory.createSad();	
-					sad.setTitle(sadWizardSettingsPage.getUrl());
-					sad.setTemplatePath(sadWizardSettingsPage.getDirectoryTemplateField().getText());
 					
-					for(Section section : project.getSections()){
-						SadSection sadSection = sadModelFactory.createSadSection();
-						sadSection.setName(section.getName());
-						sadSection.setText(section.getText());
-						sad.getSections().add(sadSection);
-						resource.getContents().add(sadSection);						
+					if((project != null)){
+						sad = sadModelFactory.createSad();	
+						sad.setTitle(sadWizardSettingsPage.getUrl());
+						sad.setTemplatePath(sadWizardSettingsPage.getDirectoryTemplateField().getText());
 						
+						for(Section section : project.getSections()){
+							SadSection sadSection = sadModelFactory.createSadSection();
+							sadSection.setName(section.getName());
+							sadSection.setText(section.getText());
+							sad.getSections().add(sadSection);
+							resource.getContents().add(sadSection);						
+							
+						}
 					}
 					return sad;
 				}
@@ -208,7 +214,10 @@ public class SadWizard extends Wizard implements INewWizard{
 			}
 			// Open an editor on the new file
 			try {
-				page.openEditor(new FileEditorInput(modelFile), workbench.getEditorRegistry().getDefaultEditor(modelFile.getFullPath().toString()).getId());					 	 
+				if(validModel){
+					page.openEditor(new FileEditorInput(modelFile), workbench.getEditorRegistry().getDefaultEditor(modelFile.getFullPath().toString()).getId());					
+				}
+								 	 
 			}
 			catch (PartInitException exception) {
 				MessageDialog.openError(workbenchWindow.getShell(), "" /*Messages.UCSEditor_OpenEditorErrorLabel*/, exception.getMessage());

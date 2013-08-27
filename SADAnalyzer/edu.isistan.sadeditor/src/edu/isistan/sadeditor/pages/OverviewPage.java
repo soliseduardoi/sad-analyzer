@@ -133,7 +133,7 @@ public class OverviewPage extends FormPage {
 		createDetailSection(managedForm, Messages.Sad_OverviewDetail, Messages.Sad_OverviewDescription1);
 		createExecutionSection(managedForm, Messages.Sad_OverviewRunSection, Messages.Sad_OverviewDescription3);	
 		createTreeModel(managedForm, Messages.Sad_OverviewModelTree,Messages.Sad_OverviewDescription2); 			
-		createViewSection(managedForm, Messages.Sad_OverviewViewSection, "");
+		createViewSection(managedForm, Messages.Sad_OverviewViewSection, Messages.Sad_OverviewDescription4);
 	}
 	
 	private void createViewSection(IManagedForm managedForm, String title, String desc) {
@@ -238,7 +238,9 @@ public class OverviewPage extends FormPage {
 				
 		for(Iterator<SadSection> it = modelRoot.getSections().iterator();it.hasNext();){
 			SadSection section = it.next();
-			listViewerSections.add(section.getName());
+			if(null != section.getName()){
+				listViewerSections.add(section.getName());
+			}
 		}
 		
 		GridData gd = new GridData();

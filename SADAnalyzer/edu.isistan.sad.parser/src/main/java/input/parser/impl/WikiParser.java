@@ -85,7 +85,7 @@ public class WikiParser implements SadParser {
 //			setSadGenerated(true);
 			urls.toString();
 		} else {
-			System.out.println("Estructura incorrecta");
+			document = null;
 		}
 	}
 	
