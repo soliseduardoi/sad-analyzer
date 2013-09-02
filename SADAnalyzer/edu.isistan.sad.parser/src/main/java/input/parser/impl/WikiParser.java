@@ -116,7 +116,7 @@ public class WikiParser implements SadParser {
 		TemplateStructure templateNode = template.get(templateIndex);
 		if (templateNode.isItem()) {
 			document.addSection(urlSection);
-			urlSection.setAtt(urls.get(urlIndex));
+			urlSection.setAtt(urls.get(urlIndex),templateNode.getTitle());
 			valid = validateItem(document, template, templateIndex, urls,
 					urlIndex);
 
@@ -124,7 +124,7 @@ public class WikiParser implements SadParser {
 			// Seccion con link
 			if (!templateNode.isItem() && templateNode.hasLink()) {
 				document.addSection(urlSection);
-				urlSection.setAtt(urls.get(urlIndex));
+				urlSection.setAtt(urls.get(urlIndex),templateNode.getTitle());
 				valid = validateSectionWithLink(document, template,
 						templateIndex, urls, urlIndex);
 
@@ -348,7 +348,7 @@ public class WikiParser implements SadParser {
 		while (urlIndex < urls.size()
 				&& !matching(templateItemNext, urls.get(urlIndex))) {
 			UrlSection child = new UrlSection(urlBase);
-			child.setAtt(urls.get(urlIndex));
+			child.setAtt(urls.get(urlIndex),templateItemNext.getTitle());
 			document.addSection(child);
 			urlIndex++;
 		}
@@ -367,13 +367,24 @@ public class WikiParser implements SadParser {
 
 		while (urlIndex < urls.size()) {
 			UrlSection child = new UrlSection(urlBase);
-			child.setAtt(urls.get(urlIndex));
+			String title= getTitle(urls.get(urlIndex));
+			child.setAtt(urls.get(urlIndex),title);
 			document.addSection(child);
 			urlIndex++;
 		}
 
 		return urlIndex;
 
+	}
+
+	private String getTitle(Attribute attribute) {
+		String rawUrl = attribute.getValue().substring(1, attribute.getValue().length());
+		// Me quedo con el final despues de la ultima barra
+		String[] linkSplit = rawUrl.split(SLASH);
+		String link = linkSplit[linkSplit.length - 1];
+		
+		String title =link.replaceAll("_"," ");
+		return title;
 	}
 	
 	/**

@@ -38,10 +38,12 @@ public class UrlSection extends Section{
 
 	/**
 	 * @param att the att to set
+	 * @param string 
 	 */
-	public void setAtt(Attribute att) {
+	public void setAtt(Attribute att, String sectionName) {
 		this.attribute = att;
 		this.setText();	
+		this.setName(sectionName);
 		
 	}	
 	private void setText() {
