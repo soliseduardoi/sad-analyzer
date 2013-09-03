@@ -19,17 +19,17 @@ import edu.isistan.uima.unified.sharedresources.ClustersResource;
 import edu.isistan.uima.unified.sharedresources.ProgressMonitorResource;
 
 @SuppressWarnings("unused")
-public class UIMAProcessor {
-	private static UIMAProcessor instance = null;
-	private UIMAFactory factory = null;
+public class SadUIMAProcessor {
+	private static SadUIMAProcessor instance = null;
+	private SadUIMAFactory factory = null;
 	
-	private UIMAProcessor() {
-		factory = UIMAFactory.getInstance();
+	private SadUIMAProcessor() {
+		factory = SadUIMAFactory.getInstance();
 	}
 	
-	public static UIMAProcessor getInstance() {
+	public static SadUIMAProcessor getInstance() {
 		if(instance == null)
-			instance = new UIMAProcessor();
+			instance = new SadUIMAProcessor();
 		return instance;
 	}
 	

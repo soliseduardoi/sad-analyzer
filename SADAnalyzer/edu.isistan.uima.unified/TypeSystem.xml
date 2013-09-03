@@ -6,6 +6,8 @@
   <vendor>Alejandro Rago</vendor>
   <imports>
     <import location="G:/wsDisenio/wsSadProccesor/REAssistant/edu.isistan.uima.unified/desc/typesystems/IdentifiableTypeDescriptor.xml"/>
+    <import location="G:/wsDisenio/wsSadProccesor/REAssistant/edu.isistan.uima.unified/desc/typesystems/srs/ProjectTypeDescriptor.xml"/>
+    <import location="G:/wsDisenio/wsSadProccesor/REAssistant/edu.isistan.uima.unified/desc/typesystems/srs/DocumentTypeDescriptor.xml"/>
     <import location="G:/wsDisenio/wsSadProccesor/REAssistant/edu.isistan.uima.unified/desc/typesystems/sad/SadTypeDescriptor.xml"/>
     <import location="G:/wsDisenio/wsSadProccesor/REAssistant/edu.isistan.uima.unified/desc/typesystems/sad/SadSectionTypeDescriptor.xml"/>
     <import location="G:/wsDisenio/wsSadProccesor/REAssistant/edu.isistan.uima.unified/desc/typesystems/srs/SectionTypeDescriptor.xml"/>
