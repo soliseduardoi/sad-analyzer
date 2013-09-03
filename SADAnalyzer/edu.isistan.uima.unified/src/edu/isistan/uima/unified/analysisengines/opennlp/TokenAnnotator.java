@@ -1,11 +1,8 @@
 package edu.isistan.uima.unified.analysisengines.opennlp;
 
-import java.io.BufferedWriter;
 import java.io.FileInputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
 
 import opennlp.tools.tokenize.Tokenizer;
 import opennlp.tools.tokenize.TokenizerME;
@@ -74,18 +71,11 @@ public class TokenAnnotator extends JCasAnnotator_ImplBase {
 		AnnotationIndex<Annotation> sAnnotations = aJCas.getAnnotationIndex(Sentence.type);
 		//
 		subMonitor.beginTask(this.getClass().getSimpleName(), sAnnotations.size());
-		
-		//Ttexto plano --> SadPlano
-		StringBuilder text=new StringBuilder();
-		
-		
+		//
 		for(Annotation sAnnotation : sAnnotations) {
 			Sentence sentenceAnnotation = (Sentence) sAnnotation;
 			
 			String[] tokens = tokenizer.tokenize(sentenceAnnotation.getCoveredText());
-			//Ttexto plano --> SadPlano
-			text.append(sentenceAnnotation.getCoveredText()+ ", ");
-		
 			double[] probabilities = ((TokenizerME)tokenizer).getTokenProbabilities();
 			
 			int tokenPos = 0;
@@ -104,9 +94,6 @@ public class TokenAnnotator extends JCasAnnotator_ImplBase {
 		}
 		//
 		subMonitor.done();
-		//Ttexto plano --> SadPlano
-		write(text);
-		
 	}
 	
 	@Override
@@ -114,20 +101,5 @@ public class TokenAnnotator extends JCasAnnotator_ImplBase {
 		model = null;
 		tokenizer = null;
 		super.destroy();
-	}
-	private static void write(StringBuilder textToFile) {
-		
-		FileWriter fw=null;
-		try {
-			fw = new FileWriter("SadPlano.txt");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	    BufferedWriter bw = new BufferedWriter(fw);
-	    PrintWriter salida = new PrintWriter(bw);
-	    salida.println(textToFile);
-	    salida.close();
-		
 	}
 }
