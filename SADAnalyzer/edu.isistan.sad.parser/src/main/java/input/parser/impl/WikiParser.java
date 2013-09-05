@@ -55,7 +55,11 @@ public class WikiParser implements SadParser {
 	
 		List<Attribute> urls = source.getURIAttributes();
 
-		validateUrls(templateFormat,urls,document);			
+		validateUrls(templateFormat,urls,document);	
+		
+		if(document.getSubSections() != null && templateFormat.size() > document.getSubSections().size()){
+			return null;
+		}		
 
 		return document;
 	}
