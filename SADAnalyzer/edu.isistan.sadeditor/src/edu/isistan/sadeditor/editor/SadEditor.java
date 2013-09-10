@@ -5,6 +5,7 @@ import java.util.EventObject;
 import java.util.HashMap;
 
 import org.eclipse.core.databinding.DataBindingContext;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.command.CommandStackListener;
@@ -76,6 +77,7 @@ public class SadEditor extends FormEditor implements IEditingDomainProvider{
 		createModel();
 		try {
 			//
+			
 			FormPage overViewPage = new OverviewPage(this);
 			index = addPage(overViewPage);
 			setPageText(index, Messages.SadEditor_Overview);

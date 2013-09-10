@@ -3,6 +3,7 @@ package edu.isistan.sadeditor.pages;
 import java.util.Iterator;
 
 import org.eclipse.core.databinding.DataBindingContext;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.domain.IEditingDomainProvider;
@@ -16,15 +17,12 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.List;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
@@ -42,13 +40,14 @@ import SadModel.Sad;
 import SadModel.SadSection;
 import edu.isistan.sadeditor.editor.Messages;
 import edu.isistan.sadeditor.editor.SadEditor;
-import edu.isistan.uima.unified.UIMAProcessor;
+import edu.isistan.uima.unified.SadUIMAProcessor;
 
 
 public class OverviewPage extends FormPage {
 	
 	public static final String ID = "edu.isistan.sadeditor.pages.OverviewPage";
 	public static final String TITLE = "Overview";
+	private static final String UIMA_EXTENSION = "uimasad";
 	private EditingDomain editingDomain;
 	private Sad modelRoot;
 	private DataBindingContext bindingContext;	
@@ -71,7 +70,7 @@ public class OverviewPage extends FormPage {
 	 * @param editor
 	 */
 	public OverviewPage(FormEditor editor) {
-		super(editor, ID, TITLE);
+		super(editor, ID, TITLE);		
 		editingDomain = ((IEditingDomainProvider)getEditor()).getEditingDomain();
 		modelRoot = ((SadEditor)getEditor()).getModelRoot();
 		bindingContext = ((SadEditor)getEditor()).getBindingContext();
@@ -192,13 +191,18 @@ public class OverviewPage extends FormPage {
 
 	private void executeUimaSadProcesor() {
 		URI resourceURI = EditUIUtil.getURI(getEditorInput());
-		//ver como obtener el imput full path
-		
+			
 		String inputFile =resourceURI.toString();
-		String outputFile = "file:///C:/out.xml";
+		 		
+		IFile file =(IFile)getEditorInput().getAdapter(IFile.class);
+		String outputFile = file.getLocationURI().toString();
+		outputFile= (String) outputFile.subSequence(0, outputFile.length()-3);
 		
-		UIMAProcessor processor = UIMAProcessor.getInstance();
-		processor.execute(inputFile, outputFile);				
+		outputFile+=UIMA_EXTENSION;
+		SadUIMAProcessor processor = SadUIMAProcessor.getInstance();
+		processor.execute(inputFile, outputFile);
+		
+		
 	}
 
 		
