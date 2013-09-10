@@ -4,7 +4,12 @@ import java.util.Iterator;
 
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.domain.IEditingDomainProvider;
 import org.eclipse.emf.edit.ui.util.EditUIUtil;
@@ -201,11 +206,29 @@ public class OverviewPage extends FormPage {
 		outputFile+=UIMA_EXTENSION;
 		SadUIMAProcessor processor = SadUIMAProcessor.getInstance();
 		processor.execute(inputFile, outputFile);
+		try {
+			file.getParent().refreshLocal(IResource.DEPTH_ONE, null);
+		} catch (CoreException e) {
+			
+			e.printStackTrace();
+		}
+		pruebaLevantarModelo(file);
 		
 		
 	}
 
 		
+	private void pruebaLevantarModelo(IFile file) {
+
+		String reaURI = file.getFullPath().toString();
+		ResourceSet resourceSet = new ResourceSetImpl();
+		URI fileURI = URI.createPlatformResourceURI(reaURI, true);
+		Resource resource = resourceSet.createResource(fileURI);
+		resource.getContents();
+//		REAssistantProject rootModel = createInitialModel();
+		
+	}
+
 	private void createDetailSection(IManagedForm mform, String title, String desc) {
 		Composite client = createSection(mform, title, desc, 2);
 		FormToolkit toolkit = mform.getToolkit();
