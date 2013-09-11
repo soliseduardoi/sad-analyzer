@@ -10,6 +10,7 @@ import input.xmltemplatereader.XmlReader;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Iterator;
 import java.util.List;
 
 import net.htmlparser.jericho.Attribute;
@@ -57,13 +58,26 @@ public class WikiParser implements SadParser {
 
 		validateUrls(templateFormat,urls,document);	
 		
-		if(document.getSubSections() != null && templateFormat.size() > document.getSubSections().size()){
+		if(document.getSubSections() != null && cantNodeLink(templateFormat) > document.getSubSections().size()){
 			return null;
 		}		
 
 		return document;
 	}
 	
+	private int cantNodeLink(List<TemplateStructure> templateFormat) {
+		int cant=0;
+		for (Iterator iterator = templateFormat.iterator(); iterator.hasNext();) {
+			TemplateStructure templateStructure = (TemplateStructure) iterator.next();
+			if(templateStructure.hasLink()){
+				cant++;
+			}
+			
+		}
+		
+		return cant;
+	}
+
 	public void generate(CompositeSection document) {
 
 		
