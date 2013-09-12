@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            name="Sad Analyzer Editor"
+            extensions="uimasad"
+            icon="icons/sample.gif"
+            contributorClass="edu.isistan.sadanalyzer.editor.SadAnalyzerEditorContributor"
+            class="edu.isistan.sadanalyzer.editor.SadAnalyzerEditor"
+            id="edu.isistan.sadanalyzer.editor.SadAnalyzerEditor">
+      </editor>
+   </extension>
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <category
+            name="Sample Wizards"
+            id="edu.isistan.sadanalyzer">
+      </category>
+      <wizard
+            name="Multi-page Editor file"
+            icon="icons/sample.gif"
+            category="edu.isistan.sadanalyzer"
+            class="edu.isistan.sadanalyzer.wizards.SampleNewWizard"
+            id="edu.isistan.sadanalyzer.wizards.SampleNewWizard">
+      </wizard>
+   </extension>
+
+</plugin>
