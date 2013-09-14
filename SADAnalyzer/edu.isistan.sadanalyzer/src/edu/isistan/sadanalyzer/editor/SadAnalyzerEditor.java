@@ -12,6 +12,12 @@ import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.IResourceChangeListener;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.edit.ui.util.EditUIUtil;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyledText;
@@ -26,11 +32,24 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.FontDialog;
-import org.eclipse.ui.*;
+import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IEditorSite;
+import org.eclipse.ui.IFileEditorInput;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.editors.text.TextEditor;
+import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.part.MultiPageEditorPart;
-import org.eclipse.ui.ide.IDE;
+
+import edu.isistan.sadanalyzer.query.UIMASADQueryAdapter;
+import edu.isistan.uima.unified.typesystems.nlp.Sentence;
+import edu.isistan.uima.unified.typesystems.nlp.Token;
+import edu.isistan.uima.unified.typesystems.sad.Sad;
+import edu.isistan.uima.unified.typesystems.sad.SadSection;
+
+
 
 /**
  * An example showing how to create a multi-page editor.
@@ -54,6 +73,8 @@ public class SadAnalyzerEditor extends MultiPageEditorPart implements IResourceC
 	/**
 	 * Creates a multi-page editor example.
 	 */
+	
+	protected UIMASADQueryAdapter uimaRoot;
 	public SadAnalyzerEditor() {
 		super();
 		ResourcesPlugin.getWorkspace().addResourceChangeListener(this);
@@ -119,9 +140,29 @@ public class SadAnalyzerEditor extends MultiPageEditorPart implements IResourceC
 	 * Creates the pages of the multi-page editor.
 	 */
 	protected void createPages() {
+		createUIMAModel();
 		createPage0();
 		createPage1();
 		createPage2();
+	}
+	private void createUIMAModel() {
+		ResourceSet resourceSet = new ResourceSetImpl();
+		URI resourceURI = EditUIUtil.getURI(getEditorInput());
+		Resource resource = null;
+		try {
+			resource = resourceSet.getResource(resourceURI, true);
+		}
+		catch (Exception e) {
+			resource = resourceSet.getResource(resourceURI, true);
+		}
+		uimaRoot = new UIMASADQueryAdapter(resource.getContents());
+		
+		Sad sad = uimaRoot.getSad();
+		 EList<SadSection> sadSections = uimaRoot.getSadSection(sad);
+		 EList<Sentence> sentences = uimaRoot.getSentences(sadSections.get(2));
+		 EList<Token> tokens = uimaRoot.getTokens(sentences.get(0));
+		 String primertoken= uimaRoot.getCoveredText(tokens.get(0));
+		 
 	}
 	/**
 	 * The <code>MultiPageEditorPart</code> implementation of this 
