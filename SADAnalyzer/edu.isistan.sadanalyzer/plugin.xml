@@ -13,7 +13,7 @@
             id="edu.isistan.sadanalyzer.editor.SadAnalyzerEditor">
       </editor>
    </extension>
-   <extension
+   <!--extension
          point="org.eclipse.ui.newWizards">
       <category
             name="Sample Wizards"
@@ -26,6 +26,6 @@
             class="edu.isistan.sadanalyzer.wizards.SampleNewWizard"
             id="edu.isistan.sadanalyzer.wizards.SampleNewWizard">
       </wizard>
-   </extension>
+   </extension-->
 
 </plugin>
