@@ -53,6 +53,8 @@ public class OverviewPage extends FormPage {
 	public static final String ID = "edu.isistan.sadeditor.pages.OverviewPage";
 	public static final String TITLE = "Overview";
 	private static final String UIMA_EXTENSION = "uimasad";
+	public static final String IMAGE_PATH ="../../../../icons/run.gif";
+	
 	private EditingDomain editingDomain;
 	private Sad modelRoot;
 	private DataBindingContext bindingContext;	
@@ -110,12 +112,10 @@ public class OverviewPage extends FormPage {
 		};
 		execution.setToolTipText("Run"); //$NON-NLS-1$
 		execution.setEnabled(Boolean.TRUE);
-		execution.setImageDescriptor(ImageDescriptor.createFromFile(this.getClass(),"../icons/run.gif"));
+		execution.setImageDescriptor(ImageDescriptor.createFromFile(this.getClass(),IMAGE_PATH));
 		
 		form.getToolBarManager().add(execution);
 		form.getToolBarManager().update(true);
-		
-		
 		
 		toolkit.decorateFormHeading(form.getForm());
 		toolkit.paintBordersFor(body);
@@ -181,7 +181,7 @@ public class OverviewPage extends FormPage {
 		Composite client = createSection(mform, title, desc, 2);
 		FormToolkit toolkit = mform.getToolkit();
 			
-		ImageDescriptor image = ImageDescriptor.createFromFile(this.getClass(),"../icons/run.gif");
+		ImageDescriptor image = ImageDescriptor.createFromFile(this.getClass(),IMAGE_PATH);
 		
 		// Run
 		Button btnAdd=  toolkit.createButton(client, Messages.Sad_OverviewRun,SWT.BUTTON1);
@@ -272,6 +272,7 @@ public class OverviewPage extends FormPage {
 		
 		GridData gd = new GridData();
 		gd.widthHint = 500;
+		gd.heightHint = 100;		
 		List listSections = listViewerSections.getList();
 		listSections.setLayoutData(gd);		
 		
