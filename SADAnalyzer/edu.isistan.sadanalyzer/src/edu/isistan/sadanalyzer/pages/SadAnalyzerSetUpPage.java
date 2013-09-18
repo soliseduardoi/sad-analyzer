@@ -1,16 +1,13 @@
 package edu.isistan.sadanalyzer.pages;
 
 import java.util.Iterator;
-
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.domain.IEditingDomainProvider;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.jface.viewers.ISelectionChangedListener;
-import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ListViewer;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -80,11 +77,10 @@ public class SadAnalyzerSetUpPage extends FormPage {
 	 */
 	@Override
 	public void init(IEditorSite site, IEditorInput input) {
-		super.init(site, input);
-	
-		
+		super.init(site, input);		
 	}
 	
+
 	/**
 	 * Create contents of the form.
 	 * @param managedForm
@@ -129,9 +125,9 @@ public class SadAnalyzerSetUpPage extends FormPage {
 		managedForm.getForm().getBody().setLayout(layout);
 		
 		createDetailAnalyzer(managedForm, Messages.SadAnalyzerEditor_ConfigurationDetail, Messages.SadAnalyzerEditor_ConfigurationDetailDescription);
-		createQualityAttributes(managedForm, Messages.SadAnalyzerEditor_ConfigurationModelTree, Messages.SadAnalyzerEditor_ConfigurationModelTreeDescription);
 		createTreeModel(managedForm, Messages.SadAnalyzerEditor_ConfigurationModelTree, Messages.SadAnalyzerEditor_ConfigurationModelTreeDescription);
 		createRunUimasad(managedForm, Messages.SadAnalyzerEditor_ConfigurationRun, Messages.SadAnalyzerEditor_ConfigurationRunDescription);
+		createQualityAttributes(managedForm, Messages.SadAnalyzerEditor_ConfigurationModelTree, Messages.SadAnalyzerEditor_ConfigurationModelTreeDescription);
 	}
 	
 	private void createRunUimasad(IManagedForm mform, String title, String desc) {
@@ -209,37 +205,29 @@ public class SadAnalyzerSetUpPage extends FormPage {
 		listQualityAtributes2.setLayoutData(gd);
 		
 		
-		listQualityAttributesSource.addSelectionChangedListener(new ISelectionChangedListener(){
-			public void selectionChanged(SelectionChangedEvent event) {
-				IStructuredSelection selection = (IStructuredSelection)event.getSelection();			
-				quality = selection.getFirstElement().toString();
-			}
-		});
-		
-		listQualityAttributesSelected.addSelectionChangedListener(new ISelectionChangedListener(){
-			public void selectionChanged(SelectionChangedEvent event) {
-				IStructuredSelection selection = (IStructuredSelection)event.getSelection();			
-				qualityRemove = selection.getFirstElement().toString();
-			}
-		});
-		
 		btnAdd.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				listQualityAtributes1.remove(quality);
-				listQualityAtributes2.add(quality);
-				listQualityAtributes1.update();
-				listQualityAtributes2.update();
+				StructuredSelection selection = (StructuredSelection)listQualityAttributesSource.getSelection();
+				if(!selection.isEmpty()) {
+					listQualityAttributesSource.remove(selection.getFirstElement());
+					listQualityAttributesSelected.add(selection.getFirstElement());
+					listQualityAtributes1.update();
+					listQualityAtributes2.update();
+				}
 			}
 		});	
 		
 		btnRemove.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				listQualityAtributes2.remove(qualityRemove);
-				listQualityAtributes1.add(qualityRemove);
-				listQualityAtributes1.update();
-				listQualityAtributes2.update();
+				StructuredSelection selection = (StructuredSelection)listQualityAttributesSelected.getSelection();
+				if(!selection.isEmpty()) {
+					listQualityAttributesSelected.remove(selection.getFirstElement());
+					listQualityAttributesSource.add(selection.getFirstElement());
+					listQualityAtributes1.update();
+					listQualityAtributes2.update();
+				}
 			}
 		});	
 		
