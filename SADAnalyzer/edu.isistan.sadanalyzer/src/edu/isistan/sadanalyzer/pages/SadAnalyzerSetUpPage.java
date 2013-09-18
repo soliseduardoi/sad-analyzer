@@ -1,7 +1,10 @@
 package edu.isistan.sadanalyzer.pages;
 
-import java.util.ArrayList;
+import java.util.Iterator;
 
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.edit.domain.EditingDomain;
+import org.eclipse.emf.edit.domain.IEditingDomainProvider;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -30,7 +33,13 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.Section;
 
+import edu.isistan.reassistant.ccdetector.model.CrosscuttingConcernRule;
+import edu.isistan.reassistant.ccdetector.model.CrosscuttingConcernRuleSet;
 import edu.isistan.sadanalyzer.editor.Messages;
+import edu.isistan.sadanalyzer.editor.SadAnalyzerEditor;
+import edu.isistan.sadanalyzer.query.UIMASADQueryAdapter;
+import edu.isistan.uima.unified.typesystems.sad.SadSection;
+
 
 public class SadAnalyzerSetUpPage extends FormPage {
 
@@ -46,12 +55,23 @@ public class SadAnalyzerSetUpPage extends FormPage {
 	private String quality = "";
 	private String qualityRemove = "";
 	
+	private String modelURI;
+	
+	protected CrosscuttingConcernRuleSet rulesModelRoot;
+	
+	private EditingDomain editingDomain;
+	
+	private UIMASADQueryAdapter uimaRoot;
+	
 	public SadAnalyzerSetUpPage(){
 		super(ID, TITLE);
 	}
 	
 	public SadAnalyzerSetUpPage(FormEditor editor) {
 		super(editor, ID, TITLE);
+		editingDomain = ((IEditingDomainProvider)getEditor()).getEditingDomain();
+		rulesModelRoot =((SadAnalyzerEditor)getEditor()).getRulesModelRoot();
+		uimaRoot = ((SadAnalyzerEditor)getEditor()).getUimaRoot();
 		
 	}
 	
@@ -61,6 +81,7 @@ public class SadAnalyzerSetUpPage extends FormPage {
 	@Override
 	public void init(IEditorSite site, IEditorInput input) {
 		super.init(site, input);
+	
 		
 	}
 	
@@ -135,12 +156,23 @@ public class SadAnalyzerSetUpPage extends FormPage {
 		FormToolkit toolkit = managedForm.getToolkit();
 		
 		listQualityAttributesSource = new ListViewer(client, SWT.BORDER | SWT.V_SCROLL);
-				
-		listQualityAttributesSource.add("AtributoCalidad1");
-		listQualityAttributesSource.add("AtributoCalidad2");
-		listQualityAttributesSource.add("AtributoCalidad3");
-		listQualityAttributesSource.add("AtributoCalidad4");
-		listQualityAttributesSource.add("AtributoCalidad5");
+		
+//		listQualityAttributesSource.add("AtributoCalidad1");
+//		listQualityAttributesSource.add("AtributoCalidad2");
+//		listQualityAttributesSource.add("AtributoCalidad3");
+//		listQualityAttributesSource.add("AtributoCalidad4");
+//		listQualityAttributesSource.add("AtributoCalidad5");
+			
+		
+		Iterator<CrosscuttingConcernRule> rules = rulesModelRoot.getRules().iterator();
+		
+		for ( ;rules.hasNext();) {
+			CrosscuttingConcernRule rule = rules.next();
+			
+			listQualityAttributesSource.add(rule.getName());
+		}
+		
+	
 		
 				
 		GridData gd = new GridData();
@@ -240,21 +272,22 @@ public class SadAnalyzerSetUpPage extends FormPage {
 		Composite client = createSection(managedForm, title, desc, 2);
 		
 		listViewerSections = new ListViewer(client, SWT.BORDER | SWT.V_SCROLL);
-//		
-//				
-//		for(Iterator<SadSection> it = modelRoot.getSections().iterator();it.hasNext();){
-//			SadSection section = it.next();
-//			if(null != section.getName()){
-//				listViewerSections.add(section.getName());
-//			}
-//		}
-		
 		listViewerSections.add(Messages.SadAnalyzerEditor_ConfigurationModelTreeAllSection);
-		listViewerSections.add("Seccion1");
-		listViewerSections.add("Seccion2");
-		listViewerSections.add("Seccion3");
-		listViewerSections.add("Seccion4");
-		listViewerSections.add("Seccion5");
+		EList<SadSection> sections = uimaRoot.getSadSection();
+		
+		for(Iterator<SadSection> it = sections.iterator();it.hasNext();){
+			SadSection section = it.next();
+			if(null != section.getName()){
+				listViewerSections.add(section.getName());
+			}
+		}
+		
+		
+//		listViewerSections.add("Seccion1");
+//		listViewerSections.add("Seccion2");
+//		listViewerSections.add("Seccion3");
+//		listViewerSections.add("Seccion4");
+//		listViewerSections.add("Seccion5");
 		
 		GridData gd = new GridData();
 		gd.widthHint = 500;
@@ -298,5 +331,6 @@ public class SadAnalyzerSetUpPage extends FormPage {
 	public void setActive(boolean active) {
 		super.setActive(active);
 	}
-
+	
+	
 }
