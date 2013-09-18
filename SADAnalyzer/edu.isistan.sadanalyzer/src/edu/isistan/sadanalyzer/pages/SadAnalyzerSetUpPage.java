@@ -49,8 +49,7 @@ public class SadAnalyzerSetUpPage extends FormPage {
 	private ListViewer listQualityAttributesSelected;
 	private List listQualityAtributes1;
 	private List listQualityAtributes2;
-	private String quality = "";
-	private String qualityRemove = "";
+	
 	
 	private String modelURI;
 	
@@ -153,23 +152,13 @@ public class SadAnalyzerSetUpPage extends FormPage {
 		
 		listQualityAttributesSource = new ListViewer(client, SWT.BORDER | SWT.V_SCROLL);
 		
-//		listQualityAttributesSource.add("AtributoCalidad1");
-//		listQualityAttributesSource.add("AtributoCalidad2");
-//		listQualityAttributesSource.add("AtributoCalidad3");
-//		listQualityAttributesSource.add("AtributoCalidad4");
-//		listQualityAttributesSource.add("AtributoCalidad5");
-			
-		
 		Iterator<CrosscuttingConcernRule> rules = rulesModelRoot.getRules().iterator();
 		
 		for ( ;rules.hasNext();) {
 			CrosscuttingConcernRule rule = rules.next();
 			
 			listQualityAttributesSource.add(rule.getName());
-		}
-		
-	
-		
+		}	
 				
 		GridData gd = new GridData();
 		gd.widthHint = 250;
@@ -269,14 +258,7 @@ public class SadAnalyzerSetUpPage extends FormPage {
 				listViewerSections.add(section.getName());
 			}
 		}
-		
-		
-//		listViewerSections.add("Seccion1");
-//		listViewerSections.add("Seccion2");
-//		listViewerSections.add("Seccion3");
-//		listViewerSections.add("Seccion4");
-//		listViewerSections.add("Seccion5");
-		
+				
 		GridData gd = new GridData();
 		gd.widthHint = 500;
 		gd.heightHint = 100;
