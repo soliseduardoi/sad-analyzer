@@ -563,23 +563,24 @@ public class CrosscuttingConcernRuleImpl extends EObjectImpl implements Crosscut
 	 */
 	@Override
 	public String toString() {
-		if (eIsProxy()) return super.toString();
-
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (Metadata: ");
-		result.append(metadata);
-		result.append(", CompositionGuidelines: ");
-		result.append(compositionGuidelines);
-		result.append(", CompositionRule: ");
-		result.append(compositionRule);
-		result.append(", ID: ");
-		result.append(id);
-		result.append(", Name: ");
-		result.append(name);
-		result.append(", Enabled: ");
-		result.append(enabled);
-		result.append(')');
-		return result.toString();
+//		if (eIsProxy()) return super.toString();
+//
+//		StringBuffer result = new StringBuffer(super.toString());
+//		result.append(" (Metadata: ");
+//		result.append(metadata);
+//		result.append(", CompositionGuidelines: ");
+//		result.append(compositionGuidelines);
+//		result.append(", CompositionRule: ");
+//		result.append(compositionRule);
+//		result.append(", ID: ");
+//		result.append(id);
+//		result.append(", Name: ");
+//		result.append(name);
+//		result.append(", Enabled: ");
+//		result.append(enabled);
+//		result.append(')');
+//		return result.toString();
+		return this.getName();
 	}
 
 } //CrosscuttingConcernRuleImpl

@@ -45,10 +45,13 @@ public class SadAnalyzerSetUpPage extends FormPage {
 	public static final String IMAGE_PATH ="../../../../icons";
 	
 	private ListViewer listViewerSections;
+	private ListViewer listViewerSectionsSelected;
 	private ListViewer listQualityAttributesSource;
 	private ListViewer listQualityAttributesSelected;
 	private List listQualityAtributes1;
 	private List listQualityAtributes2;
+	private List listSections;
+	private List listSectionsSelected;
 	
 	
 	private String modelURI;
@@ -94,7 +97,7 @@ public class SadAnalyzerSetUpPage extends FormPage {
 		
 		Action executionAnalyzer = new Action("run", Action.AS_CHECK_BOX){
 			public void run() {
-//				executeUimaSadProcesor();
+				executeUimaSadProcesor();
 			}
 		};
 		executionAnalyzer.setToolTipText("Run"); //$NON-NLS-1$
@@ -141,9 +144,14 @@ public class SadAnalyzerSetUpPage extends FormPage {
 		btnAdd.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-//				executeUimaSadProcesor();			
+				executeUimaSadProcesor();			
 			}
 		});
+	}
+	
+	private void executeUimaSadProcesor(){
+		//TODO la manganeta para visualizar las porquerias
+		
 	}
 	
 	private void createQualityAttributes(IManagedForm managedForm, String title, String desc) {
@@ -157,12 +165,12 @@ public class SadAnalyzerSetUpPage extends FormPage {
 		for ( ;rules.hasNext();) {
 			CrosscuttingConcernRule rule = rules.next();
 			
-			listQualityAttributesSource.add(rule.getName());
+			listQualityAttributesSource.add(rule);
 		}	
 				
 		GridData gd = new GridData();
 		gd.widthHint = 250;
-		gd.heightHint = 100;
+		gd.heightHint = 200;
 		listQualityAtributes1 = listQualityAttributesSource.getList();
 		listQualityAtributes1.setLayoutData(gd);
 		
@@ -175,6 +183,8 @@ public class SadAnalyzerSetUpPage extends FormPage {
 		fl_compositeBtn.marginHeight = 5;
 		fl_compositeBtn.spacing = 5;
 		compositeBtn.setLayout(fl_compositeBtn);
+		
+		Button btnAddAll = toolkit.createButton(compositeBtn, ">> Add All", SWT.NONE);
 		
 		ImageDescriptor imageAdd = ImageDescriptor.createFromFile(this.getClass(),IMAGE_PATH + "/add.gif");
 		Button btnAdd = toolkit.createButton(compositeBtn, "Add", SWT.NONE);
@@ -193,16 +203,42 @@ public class SadAnalyzerSetUpPage extends FormPage {
 		listQualityAtributes2 = listQualityAttributesSelected.getList();
 		listQualityAtributes2.setLayoutData(gd);
 		
+		Button btnRemoveAll = toolkit.createButton(compositeBtn, "<< Remove All", SWT.NONE);
+		
+		btnAddAll.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {				
+				for(int i = 0; listQualityAttributesSource.getList().getItems().length > 0; ){
+					CrosscuttingConcernRule crossC = (CrosscuttingConcernRule)listQualityAttributesSource.getElementAt(i);
+					listQualityAttributesSelected.add(crossC);
+					listQualityAttributesSource.remove(crossC);
+				}				
+				refreshList();
+				
+			}
+		});
+		
+		btnRemoveAll.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				for(int i = 0; listQualityAttributesSelected.getList().getItems().length > 0; ){
+					CrosscuttingConcernRule crossC = (CrosscuttingConcernRule)listQualityAttributesSelected.getElementAt(i);
+					listQualityAttributesSource.add(crossC);
+					listQualityAttributesSelected.remove(crossC);
+				}				
+				refreshList();
+			}
+		});
 		
 		btnAdd.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				StructuredSelection selection = (StructuredSelection)listQualityAttributesSource.getSelection();
 				if(!selection.isEmpty()) {
-					listQualityAttributesSource.remove(selection.getFirstElement());
-					listQualityAttributesSelected.add(selection.getFirstElement());
-					listQualityAtributes1.update();
-					listQualityAtributes2.update();
+					CrosscuttingConcernRule crossCutting = (CrosscuttingConcernRule)selection.getFirstElement();
+					listQualityAttributesSource.remove(crossCutting);
+					listQualityAttributesSelected.add(crossCutting);
+					refreshList();
 				}
 			}
 		});	
@@ -212,10 +248,10 @@ public class SadAnalyzerSetUpPage extends FormPage {
 			public void widgetSelected(SelectionEvent e) {
 				StructuredSelection selection = (StructuredSelection)listQualityAttributesSelected.getSelection();
 				if(!selection.isEmpty()) {
-					listQualityAttributesSelected.remove(selection.getFirstElement());
-					listQualityAttributesSource.add(selection.getFirstElement());
-					listQualityAtributes1.update();
-					listQualityAtributes2.update();
+					CrosscuttingConcernRule crossCutting = (CrosscuttingConcernRule)selection.getFirstElement();
+					listQualityAttributesSelected.remove(crossCutting);
+					listQualityAttributesSource.add(crossCutting);
+					refreshList();
 				}
 			}
 		});	
@@ -246,26 +282,110 @@ public class SadAnalyzerSetUpPage extends FormPage {
 	}
 	
 	private void createTreeModel(IManagedForm managedForm, String title, String desc) {
-		Composite client = createSection(managedForm, title, desc, 2);
+		Composite client = createSection(managedForm, title, desc, 3);
+		FormToolkit toolkit = managedForm.getToolkit();
 		
-		listViewerSections = new ListViewer(client, SWT.BORDER | SWT.V_SCROLL);
-		listViewerSections.add(Messages.SadAnalyzerEditor_ConfigurationModelTreeAllSection);
+		listViewerSections = new ListViewer(client, SWT.BORDER | SWT.V_SCROLL);		
 		EList<SadSection> sections = uimaRoot.getSadSection();
 		
 		for(Iterator<SadSection> it = sections.iterator();it.hasNext();){
 			SadSection section = it.next();
 			if(null != section.getName()){
-				listViewerSections.add(section.getName());
+				listViewerSections.add(section);
 			}
 		}
 				
 		GridData gd = new GridData();
-		gd.widthHint = 500;
-		gd.heightHint = 100;
-		List listSections = listViewerSections.getList();
-		listSections.setLayoutData(gd);		
+		gd.widthHint = 250;
+		gd.heightHint = 200;
+		listSections = listViewerSections.getList();
+		listSections.setLayoutData(gd);	
 		
+		Composite compositeBtn = toolkit.createComposite(client, SWT.NONE);
+		compositeBtn.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1));
+		toolkit.paintBordersFor(compositeBtn);
+		FillLayout fl_compositeBtn = new FillLayout(SWT.VERTICAL);
+		fl_compositeBtn.marginWidth = 5;
+		fl_compositeBtn.marginHeight = 5;
+		fl_compositeBtn.spacing = 5;
+		compositeBtn.setLayout(fl_compositeBtn);
+		
+		Button btnAddAll = toolkit.createButton(compositeBtn, ">> Add All", SWT.NONE);
+		
+		ImageDescriptor imageAdd = ImageDescriptor.createFromFile(this.getClass(),IMAGE_PATH + "/add.gif");
+		Button btnAdd = toolkit.createButton(compositeBtn, "Add", SWT.NONE);
+		btnAdd.setImage(imageAdd.createImage());
+		btnAdd.setToolTipText("Add Quality attribute");
+			
+		
+		ImageDescriptor imageRemove = ImageDescriptor.createFromFile(this.getClass(),IMAGE_PATH + "/delete.gif");
+		Button btnRemove = toolkit.createButton(compositeBtn, "Remove", SWT.NONE);
+		btnRemove.setImage(imageRemove.createImage());
+		btnRemove.setToolTipText("Remove Quality attribute");
+		
+		listViewerSectionsSelected = new ListViewer(client, SWT.BORDER | SWT.V_SCROLL);
+		listSectionsSelected = listViewerSectionsSelected.getList();
+		listSectionsSelected.setLayoutData(gd);
+		
+		Button btnRemoveAll = toolkit.createButton(compositeBtn, "<< Remove All", SWT.NONE);
+		
+		btnAddAll.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {	
+				for(int i = 0; listViewerSections.getList().getItems().length > 0; ){
+					SadSection sad = (SadSection)listViewerSections.getElementAt(i);
+					listViewerSectionsSelected.add(sad);
+					listViewerSections.remove(sad);
+				}				
+				refreshList();
+			}
+		});
+		
+		btnRemoveAll.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				for(int i = 0; listViewerSectionsSelected.getList().getItems().length > 0; ){
+					SadSection sad = (SadSection)listViewerSectionsSelected.getElementAt(i);
+					listViewerSections.add(sad);
+					listViewerSectionsSelected.remove(sad);
+				}				
+				refreshList();
+			}
+		});
+		
+		btnAdd.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				StructuredSelection selection = (StructuredSelection)listViewerSections.getSelection();
+				if(!selection.isEmpty()) {
+					SadSection sadSection = (SadSection)selection.getFirstElement();
+					listViewerSections.remove(sadSection);
+					listViewerSectionsSelected.add(sadSection);
+					refreshList();
+				}
+			}
+		});	
+		
+		btnRemove.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				StructuredSelection selection = (StructuredSelection)listViewerSectionsSelected.getSelection();
+				if(!selection.isEmpty()) {
+					SadSection sadSection = (SadSection)selection.getFirstElement();
+					listViewerSectionsSelected.remove(sadSection);
+					listViewerSections.add(sadSection);
+					refreshList();
+				}
+			}
+		});	
 	}	
+	
+	private void refreshList(){
+		listSections.update();
+		listSectionsSelected.update();
+		listQualityAtributes1.update();
+		listQualityAtributes2.update();
+	}
 	
 	private Composite createSection(IManagedForm mform, String title,
 			String desc, int numColumns) {

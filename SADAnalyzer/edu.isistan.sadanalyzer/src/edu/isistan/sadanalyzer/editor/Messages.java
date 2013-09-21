@@ -15,7 +15,6 @@ public class Messages extends NLS {
 	public static String SadAnalyzerEditor_ConfigurationTitle;
 	public static String SadAnalyzerEditor_ConfigurationModelTree;
 	public static String SadAnalyzerEditor_ConfigurationModelTreeDescription;
-	public static String SadAnalyzerEditor_ConfigurationModelTreeAllSection;
 	public static String SadAnalyzerEditor_ConfigurationDetail;
 	public static String SadAnalyzerEditor_ConfigurationDetailDescription;
 	public static String SadAnalyzerEditor_SadSource;

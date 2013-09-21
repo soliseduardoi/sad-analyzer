@@ -208,15 +208,16 @@ public class SadSectionImpl extends IdentifiableAnnotationImpl implements SadSec
 	 */
 	@Override
 	public String toString() {
-		if (eIsProxy()) return super.toString();
-
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (name: ");
-		result.append(name);
-		result.append(", text: ");
-		result.append(text);
-		result.append(')');
-		return result.toString();
+//		if (eIsProxy()) return super.toString();
+//
+//		StringBuffer result = new StringBuffer(super.toString());
+//		result.append(" (name: ");
+//		result.append(name);
+//		result.append(", text: ");
+//		result.append(text);
+//		result.append(')');
+//		return result.toString();
+		return this.getName();
 	}
 
 } //SadSectionImpl
