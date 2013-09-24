@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://www.users.exa.unicen.edu.ar/~esolis/sadanalyzer"
+            class="edu.isistan.sadanalyzer.model.SadAnalyzerModelPackage"
+            genModel="model/sadanalyzer.genmodel"/>
+   </extension>
+
+</plugin>

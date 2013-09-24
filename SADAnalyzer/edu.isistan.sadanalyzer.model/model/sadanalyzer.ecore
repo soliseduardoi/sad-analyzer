@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="model"
+    nsURI="http://www.users.exa.unicen.edu.ar/~esolis/sadanalyzer" nsPrefix="edu.isistan.sadanalyzer.model">
+  <eClassifiers xsi:type="ecore:EClass" name="Identifiable" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Nameable" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SadAnalyzerProject" eSuperTypes="#//Identifiable #//Nameable">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sad" eType="ecore:EClass ../../edu.isistan.softwarearchitecturedocumentationanalyzer/model/sad.ecore#//Sad"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="sadURI" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="uimaURI" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+</ecore:EPackage>
