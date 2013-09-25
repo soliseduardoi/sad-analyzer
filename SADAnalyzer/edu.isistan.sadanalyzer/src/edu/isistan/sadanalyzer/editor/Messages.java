@@ -11,6 +11,12 @@ public class Messages extends NLS {
 	
 	private static final String BUNDLE_NAME = "edu.isistan.sadanalyzer.editor.messages";
 
+	public static String SadAnalyzer_Extension;
+	public static String SadAnalyzerWizard_ErrorFileName;
+	public static String SadAnalyzerWizard_Windows_Title;
+	public static String SadAnalyzerWizard_Title;
+	public static String SadAnalyzerWizard_Description;
+	public static String SadAnalyzer_FilenameDefault;
 	public static String SadAnalyzerEditor_Configuration;
 	public static String SadAnalyzerEditor_ConfigurationTitle;
 	public static String SadAnalyzerEditor_ConfigurationModelTree;

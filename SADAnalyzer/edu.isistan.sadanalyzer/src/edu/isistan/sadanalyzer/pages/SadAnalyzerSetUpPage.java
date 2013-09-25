@@ -1,9 +1,13 @@
 package edu.isistan.sadanalyzer.pages;
 
 import java.util.Iterator;
+
+import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.domain.IEditingDomainProvider;
+import org.eclipse.emf.edit.ui.util.EditUIUtil;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.ListViewer;
@@ -150,8 +154,9 @@ public class SadAnalyzerSetUpPage extends FormPage {
 	}
 	
 	private void executeUimaSadProcesor(){
-		//TODO la manganeta para visualizar las porquerias
 		
+		listViewerSectionsSelected.getList().getItems();
+		listQualityAttributesSelected.getList().getItems();
 	}
 	
 	private void createQualityAttributes(IManagedForm managedForm, String title, String desc) {
@@ -261,24 +266,27 @@ public class SadAnalyzerSetUpPage extends FormPage {
 	private void createDetailAnalyzer(IManagedForm mform, String title, String desc) {
 		Composite client = createSection(mform, title, desc, 2);
 		FormToolkit toolkit = mform.getToolkit();
+
+		IFile file =(IFile)getEditorInput().getAdapter(IFile.class);
 		
 		GridData gd = new GridData();		
 		// Text source
 		toolkit.createLabel(client, Messages.SadAnalyzerEditor_SadSource+":");
-		String overviewSource = "";/* = modelRoot.getTitle();*/
-		Text overviewSourceText = toolkit.createText(client, overviewSource, SWT.SINGLE);
-		overviewSourceText.setEditable(false);
+		String sadFileSource = "";
+		Text sadFileSourceText = toolkit.createText(client, sadFileSource, SWT.SINGLE);
+		sadFileSourceText.setEditable(false);
 		gd = new GridData();
 		gd.widthHint = 500;
-		overviewSourceText.setLayoutData(gd);
+		sadFileSourceText.setLayoutData(gd);
 				
 		toolkit.createLabel(client, Messages.SadAnalyzerEditor_UIMASadFile+":");
-		String overviewTemplate = ""; /*= modelRoot.getTemplatePath();*/
-		Text overviewTemplateText = toolkit.createText(client, overviewTemplate, SWT.SINGLE);
-		overviewTemplateText.setEditable(false);
+		String uimaSadFile = file.getLocationURI().getPath();
+		
+		Text uimaSadFileText = toolkit.createText(client, (String)uimaSadFile.subSequence(1, uimaSadFile.length()), SWT.SINGLE);
+		uimaSadFileText.setEditable(false);
 		gd = new GridData();
 		gd.widthHint = 500;
-		overviewTemplateText.setLayoutData(gd);		
+		uimaSadFileText.setLayoutData(gd);		
 	}
 	
 	private void createTreeModel(IManagedForm managedForm, String title, String desc) {
