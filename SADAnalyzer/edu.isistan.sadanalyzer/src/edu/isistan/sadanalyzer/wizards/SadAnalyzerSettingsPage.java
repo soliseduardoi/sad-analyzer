@@ -32,10 +32,21 @@ public class SadAnalyzerSettingsPage extends WizardPage {
 
 	public static final String ID = "edu.isistan.sadanalyzer.wizards.SadAnalyzerSettingsPage";
 	private TreeViewer treeViewer;
-	private IStructuredSelection selection;
 	
+	private IStructuredSelection selection;
 	private Label labelSad;
 	private Text textSad;
+	
+	public Text getTextSadPath() {
+		return textSad;
+	}
+
+
+	public Text getTextUimaSadPath() {
+		return textUimaSad;
+	}
+
+
 	private Button browseSadButton;
 	private Label labelUimaSad;
 	private Text textUimaSad;

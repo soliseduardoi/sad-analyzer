@@ -1,32 +1,40 @@
 package edu.isistan.sadanalyzer.wizards;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IWorkspaceRoot;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.Status;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.xmi.XMLResource;
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWizard;
 import org.eclipse.ui.PartInitException;
-import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.ide.IDE;
+import org.eclipse.ui.actions.WorkspaceModifyOperation;
+import org.eclipse.ui.part.FileEditorInput;
+import org.eclipse.ui.part.ISetSelectionTarget;
 
 import edu.isistan.sadanalyzer.editor.Messages;
+import edu.isistan.sadanalyzer.model.SadAnalyzerModelFactory;
+import edu.isistan.sadanalyzer.model.SadAnalyzerModelPackage;
+import edu.isistan.sadanalyzer.model.SadAnalyzerProject;
 
 
 /**
@@ -47,6 +55,10 @@ public class SadAnalyzerWizard extends Wizard implements INewWizard {
 	private Boolean validModel;
 	private SadAnalyzerNewFilePage sadAnalyzerNewFilePage;
 	private SadAnalyzerSettingsPage sadAnalyzerSettingsPage;
+	
+	protected SadAnalyzerModelPackage sadAnalyzerModelPackage = SadAnalyzerModelPackage.eINSTANCE;
+	protected SadAnalyzerModelFactory sadAnalyzerModelFactory = sadAnalyzerModelPackage.getSadAnalyzerModelFactory();
+	
 	
 	/**
 	 * Constructor for SampleNewWizard.
@@ -140,6 +152,89 @@ public class SadAnalyzerWizard extends Wizard implements INewWizard {
 //			MessageDialog.openError(getShell(), "Error", realException.getMessage());
 //			return false;
 //		}
-		return true;
+		
+		try {
+			// SAD File
+			final String sadURI = sadAnalyzerSettingsPage.getTextSadPath().getText();
+			//UimaSad File
+			final String uimaSadURI = sadAnalyzerSettingsPage.getTextUimaSadPath().getText();
+					
+			// SADA
+			final IFile sadaFile = sadAnalyzerNewFilePage.getModelFile();
+			
+			// Do the work within an operation
+			WorkspaceModifyOperation operation = new WorkspaceModifyOperation() {
+				@Override
+				protected void execute(IProgressMonitor progressMonitor) {
+					try {
+												
+						// SADA
+						String sadaURI = sadaFile.getFullPath().toString();
+						ResourceSet resourceSet = new ResourceSetImpl();
+						URI fileURI = URI.createPlatformResourceURI(sadaURI, true);
+						Resource resource = resourceSet.createResource(fileURI);
+						
+						SadAnalyzerProject rootModel = createInitialModel();
+						if (rootModel != null) {
+//							rootModel.setName(reaPage.getName());
+							rootModel.setSadURI(sadURI);
+							rootModel.setUimaURI(uimaSadURI);
+							resource.getContents().add(rootModel);
+						}
+						// Save the contents of the resource to the file system
+						Map<Object, Object> options = new HashMap<Object, Object>();
+						options.put(XMLResource.OPTION_ENCODING, "UTF-8");
+						resource.save(options);
+					}
+					catch (Exception e) {
+						e.printStackTrace();
+					}
+					finally {
+						//Refresh workbench
+						try {
+							sadaFile.getParent().refreshLocal(IResource.DEPTH_ONE, null);
+						} catch (CoreException e) {
+							e.printStackTrace();
+						}
+						progressMonitor.done();
+					}
+				}
+			};
+			
+			getContainer().run(false, false, operation);
+			
+			// Select the new file resource in the current view
+			IWorkbenchWindow workbenchWindow = workbench.getActiveWorkbenchWindow();
+			IWorkbenchPage page = workbenchWindow.getActivePage();
+			final IWorkbenchPart activePart = page.getActivePart();
+			if (activePart instanceof ISetSelectionTarget) {
+				final ISelection targetSelection = new StructuredSelection(sadaFile);
+				getShell().getDisplay().asyncExec(new Runnable() {
+					public void run() {
+						((ISetSelectionTarget)activePart).selectReveal(targetSelection);
+					}
+				});
+			}
+			
+			// Open an editor on the new file
+			try {
+				page.openEditor(new FileEditorInput(sadaFile), workbench.getEditorRegistry().getDefaultEditor(sadaFile.getFullPath().toString()).getId());					 	 
+			}
+			catch (PartInitException exception) {
+				MessageDialog.openError(workbenchWindow.getShell(), "Error opening the editor.", exception.getMessage());
+				return false;
+			}
+			
+			return true;
+		}
+		catch (Exception exception) {
+			exception.printStackTrace();
+			return false;
+		}
 	}	
+	
+	protected SadAnalyzerProject createInitialModel() {
+		SadAnalyzerProject project = sadAnalyzerModelFactory.createSadAnalyzerProject();
+		return project;
+	}
 }

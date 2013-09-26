@@ -23,8 +23,10 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.forms.editor.FormEditor;
 import org.eclipse.ui.forms.editor.FormPage;
 
+import SadModel.Sad;
 import edu.isistan.reassistant.ccdetector.model.CrosscuttingConcernRuleSet;
 import edu.isistan.sadanalyzer.CCDetector;
+import edu.isistan.sadanalyzer.model.SadAnalyzerProject;
 import edu.isistan.sadanalyzer.pages.SadAnalyzerSetUpPage;
 import edu.isistan.sadanalyzer.query.UIMASADQueryAdapter;
 
@@ -45,9 +47,9 @@ public class SadAnalyzerEditor extends FormEditor implements IEditingDomainProvi
 	
 	protected CrosscuttingConcernRuleSet rulesModelRoot;
 	
-	private String modelURI;
-	
 	private UIMASADQueryAdapter uimaRoot;
+	private SadAnalyzerProject modelRoot;
+	protected Sad sadModelRoot;
 	
 //	protected DataBindingContext bindingContext;
 	
@@ -62,8 +64,8 @@ public class SadAnalyzerEditor extends FormEditor implements IEditingDomainProvi
 	 */
 	@Override
 	protected void addPages() {
-		createUIMAModel();
-		createRulesModel();
+		createModel();
+		
 		int index;
 		try {
 			FormPage SadAnalyzerSetUpPage = new SadAnalyzerSetUpPage(this);
@@ -126,7 +128,7 @@ public class SadAnalyzerEditor extends FormEditor implements IEditingDomainProvi
 		return editingDomain;
 	}
 	
-	private void createUIMAModel() {
+	private void createModel() {
 		ResourceSet resourceSet = new ResourceSetImpl();
 		URI resourceURI = EditUIUtil.getURI(getEditorInput());
 		Resource resource = null;
@@ -136,14 +138,19 @@ public class SadAnalyzerEditor extends FormEditor implements IEditingDomainProvi
 		catch (Exception e) {
 			resource = resourceSet.getResource(resourceURI, true);
 		}
-		uimaRoot = new UIMASADQueryAdapter(resource.getContents());
+		
+		modelRoot = (SadAnalyzerProject) resource.getContents().get(0);
+		createUIMAModel();
+		
+		createRulesModel();
+		 createSadModel();
 		
 			 
 	}
 	
 	private void createRulesModel() {
-		this.modelURI = CCDetector.getRuleSetPath();
-		URI resourceURI = URI.createFileURI(modelURI);
+		
+		URI resourceURI = URI.createFileURI(CCDetector.getRuleSetPath());
 		Exception exception = null;
 		Resource resource = null;
 		try {
@@ -157,18 +164,44 @@ public class SadAnalyzerEditor extends FormEditor implements IEditingDomainProvi
 		rulesModelRoot = (CrosscuttingConcernRuleSet) resource.getContents().get(0);		
 		
 	}
-
 	
+	private void createUIMAModel() {
+		ResourceSet resourceSet = new ResourceSetImpl();
+		URI fileURI = URI.createPlatformResourceURI(modelRoot.getUimaURI(), true);
+		Resource resource = null;
+		try {
+			resource = resourceSet.getResource(fileURI, true);
+		}
+		catch (Exception e) {
+			resource = resourceSet.getResource(fileURI, true);
+		}
+		uimaRoot = new UIMASADQueryAdapter(resource.getContents());
+	}
 	
-public CrosscuttingConcernRuleSet getRulesModelRoot() {
-		
-		return rulesModelRoot;
+	private void createSadModel() {
+		ResourceSet resourceSet = new ResourceSetImpl();
+		URI fileURI = URI.createPlatformResourceURI(modelRoot.getSadURI(), true);
+		Resource resource = null;
+		try {
+			resource = resourceSet.getResource(fileURI, true);
+		}
+		catch (Exception e) {
+			resource = resourceSet.getResource(fileURI, true);
+		}
+		sadModelRoot = (Sad) resource.getContents().get(resource.getContents().size()-1);
 	}
 
-public UIMASADQueryAdapter getUimaRoot() {
 	
-	return uimaRoot;
-}
+	
+		public CrosscuttingConcernRuleSet getRulesModelRoot() {
+				
+				return rulesModelRoot;
+			}
+		
+		public UIMASADQueryAdapter getUimaRoot() {
+			
+			return uimaRoot;
+		}
 
 
 	
