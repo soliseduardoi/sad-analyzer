@@ -12,3 +12,6 @@ Require-Bundle: org.eclipse.core.runtime,
  edu.isistan.uima.model;visibility:=reexport,
  edu.isistan.softwarearchitecturedocumentationanalyzer;bundle-version="1.0.0"
 Bundle-ActivationPolicy: lazy
+Export-Package: edu.isistan.sadanalyzer.model,
+ edu.isistan.sadanalyzer.model.impl,
+ edu.isistan.sadanalyzer.model.util
