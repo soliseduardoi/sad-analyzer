@@ -45,11 +45,10 @@ public class SadAnalyzerEditor extends FormEditor implements IEditingDomainProvi
 	protected ComposedAdapterFactory adapterFactory;
 	protected AdapterFactoryEditingDomain editingDomain;
 	
-	protected CrosscuttingConcernRuleSet rulesModelRoot;
-	
+	private CrosscuttingConcernRuleSet rulesModelRoot;	
 	private UIMASADQueryAdapter uimaRoot;
 	private SadAnalyzerProject modelRoot;
-	protected Sad sadModelRoot;
+	private Sad sadModelRoot;
 	
 //	protected DataBindingContext bindingContext;
 	
@@ -143,7 +142,7 @@ public class SadAnalyzerEditor extends FormEditor implements IEditingDomainProvi
 		createUIMAModel();
 		
 		createRulesModel();
-		 createSadModel();
+		createSadModel();
 		
 			 
 	}
@@ -167,7 +166,7 @@ public class SadAnalyzerEditor extends FormEditor implements IEditingDomainProvi
 	
 	private void createUIMAModel() {
 		ResourceSet resourceSet = new ResourceSetImpl();
-		URI fileURI = URI.createPlatformResourceURI(modelRoot.getUimaURI(), true);
+		URI fileURI = URI.createFileURI(modelRoot.getUimaURI());
 		Resource resource = null;
 		try {
 			resource = resourceSet.getResource(fileURI, true);
@@ -180,7 +179,7 @@ public class SadAnalyzerEditor extends FormEditor implements IEditingDomainProvi
 	
 	private void createSadModel() {
 		ResourceSet resourceSet = new ResourceSetImpl();
-		URI fileURI = URI.createPlatformResourceURI(modelRoot.getSadURI(), true);
+		URI fileURI = URI.createFileURI(modelRoot.getSadURI());
 		Resource resource = null;
 		try {
 			resource = resourceSet.getResource(fileURI, true);
@@ -203,6 +202,13 @@ public class SadAnalyzerEditor extends FormEditor implements IEditingDomainProvi
 			return uimaRoot;
 		}
 
+		public Sad getSadModel(){
+			return sadModelRoot;
+		}
+		
+		public SadAnalyzerProject getSadProjectModel(){
+			return modelRoot;
+		}
 
 	
 }

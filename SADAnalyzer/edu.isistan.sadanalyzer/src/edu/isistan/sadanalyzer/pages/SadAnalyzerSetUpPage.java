@@ -34,10 +34,13 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.Section;
 
+import SadModel.Sad;
+
 import edu.isistan.reassistant.ccdetector.model.CrosscuttingConcernRule;
 import edu.isistan.reassistant.ccdetector.model.CrosscuttingConcernRuleSet;
 import edu.isistan.sadanalyzer.editor.Messages;
 import edu.isistan.sadanalyzer.editor.SadAnalyzerEditor;
+import edu.isistan.sadanalyzer.model.SadAnalyzerProject;
 import edu.isistan.sadanalyzer.query.UIMASADQueryAdapter;
 import edu.isistan.uima.unified.typesystems.sad.SadSection;
 
@@ -66,6 +69,10 @@ public class SadAnalyzerSetUpPage extends FormPage {
 	
 	private UIMASADQueryAdapter uimaRoot;
 	
+	
+	private SadAnalyzerProject modelRoot;
+	private Sad sadModelRoot;
+	
 	public SadAnalyzerSetUpPage(){
 		super(ID, TITLE);
 	}
@@ -75,6 +82,9 @@ public class SadAnalyzerSetUpPage extends FormPage {
 		editingDomain = ((IEditingDomainProvider)getEditor()).getEditingDomain();
 		rulesModelRoot =((SadAnalyzerEditor)getEditor()).getRulesModelRoot();
 		uimaRoot = ((SadAnalyzerEditor)getEditor()).getUimaRoot();
+		modelRoot = ((SadAnalyzerEditor)getEditor()).getSadProjectModel();
+		sadModelRoot = ((SadAnalyzerEditor)getEditor()).getSadModel();
+		
 		
 	}
 	
@@ -272,7 +282,7 @@ public class SadAnalyzerSetUpPage extends FormPage {
 		GridData gd = new GridData();		
 		// Text source
 		toolkit.createLabel(client, Messages.SadAnalyzerEditor_SadSource+":");
-		String sadFileSource = "";
+		String sadFileSource = modelRoot.getSadURI();
 		Text sadFileSourceText = toolkit.createText(client, sadFileSource, SWT.SINGLE);
 		sadFileSourceText.setEditable(false);
 		gd = new GridData();
@@ -280,9 +290,9 @@ public class SadAnalyzerSetUpPage extends FormPage {
 		sadFileSourceText.setLayoutData(gd);
 				
 		toolkit.createLabel(client, Messages.SadAnalyzerEditor_UIMASadFile+":");
-		String uimaSadFile = file.getLocationURI().getPath();
+		String uimaSadFile = modelRoot.getUimaURI();
 		
-		Text uimaSadFileText = toolkit.createText(client, (String)uimaSadFile.subSequence(1, uimaSadFile.length()), SWT.SINGLE);
+		Text uimaSadFileText = toolkit.createText(client, uimaSadFile, SWT.SINGLE);
 		uimaSadFileText.setEditable(false);
 		gd = new GridData();
 		gd.widthHint = 500;
