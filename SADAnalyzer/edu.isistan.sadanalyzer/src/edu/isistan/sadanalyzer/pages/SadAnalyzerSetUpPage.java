@@ -4,10 +4,8 @@ import java.util.Iterator;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.domain.IEditingDomainProvider;
-import org.eclipse.emf.edit.ui.util.EditUIUtil;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.ListViewer;
@@ -35,12 +33,13 @@ import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.Section;
 
 import SadModel.Sad;
-
 import edu.isistan.reassistant.ccdetector.model.CrosscuttingConcernRule;
 import edu.isistan.reassistant.ccdetector.model.CrosscuttingConcernRuleSet;
 import edu.isistan.sadanalyzer.editor.Messages;
 import edu.isistan.sadanalyzer.editor.SadAnalyzerEditor;
 import edu.isistan.sadanalyzer.model.SadAnalyzerProject;
+import edu.isistan.sadanalyzer.providers.CrosscuttingConcernRuleLabelProvider;
+import edu.isistan.sadanalyzer.providers.SadSectionLabelProvider;
 import edu.isistan.sadanalyzer.query.UIMASADQueryAdapter;
 import edu.isistan.uima.unified.typesystems.sad.SadSection;
 
@@ -174,6 +173,7 @@ public class SadAnalyzerSetUpPage extends FormPage {
 		FormToolkit toolkit = managedForm.getToolkit();
 		
 		listQualityAttributesSource = new ListViewer(client, SWT.BORDER | SWT.V_SCROLL);
+		listQualityAttributesSource.setLabelProvider(new CrosscuttingConcernRuleLabelProvider());
 		
 		Iterator<CrosscuttingConcernRule> rules = rulesModelRoot.getRules().iterator();
 		
@@ -217,6 +217,7 @@ public class SadAnalyzerSetUpPage extends FormPage {
 		
 		listQualityAtributes2 = listQualityAttributesSelected.getList();
 		listQualityAtributes2.setLayoutData(gd);
+		listQualityAttributesSelected.setLabelProvider(new CrosscuttingConcernRuleLabelProvider());
 		
 		Button btnRemoveAll = toolkit.createButton(compositeBtn, "<< Remove All", SWT.NONE);
 		
@@ -304,6 +305,7 @@ public class SadAnalyzerSetUpPage extends FormPage {
 		FormToolkit toolkit = managedForm.getToolkit();
 		
 		listViewerSections = new ListViewer(client, SWT.BORDER | SWT.V_SCROLL);		
+		listViewerSections.setLabelProvider(new SadSectionLabelProvider(uimaRoot));
 		EList<SadSection> sections = uimaRoot.getSadSection();
 		
 		for(Iterator<SadSection> it = sections.iterator();it.hasNext();){
@@ -312,6 +314,7 @@ public class SadAnalyzerSetUpPage extends FormPage {
 				listViewerSections.add(section);
 			}
 		}
+	
 				
 		GridData gd = new GridData();
 		gd.widthHint = 250;
@@ -342,9 +345,10 @@ public class SadAnalyzerSetUpPage extends FormPage {
 		btnRemove.setToolTipText("Remove Quality attribute");
 		
 		listViewerSectionsSelected = new ListViewer(client, SWT.BORDER | SWT.V_SCROLL);
+		
 		listSectionsSelected = listViewerSectionsSelected.getList();
 		listSectionsSelected.setLayoutData(gd);
-		
+		listViewerSectionsSelected.setLabelProvider(new SadSectionLabelProvider(uimaRoot));
 		Button btnRemoveAll = toolkit.createButton(compositeBtn, "<< Remove All", SWT.NONE);
 		
 		btnAddAll.addSelectionListener(new SelectionAdapter() {
