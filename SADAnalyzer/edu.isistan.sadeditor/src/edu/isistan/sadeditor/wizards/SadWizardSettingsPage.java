@@ -21,7 +21,6 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.internal.ide.IDEWorkbenchPlugin;
-import org.eclipse.ui.internal.wizards.datatransfer.DataTransferMessages;
 
 import edu.isistan.sadeditor.editor.Messages;
 
@@ -116,7 +115,7 @@ public class SadWizardSettingsPage extends WizardPage {
 		archivePathField.setEditable(false);
 		// browse button
 		browseArchivesButton = new Button(composite, SWT.PUSH);
-		browseArchivesButton.setText(DataTransferMessages.DataTransfer_browse);
+		browseArchivesButton.setText(Messages.SadWizard_Settings_Browse);
 		setButtonLayoutData(browseArchivesButton);
 
 		sadFromURLRadio.setSelection(true);
@@ -137,7 +136,7 @@ public class SadWizardSettingsPage extends WizardPage {
 		// browse button
 		browseTemplateDirectoriesButton = new Button(composite, SWT.PUSH);
 		browseTemplateDirectoriesButton
-				.setText(DataTransferMessages.DataTransfer_browse);
+				.setText(Messages.SadWizard_Settings_Browse);
 		setButtonLayoutData(browseTemplateDirectoriesButton);
 		
 						
@@ -265,7 +264,7 @@ public class SadWizardSettingsPage extends WizardPage {
 		FileDialog dialog = new FileDialog(field.getShell(), SWT.SHEET);
 		dialog.setFilterExtensions(mask);
 		dialog
-				.setText(DataTransferMessages.WizardProjectsImportPage_SelectArchiveDialogTitle);
+				.setText(Messages.SadWizard_Settings_Import);
 
 		String fileName = field.getText().trim();
 		if (fileName.length() == 0) {

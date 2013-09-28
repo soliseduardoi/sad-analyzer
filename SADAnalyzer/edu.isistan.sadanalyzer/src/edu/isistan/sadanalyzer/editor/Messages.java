@@ -28,6 +28,12 @@ public class Messages extends NLS {
 	public static String SadAnalyzerEditor_ConfigurationRun;
 	public static String SadAnalyzerEditor_ConfigurationRunDescription;
 	public static String SadAnalyzerEditor_ConfigurationRunButton;
+	public static String SadAnalyzerWizard_ErrorMaskFile;
+	public static String SadAnalyzerSettingsWizard_ImportSadFile;
+	public static String SadAnalyzerSettingsWizard_ImportUimaSadFile;
+	public static String SadAnalyzerSettingsWizard_ImportFile;
+	public static String SadAnalyzerSettingsWizard_Description;
+	public static String SadAnalyzerSettingsWizard_Import;
 	
 	static {
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);

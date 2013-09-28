@@ -120,7 +120,7 @@ public class SadAnalyzerWizard extends Wizard implements INewWizard {
 		
 		sadAnalyzerSettingsPage = new SadAnalyzerSettingsPage(selection);
 		sadAnalyzerSettingsPage.setTitle(Messages.SadAnalyzerWizard_Windows_Title);
-		sadAnalyzerSettingsPage.setDescription(Messages.SadAnalyzerWizard_Description);
+		sadAnalyzerSettingsPage.setDescription(Messages.SadAnalyzerSettingsWizard_Description);
 		addPage(sadAnalyzerSettingsPage);
 	}
 
@@ -130,29 +130,6 @@ public class SadAnalyzerWizard extends Wizard implements INewWizard {
 	 * using wizard as execution context.
 	 */
 	public boolean performFinish() {
-//		final String containerName = sadAnalyzerNewFilePage.getContainerName();
-//		final String fileName = sadAnalyzerNewFilePage.getFileName();
-//		IRunnableWithProgress op = new IRunnableWithProgress() {
-//			public void run(IProgressMonitor monitor) throws InvocationTargetException {
-//				try {
-//					doFinish(containerName, fileName, monitor);
-//				} catch (CoreException e) {
-//					throw new InvocationTargetException(e);
-//				} finally {
-//					monitor.done();
-//				}
-//			}
-//		};
-//		try {
-//			getContainer().run(true, false, op);
-//		} catch (InterruptedException e) {
-//			return false;
-//		} catch (InvocationTargetException e) {
-//			Throwable realException = e.getTargetException();
-//			MessageDialog.openError(getShell(), "Error", realException.getMessage());
-//			return false;
-//		}
-		
 		try {
 			// SAD File
 			final String sadURI = sadAnalyzerSettingsPage.getTextSadPath().getText();
