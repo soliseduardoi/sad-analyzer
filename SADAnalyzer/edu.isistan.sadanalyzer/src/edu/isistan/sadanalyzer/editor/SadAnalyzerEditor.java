@@ -5,6 +5,7 @@ import java.util.EventObject;
 import java.util.HashMap;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.emf.common.CommonPlugin;
 import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.command.CommandStackListener;
 import org.eclipse.emf.common.util.URI;
@@ -28,6 +29,7 @@ import edu.isistan.reassistant.ccdetector.model.CrosscuttingConcernRuleSet;
 import edu.isistan.sadanalyzer.CCDetector;
 import edu.isistan.sadanalyzer.model.SadAnalyzerProject;
 import edu.isistan.sadanalyzer.pages.SadAnalyzerSetUpPage;
+import edu.isistan.sadanalyzer.query.QueryEngine;
 import edu.isistan.sadanalyzer.query.UIMASADQueryAdapter;
 
 /**
@@ -149,6 +151,8 @@ public class SadAnalyzerEditor extends FormEditor implements IEditingDomainProvi
 	
 	private void createRulesModel() {
 		
+		
+		
 		URI resourceURI = URI.createFileURI(CCDetector.getRuleSetPath());
 		Exception exception = null;
 		Resource resource = null;
@@ -175,6 +179,9 @@ public class SadAnalyzerEditor extends FormEditor implements IEditingDomainProvi
 			resource = resourceSet.getResource(fileURI, true);
 		}
 		uimaRoot = new UIMASADQueryAdapter(resource.getContents());
+		
+	
+		QueryEngine engine = new QueryEngine(CommonPlugin.resolve(fileURI).toFileString());
 	}
 	
 	private void createSadModel() {
