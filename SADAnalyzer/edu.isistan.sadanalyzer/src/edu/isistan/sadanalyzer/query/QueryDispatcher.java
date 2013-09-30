@@ -1,6 +1,5 @@
 package edu.isistan.sadanalyzer.query;
 
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -11,9 +10,22 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.jdt.internal.core.index.Index;
+import org.eclipse.emf.query.index.Index;
+import org.eclipse.emf.query.index.IndexFactory;
+import org.eclipse.emf.query.index.query.IndexQueryFactory;
+import org.eclipse.emf.query.index.query.QueryCommand;
+import org.eclipse.emf.query.index.query.QueryExecutor;
+import org.eclipse.emf.query.index.query.ResourceQuery;
+import org.eclipse.emf.query.index.query.descriptors.ResourceDescriptor;
+import org.eclipse.emf.query.index.update.IndexUpdater;
+import org.eclipse.emf.query.index.update.ResourceIndexer;
+import org.eclipse.emf.query.index.update.UpdateCommandAdapter;
+import org.eclipse.emf.query2.Query;
+import org.eclipse.emf.query2.QueryContext;
+import org.eclipse.emf.query2.QueryProcessor;
+import org.eclipse.emf.query2.QueryProcessorFactory;
+import org.eclipse.emf.query2.ResultSet;
 
-import edu.isistan.reassistant.ccdetector.model.Query;
 import edu.isistan.sadanalyzer.util.ReflectionHelper;
 
 

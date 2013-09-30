@@ -1,7 +1,5 @@
 package edu.isistan.sadanalyzer.query;
 
-import java.sql.ResultSet;
-
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
@@ -17,6 +15,8 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
+import org.eclipse.emf.query2.ColumnType;
+import org.eclipse.emf.query2.ResultSet;
 
 import edu.isistan.reassistant.ccdetector.model.CCDetectorModelPackage;
 import edu.isistan.reassistant.ccdetector.model.CrosscuttingConcernRule;
