@@ -18,6 +18,8 @@ import edu.isistan.uima.unified.typesystems.IdentifiableAnnotation;
  * <ul>
  *   <li>{@link edu.isistan.uima.unified.typesystems.sad.SadSection#getName <em>Name</em>}</li>
  *   <li>{@link edu.isistan.uima.unified.typesystems.sad.SadSection#getText <em>Text</em>}</li>
+ *   <li>{@link edu.isistan.uima.unified.typesystems.sad.SadSection#getId <em>Id</em>}</li>
+ *   <li>{@link edu.isistan.uima.unified.typesystems.sad.SadSection#getKind <em>Kind</em>}</li>
  * </ul>
  * </p>
  *
@@ -77,5 +79,57 @@ public interface SadSection extends IdentifiableAnnotation {
 	 * @generated
 	 */
 	void setText(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Id</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Id</em>' attribute.
+	 * @see #setId(String)
+	 * @see edu.isistan.uima.unified.typesystems.sad.SadPackage#getSadSection_Id()
+	 * @model
+	 * @generated
+	 */
+	String getId();
+
+	/**
+	 * Sets the value of the '{@link edu.isistan.uima.unified.typesystems.sad.SadSection#getId <em>Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Id</em>' attribute.
+	 * @see #getId()
+	 * @generated
+	 */
+	void setId(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Kind</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Kind</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Kind</em>' attribute.
+	 * @see #setKind(String)
+	 * @see edu.isistan.uima.unified.typesystems.sad.SadPackage#getSadSection_Kind()
+	 * @model
+	 * @generated
+	 */
+	String getKind();
+
+	/**
+	 * Sets the value of the '{@link edu.isistan.uima.unified.typesystems.sad.SadSection#getKind <em>Kind</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Kind</em>' attribute.
+	 * @see #getKind()
+	 * @generated
+	 */
+	void setKind(String value);
 
 } // SadSection

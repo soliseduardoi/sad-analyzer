@@ -69,6 +69,9 @@ public class SadItemProvider
 
 			addSectionsPropertyDescriptor(object);
 			addTemplatePathPropertyDescriptor(object);
+			addIdPropertyDescriptor(object);
+			addKindPropertyDescriptor(object);
+			addNamePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -118,6 +121,72 @@ public class SadItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Id feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addIdPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Sad_id_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Sad_id_feature", "_UI_Sad_type"),
+				 SadPackage.Literals.SAD__ID,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Kind feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addKindPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Sad_kind_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Sad_kind_feature", "_UI_Sad_type"),
+				 SadPackage.Literals.SAD__KIND,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Sad_name_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Sad_name_feature", "_UI_Sad_type"),
+				 SadPackage.Literals.SAD__NAME,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns Sad.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -136,8 +205,10 @@ public class SadItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		Sad sad = (Sad)object;
-		return getString("_UI_Sad_type") + " " + sad.getBegin();
+		String label = ((Sad)object).getName();
+		return label == null || label.length() == 0 ?
+			getString("_UI_Sad_type") :
+			getString("_UI_Sad_type") + " " + label;
 	}
 
 	/**
@@ -153,6 +224,9 @@ public class SadItemProvider
 
 		switch (notification.getFeatureID(Sad.class)) {
 			case SadPackage.SAD__TEMPLATE_PATH:
+			case SadPackage.SAD__ID:
+			case SadPackage.SAD__KIND:
+			case SadPackage.SAD__NAME:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

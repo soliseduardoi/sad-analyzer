@@ -126,13 +126,40 @@ public interface SadPackage extends EPackage {
 	int SAD__TEMPLATE_PATH = TypesystemsPackage.IDENTIFIABLE_ANNOTATION_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SAD__ID = TypesystemsPackage.IDENTIFIABLE_ANNOTATION_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Kind</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SAD__KIND = TypesystemsPackage.IDENTIFIABLE_ANNOTATION_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SAD__NAME = TypesystemsPackage.IDENTIFIABLE_ANNOTATION_FEATURE_COUNT + 4;
+
+	/**
 	 * The number of structural features of the '<em>Sad</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SAD_FEATURE_COUNT = TypesystemsPackage.IDENTIFIABLE_ANNOTATION_FEATURE_COUNT + 2;
+	int SAD_FEATURE_COUNT = TypesystemsPackage.IDENTIFIABLE_ANNOTATION_FEATURE_COUNT + 5;
 
 	/**
 	 * The meta object id for the '{@link edu.isistan.uima.unified.typesystems.sad.impl.SadSectionImpl <em>Section</em>}' class.
@@ -199,13 +226,31 @@ public interface SadPackage extends EPackage {
 	int SAD_SECTION__TEXT = TypesystemsPackage.IDENTIFIABLE_ANNOTATION_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SAD_SECTION__ID = TypesystemsPackage.IDENTIFIABLE_ANNOTATION_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Kind</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SAD_SECTION__KIND = TypesystemsPackage.IDENTIFIABLE_ANNOTATION_FEATURE_COUNT + 3;
+
+	/**
 	 * The number of structural features of the '<em>Section</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SAD_SECTION_FEATURE_COUNT = TypesystemsPackage.IDENTIFIABLE_ANNOTATION_FEATURE_COUNT + 2;
+	int SAD_SECTION_FEATURE_COUNT = TypesystemsPackage.IDENTIFIABLE_ANNOTATION_FEATURE_COUNT + 4;
 
 
 	/**
@@ -241,6 +286,39 @@ public interface SadPackage extends EPackage {
 	EAttribute getSad_TemplatePath();
 
 	/**
+	 * Returns the meta object for the attribute '{@link edu.isistan.uima.unified.typesystems.sad.Sad#getId <em>Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Id</em>'.
+	 * @see edu.isistan.uima.unified.typesystems.sad.Sad#getId()
+	 * @see #getSad()
+	 * @generated
+	 */
+	EAttribute getSad_Id();
+
+	/**
+	 * Returns the meta object for the attribute '{@link edu.isistan.uima.unified.typesystems.sad.Sad#getKind <em>Kind</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Kind</em>'.
+	 * @see edu.isistan.uima.unified.typesystems.sad.Sad#getKind()
+	 * @see #getSad()
+	 * @generated
+	 */
+	EAttribute getSad_Kind();
+
+	/**
+	 * Returns the meta object for the attribute '{@link edu.isistan.uima.unified.typesystems.sad.Sad#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see edu.isistan.uima.unified.typesystems.sad.Sad#getName()
+	 * @see #getSad()
+	 * @generated
+	 */
+	EAttribute getSad_Name();
+
+	/**
 	 * Returns the meta object for class '{@link edu.isistan.uima.unified.typesystems.sad.SadSection <em>Section</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -271,6 +349,28 @@ public interface SadPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getSadSection_Text();
+
+	/**
+	 * Returns the meta object for the attribute '{@link edu.isistan.uima.unified.typesystems.sad.SadSection#getId <em>Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Id</em>'.
+	 * @see edu.isistan.uima.unified.typesystems.sad.SadSection#getId()
+	 * @see #getSadSection()
+	 * @generated
+	 */
+	EAttribute getSadSection_Id();
+
+	/**
+	 * Returns the meta object for the attribute '{@link edu.isistan.uima.unified.typesystems.sad.SadSection#getKind <em>Kind</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Kind</em>'.
+	 * @see edu.isistan.uima.unified.typesystems.sad.SadSection#getKind()
+	 * @see #getSadSection()
+	 * @generated
+	 */
+	EAttribute getSadSection_Kind();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -321,6 +421,30 @@ public interface SadPackage extends EPackage {
 		EAttribute SAD__TEMPLATE_PATH = eINSTANCE.getSad_TemplatePath();
 
 		/**
+		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SAD__ID = eINSTANCE.getSad_Id();
+
+		/**
+		 * The meta object literal for the '<em><b>Kind</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SAD__KIND = eINSTANCE.getSad_Kind();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SAD__NAME = eINSTANCE.getSad_Name();
+
+		/**
 		 * The meta object literal for the '{@link edu.isistan.uima.unified.typesystems.sad.impl.SadSectionImpl <em>Section</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -345,6 +469,22 @@ public interface SadPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute SAD_SECTION__TEXT = eINSTANCE.getSadSection_Text();
+
+		/**
+		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SAD_SECTION__ID = eINSTANCE.getSadSection_Id();
+
+		/**
+		 * The meta object literal for the '<em><b>Kind</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SAD_SECTION__KIND = eINSTANCE.getSadSection_Kind();
 
 	}
 

@@ -190,6 +190,33 @@ public class SadPackageImpl extends EPackageImpl implements SadPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getSad_Id() {
+		return (EAttribute)sadEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSad_Kind() {
+		return (EAttribute)sadEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSad_Name() {
+		return (EAttribute)sadEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getSadSection() {
 		return sadSectionEClass;
 	}
@@ -210,6 +237,24 @@ public class SadPackageImpl extends EPackageImpl implements SadPackage {
 	 */
 	public EAttribute getSadSection_Text() {
 		return (EAttribute)sadSectionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSadSection_Id() {
+		return (EAttribute)sadSectionEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSadSection_Kind() {
+		return (EAttribute)sadSectionEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -243,10 +288,15 @@ public class SadPackageImpl extends EPackageImpl implements SadPackage {
 		sadEClass = createEClass(SAD);
 		createEReference(sadEClass, SAD__SECTIONS);
 		createEAttribute(sadEClass, SAD__TEMPLATE_PATH);
+		createEAttribute(sadEClass, SAD__ID);
+		createEAttribute(sadEClass, SAD__KIND);
+		createEAttribute(sadEClass, SAD__NAME);
 
 		sadSectionEClass = createEClass(SAD_SECTION);
 		createEAttribute(sadSectionEClass, SAD_SECTION__NAME);
 		createEAttribute(sadSectionEClass, SAD_SECTION__TEXT);
+		createEAttribute(sadSectionEClass, SAD_SECTION__ID);
+		createEAttribute(sadSectionEClass, SAD_SECTION__KIND);
 	}
 
 	/**
@@ -287,10 +337,15 @@ public class SadPackageImpl extends EPackageImpl implements SadPackage {
 		initEClass(sadEClass, Sad.class, "Sad", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getSad_Sections(), this.getSadSection(), null, "sections", null, 0, -1, Sad.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSad_TemplatePath(), ecorePackage.getEString(), "templatePath", null, 0, 1, Sad.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSad_Id(), ecorePackage.getEString(), "id", null, 0, 1, Sad.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSad_Kind(), ecorePackage.getEString(), "kind", null, 0, 1, Sad.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSad_Name(), ecorePackage.getEString(), "name", null, 0, 1, Sad.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(sadSectionEClass, SadSection.class, "SadSection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getSadSection_Name(), ecorePackage.getEString(), "name", null, 0, 1, SadSection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSadSection_Text(), ecorePackage.getEString(), "text", null, 0, 1, SadSection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSadSection_Id(), ecorePackage.getEString(), "id", null, 0, 1, SadSection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSadSection_Kind(), ecorePackage.getEString(), "kind", null, 0, 1, SadSection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 	}
 
 } //SadPackageImpl

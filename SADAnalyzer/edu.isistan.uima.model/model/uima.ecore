@@ -155,10 +155,15 @@
                     eType="#/0/isistan/uima/unified/typesystems/sad/SadSection"/>
                 <eStructuralFeatures xsi:type="ecore:EAttribute" name="templatePath"
                     eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+                <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+                <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+                <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
               </eClassifiers>
               <eClassifiers xsi:type="ecore:EClass" name="SadSection" eSuperTypes="#/0/isistan/uima/unified/typesystems/IdentifiableAnnotation">
                 <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
                 <eStructuralFeatures xsi:type="ecore:EAttribute" name="text" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+                <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+                <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
               </eClassifiers>
             </eSubpackages>
           </eSubpackages>

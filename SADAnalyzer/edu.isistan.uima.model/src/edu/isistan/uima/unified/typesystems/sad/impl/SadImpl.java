@@ -33,6 +33,9 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  * <ul>
  *   <li>{@link edu.isistan.uima.unified.typesystems.sad.impl.SadImpl#getSections <em>Sections</em>}</li>
  *   <li>{@link edu.isistan.uima.unified.typesystems.sad.impl.SadImpl#getTemplatePath <em>Template Path</em>}</li>
+ *   <li>{@link edu.isistan.uima.unified.typesystems.sad.impl.SadImpl#getId <em>Id</em>}</li>
+ *   <li>{@link edu.isistan.uima.unified.typesystems.sad.impl.SadImpl#getKind <em>Kind</em>}</li>
+ *   <li>{@link edu.isistan.uima.unified.typesystems.sad.impl.SadImpl#getName <em>Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -68,6 +71,66 @@ public class SadImpl extends IdentifiableAnnotationImpl implements Sad {
 	 * @ordered
 	 */
 	protected String templatePath = TEMPLATE_PATH_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getId()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String ID_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getId() <em>Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getId()
+	 * @generated
+	 * @ordered
+	 */
+	protected String id = ID_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getKind() <em>Kind</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getKind()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String KIND_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getKind() <em>Kind</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getKind()
+	 * @generated
+	 * @ordered
+	 */
+	protected String kind = KIND_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String name = NAME_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -126,6 +189,69 @@ public class SadImpl extends IdentifiableAnnotationImpl implements Sad {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getId() {
+		return id;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setId(String newId) {
+		String oldId = id;
+		id = newId;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, SadPackage.SAD__ID, oldId, id));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getKind() {
+		return kind;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setKind(String newKind) {
+		String oldKind = kind;
+		kind = newKind;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, SadPackage.SAD__KIND, oldKind, kind));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setName(String newName) {
+		String oldName = name;
+		name = newName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, SadPackage.SAD__NAME, oldName, name));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -133,6 +259,12 @@ public class SadImpl extends IdentifiableAnnotationImpl implements Sad {
 				return getSections();
 			case SadPackage.SAD__TEMPLATE_PATH:
 				return getTemplatePath();
+			case SadPackage.SAD__ID:
+				return getId();
+			case SadPackage.SAD__KIND:
+				return getKind();
+			case SadPackage.SAD__NAME:
+				return getName();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -153,6 +285,15 @@ public class SadImpl extends IdentifiableAnnotationImpl implements Sad {
 			case SadPackage.SAD__TEMPLATE_PATH:
 				setTemplatePath((String)newValue);
 				return;
+			case SadPackage.SAD__ID:
+				setId((String)newValue);
+				return;
+			case SadPackage.SAD__KIND:
+				setKind((String)newValue);
+				return;
+			case SadPackage.SAD__NAME:
+				setName((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -171,6 +312,15 @@ public class SadImpl extends IdentifiableAnnotationImpl implements Sad {
 			case SadPackage.SAD__TEMPLATE_PATH:
 				setTemplatePath(TEMPLATE_PATH_EDEFAULT);
 				return;
+			case SadPackage.SAD__ID:
+				setId(ID_EDEFAULT);
+				return;
+			case SadPackage.SAD__KIND:
+				setKind(KIND_EDEFAULT);
+				return;
+			case SadPackage.SAD__NAME:
+				setName(NAME_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -187,6 +337,12 @@ public class SadImpl extends IdentifiableAnnotationImpl implements Sad {
 				return sections != null && !sections.isEmpty();
 			case SadPackage.SAD__TEMPLATE_PATH:
 				return TEMPLATE_PATH_EDEFAULT == null ? templatePath != null : !TEMPLATE_PATH_EDEFAULT.equals(templatePath);
+			case SadPackage.SAD__ID:
+				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
+			case SadPackage.SAD__KIND:
+				return KIND_EDEFAULT == null ? kind != null : !KIND_EDEFAULT.equals(kind);
+			case SadPackage.SAD__NAME:
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -203,6 +359,12 @@ public class SadImpl extends IdentifiableAnnotationImpl implements Sad {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (templatePath: ");
 		result.append(templatePath);
+		result.append(", id: ");
+		result.append(id);
+		result.append(", kind: ");
+		result.append(kind);
+		result.append(", name: ");
+		result.append(name);
 		result.append(')');
 		return result.toString();
 	}
