@@ -26,6 +26,8 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <ul>
  *   <li>{@link edu.isistan.uima.unified.typesystems.sad.impl.SadSectionImpl#getName <em>Name</em>}</li>
  *   <li>{@link edu.isistan.uima.unified.typesystems.sad.impl.SadSectionImpl#getText <em>Text</em>}</li>
+ *   <li>{@link edu.isistan.uima.unified.typesystems.sad.impl.SadSectionImpl#getId <em>Id</em>}</li>
+ *   <li>{@link edu.isistan.uima.unified.typesystems.sad.impl.SadSectionImpl#getKind <em>Kind</em>}</li>
  * </ul>
  * </p>
  *
@@ -71,6 +73,46 @@ public class SadSectionImpl extends IdentifiableAnnotationImpl implements SadSec
 	 * @ordered
 	 */
 	protected String text = TEXT_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getId()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String ID_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getId() <em>Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getId()
+	 * @generated
+	 * @ordered
+	 */
+	protected String id = ID_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getKind() <em>Kind</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getKind()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String KIND_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getKind() <em>Kind</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getKind()
+	 * @generated
+	 * @ordered
+	 */
+	protected String kind = KIND_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -138,6 +180,48 @@ public class SadSectionImpl extends IdentifiableAnnotationImpl implements SadSec
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getId() {
+		return id;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setId(String newId) {
+		String oldId = id;
+		id = newId;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, SadPackage.SAD_SECTION__ID, oldId, id));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getKind() {
+		return kind;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setKind(String newKind) {
+		String oldKind = kind;
+		kind = newKind;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, SadPackage.SAD_SECTION__KIND, oldKind, kind));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -145,6 +229,10 @@ public class SadSectionImpl extends IdentifiableAnnotationImpl implements SadSec
 				return getName();
 			case SadPackage.SAD_SECTION__TEXT:
 				return getText();
+			case SadPackage.SAD_SECTION__ID:
+				return getId();
+			case SadPackage.SAD_SECTION__KIND:
+				return getKind();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -162,6 +250,12 @@ public class SadSectionImpl extends IdentifiableAnnotationImpl implements SadSec
 				return;
 			case SadPackage.SAD_SECTION__TEXT:
 				setText((String)newValue);
+				return;
+			case SadPackage.SAD_SECTION__ID:
+				setId((String)newValue);
+				return;
+			case SadPackage.SAD_SECTION__KIND:
+				setKind((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -181,6 +275,12 @@ public class SadSectionImpl extends IdentifiableAnnotationImpl implements SadSec
 			case SadPackage.SAD_SECTION__TEXT:
 				setText(TEXT_EDEFAULT);
 				return;
+			case SadPackage.SAD_SECTION__ID:
+				setId(ID_EDEFAULT);
+				return;
+			case SadPackage.SAD_SECTION__KIND:
+				setKind(KIND_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -197,6 +297,10 @@ public class SadSectionImpl extends IdentifiableAnnotationImpl implements SadSec
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case SadPackage.SAD_SECTION__TEXT:
 				return TEXT_EDEFAULT == null ? text != null : !TEXT_EDEFAULT.equals(text);
+			case SadPackage.SAD_SECTION__ID:
+				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
+			case SadPackage.SAD_SECTION__KIND:
+				return KIND_EDEFAULT == null ? kind != null : !KIND_EDEFAULT.equals(kind);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -208,16 +312,19 @@ public class SadSectionImpl extends IdentifiableAnnotationImpl implements SadSec
 	 */
 	@Override
 	public String toString() {
-//		if (eIsProxy()) return super.toString();
-//
-//		StringBuffer result = new StringBuffer(super.toString());
-//		result.append(" (name: ");
-//		result.append(name);
-//		result.append(", text: ");
-//		result.append(text);
-//		result.append(')');
-//		return result.toString();
-		return this.getName();
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (name: ");
+		result.append(name);
+		result.append(", text: ");
+		result.append(text);
+		result.append(", id: ");
+		result.append(id);
+		result.append(", kind: ");
+		result.append(kind);
+		result.append(')');
+		return result.toString();
 	}
 
 } //SadSectionImpl
