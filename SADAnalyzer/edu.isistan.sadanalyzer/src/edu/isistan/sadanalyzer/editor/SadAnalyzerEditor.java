@@ -5,10 +5,14 @@ import java.util.EventObject;
 import java.util.HashMap;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.common.CommonPlugin;
 import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.command.CommandStackListener;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -25,6 +29,7 @@ import org.eclipse.ui.forms.editor.FormEditor;
 import org.eclipse.ui.forms.editor.FormPage;
 
 import SadModel.Sad;
+import edu.isistan.reassistant.ccdetector.model.CrosscuttingConcernRule;
 import edu.isistan.reassistant.ccdetector.model.CrosscuttingConcernRuleSet;
 import edu.isistan.sadanalyzer.CCDetector;
 import edu.isistan.sadanalyzer.model.SadAnalyzerProject;
@@ -178,10 +183,23 @@ public class SadAnalyzerEditor extends FormEditor implements IEditingDomainProvi
 		catch (Exception e) {
 			resource = resourceSet.getResource(fileURI, true);
 		}
-		uimaRoot = new UIMASADQueryAdapter(resource.getContents());
+//		uimaRoot = new UIMASADQueryAdapter(resource.getContents());
 		
-	
-		QueryEngine engine = new QueryEngine(CommonPlugin.resolve(fileURI).toFileString());
+		
+		URI platformURI = URI.createFileURI(modelRoot.getUimaURI());
+		final String modelUIMA = CommonPlugin.resolve(platformURI).toFileString();
+		QueryEngine engine = new QueryEngine(modelUIMA);
+		
+		engine.beginQueriesExecution(new NullProgressMonitor());
+//		try {
+//			EMap<CrosscuttingConcernRule, EList<EObject>> directRuleResults = engine.queryDirectRules();
+//			EMap<CrosscuttingConcernRule, EList<EObject>> impactRuleResults = engine.queryImpactRules();
+//		
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		engine.endQueriesExecution(null);
 	}
 	
 	private void createSadModel() {
