@@ -8,18 +8,26 @@ package edu.isistan.sadanalyzer.model.impl;
 
 import SadModel.SadModelPackage;
 
+import edu.isistan.sadanalyzer.model.CompositionRules;
+import edu.isistan.sadanalyzer.model.CrosscuttingConcern;
 import edu.isistan.sadanalyzer.model.Identifiable;
+import edu.isistan.sadanalyzer.model.Impact;
 import edu.isistan.sadanalyzer.model.Nameable;
 import edu.isistan.sadanalyzer.model.SadAnalyzerModelFactory;
 import edu.isistan.sadanalyzer.model.SadAnalyzerModelPackage;
 import edu.isistan.sadanalyzer.model.SadAnalyzerProject;
 
+import edu.isistan.uima.unified.typesystems.TypesystemsPackage;
+import edu.isistan.uima.unified.typesystems.nlp.NLPPackage;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
+import uima.cas.CasPackage;
+import uima.tcas.TCasPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -48,6 +56,27 @@ public class SadAnalyzerModelPackageImpl extends EPackageImpl implements SadAnal
 	 * @generated
 	 */
 	private EClass sadAnalyzerProjectEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass crosscuttingConcernEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass impactEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum compositionRulesEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -97,6 +126,9 @@ public class SadAnalyzerModelPackageImpl extends EPackageImpl implements SadAnal
 
 		// Initialize simple dependencies
 		SadModelPackage.eINSTANCE.eClass();
+		TypesystemsPackage.eINSTANCE.eClass();
+		CasPackage.eINSTANCE.eClass();
+		TCasPackage.eINSTANCE.eClass();
 
 		// Create package meta-data objects
 		theSadAnalyzerModelPackage.createPackageContents();
@@ -172,6 +204,114 @@ public class SadAnalyzerModelPackageImpl extends EPackageImpl implements SadAnal
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getSadAnalyzerProject_CrosscuttingConcerns() {
+		return (EReference)sadAnalyzerProjectEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getCrosscuttingConcern() {
+		return crosscuttingConcernEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getCrosscuttingConcern_Description() {
+		return (EAttribute)crosscuttingConcernEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getCrosscuttingConcern_Impacts() {
+		return (EReference)crosscuttingConcernEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getCrosscuttingConcern_Sads() {
+		return (EReference)crosscuttingConcernEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getImpact() {
+		return impactEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getImpact_Realization() {
+		return (EAttribute)impactEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getImpact_Section() {
+		return (EReference)impactEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getImpact_Sad() {
+		return (EReference)impactEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getImpact_Sentence() {
+		return (EReference)impactEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getImpact_CompositionRules() {
+		return (EAttribute)impactEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getCompositionRules() {
+		return compositionRulesEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public SadAnalyzerModelFactory getSadAnalyzerModelFactory() {
 		return (SadAnalyzerModelFactory)getEFactoryInstance();
 	}
@@ -203,6 +343,22 @@ public class SadAnalyzerModelPackageImpl extends EPackageImpl implements SadAnal
 		createEReference(sadAnalyzerProjectEClass, SAD_ANALYZER_PROJECT__SAD);
 		createEAttribute(sadAnalyzerProjectEClass, SAD_ANALYZER_PROJECT__SAD_URI);
 		createEAttribute(sadAnalyzerProjectEClass, SAD_ANALYZER_PROJECT__UIMA_URI);
+		createEReference(sadAnalyzerProjectEClass, SAD_ANALYZER_PROJECT__CROSSCUTTING_CONCERNS);
+
+		crosscuttingConcernEClass = createEClass(CROSSCUTTING_CONCERN);
+		createEAttribute(crosscuttingConcernEClass, CROSSCUTTING_CONCERN__DESCRIPTION);
+		createEReference(crosscuttingConcernEClass, CROSSCUTTING_CONCERN__IMPACTS);
+		createEReference(crosscuttingConcernEClass, CROSSCUTTING_CONCERN__SADS);
+
+		impactEClass = createEClass(IMPACT);
+		createEAttribute(impactEClass, IMPACT__REALIZATION);
+		createEReference(impactEClass, IMPACT__SECTION);
+		createEReference(impactEClass, IMPACT__SAD);
+		createEReference(impactEClass, IMPACT__SENTENCE);
+		createEAttribute(impactEClass, IMPACT__COMPOSITION_RULES);
+
+		// Create enums
+		compositionRulesEEnum = createEEnum(COMPOSITION_RULES);
 	}
 
 	/**
@@ -230,6 +386,7 @@ public class SadAnalyzerModelPackageImpl extends EPackageImpl implements SadAnal
 
 		// Obtain other dependent packages
 		SadModelPackage theSadModelPackage = (SadModelPackage)EPackage.Registry.INSTANCE.getEPackage(SadModelPackage.eNS_URI);
+		NLPPackage theNLPPackage = (NLPPackage)EPackage.Registry.INSTANCE.getEPackage(NLPPackage.eNS_URI);
 
 		// Create type parameters
 
@@ -238,6 +395,9 @@ public class SadAnalyzerModelPackageImpl extends EPackageImpl implements SadAnal
 		// Add supertypes to classes
 		sadAnalyzerProjectEClass.getESuperTypes().add(this.getIdentifiable());
 		sadAnalyzerProjectEClass.getESuperTypes().add(this.getNameable());
+		crosscuttingConcernEClass.getESuperTypes().add(this.getIdentifiable());
+		crosscuttingConcernEClass.getESuperTypes().add(this.getNameable());
+		impactEClass.getESuperTypes().add(this.getIdentifiable());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(identifiableEClass, Identifiable.class, "Identifiable", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -248,6 +408,25 @@ public class SadAnalyzerModelPackageImpl extends EPackageImpl implements SadAnal
 		initEReference(getSadAnalyzerProject_Sad(), theSadModelPackage.getSad(), null, "sad", null, 0, 1, SadAnalyzerProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSadAnalyzerProject_SadURI(), ecorePackage.getEString(), "sadURI", null, 0, 1, SadAnalyzerProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSadAnalyzerProject_UimaURI(), ecorePackage.getEString(), "uimaURI", null, 0, 1, SadAnalyzerProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getSadAnalyzerProject_CrosscuttingConcerns(), this.getCrosscuttingConcern(), null, "CrosscuttingConcerns", null, 0, -1, SadAnalyzerProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(crosscuttingConcernEClass, CrosscuttingConcern.class, "CrosscuttingConcern", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getCrosscuttingConcern_Description(), ecorePackage.getEString(), "Description", null, 0, 1, CrosscuttingConcern.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getCrosscuttingConcern_Impacts(), this.getImpact(), null, "Impacts", null, 0, -1, CrosscuttingConcern.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getCrosscuttingConcern_Sads(), theSadModelPackage.getSad(), null, "sads", null, 0, -1, CrosscuttingConcern.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(impactEClass, Impact.class, "Impact", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getImpact_Realization(), ecorePackage.getEString(), "Realization", null, 0, 1, Impact.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getImpact_Section(), theSadModelPackage.getSadSection(), null, "section", null, 0, 1, Impact.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getImpact_Sad(), theSadModelPackage.getSad(), null, "sad", null, 0, 1, Impact.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getImpact_Sentence(), theNLPPackage.getSentence(), null, "sentence", null, 0, 1, Impact.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getImpact_CompositionRules(), this.getCompositionRules(), "CompositionRules", null, 0, 1, Impact.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		// Initialize enums and add enum literals
+		initEEnum(compositionRulesEEnum, CompositionRules.class, "CompositionRules");
+		addEEnumLiteral(compositionRulesEEnum, CompositionRules.WRAP);
+		addEEnumLiteral(compositionRulesEEnum, CompositionRules.OVERLAP);
+		addEEnumLiteral(compositionRulesEEnum, CompositionRules.OVERRIDE);
 
 		// Create resource
 		createResource(eNS_URI);

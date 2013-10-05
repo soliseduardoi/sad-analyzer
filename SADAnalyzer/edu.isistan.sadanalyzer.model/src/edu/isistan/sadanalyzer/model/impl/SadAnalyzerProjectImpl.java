@@ -8,15 +8,19 @@ package edu.isistan.sadanalyzer.model.impl;
 
 import SadModel.Sad;
 
+import edu.isistan.sadanalyzer.model.CrosscuttingConcern;
 import edu.isistan.sadanalyzer.model.SadAnalyzerModelPackage;
 import edu.isistan.sadanalyzer.model.SadAnalyzerProject;
 
+import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -28,6 +32,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *   <li>{@link edu.isistan.sadanalyzer.model.impl.SadAnalyzerProjectImpl#getSad <em>Sad</em>}</li>
  *   <li>{@link edu.isistan.sadanalyzer.model.impl.SadAnalyzerProjectImpl#getSadURI <em>Sad URI</em>}</li>
  *   <li>{@link edu.isistan.sadanalyzer.model.impl.SadAnalyzerProjectImpl#getUimaURI <em>Uima URI</em>}</li>
+ *   <li>{@link edu.isistan.sadanalyzer.model.impl.SadAnalyzerProjectImpl#getCrosscuttingConcerns <em>Crosscutting Concerns</em>}</li>
  * </ul>
  * </p>
  *
@@ -83,6 +88,16 @@ public class SadAnalyzerProjectImpl extends IdentifiableImpl implements SadAnaly
 	 * @ordered
 	 */
 	protected String uimaURI = UIMA_URI_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getCrosscuttingConcerns() <em>Crosscutting Concerns</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCrosscuttingConcerns()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<CrosscuttingConcern> crosscuttingConcerns;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -188,6 +203,18 @@ public class SadAnalyzerProjectImpl extends IdentifiableImpl implements SadAnaly
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<CrosscuttingConcern> getCrosscuttingConcerns() {
+		if (crosscuttingConcerns == null) {
+			crosscuttingConcerns = new EObjectResolvingEList<CrosscuttingConcern>(CrosscuttingConcern.class, this, SadAnalyzerModelPackage.SAD_ANALYZER_PROJECT__CROSSCUTTING_CONCERNS);
+		}
+		return crosscuttingConcerns;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -198,6 +225,8 @@ public class SadAnalyzerProjectImpl extends IdentifiableImpl implements SadAnaly
 				return getSadURI();
 			case SadAnalyzerModelPackage.SAD_ANALYZER_PROJECT__UIMA_URI:
 				return getUimaURI();
+			case SadAnalyzerModelPackage.SAD_ANALYZER_PROJECT__CROSSCUTTING_CONCERNS:
+				return getCrosscuttingConcerns();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -207,6 +236,7 @@ public class SadAnalyzerProjectImpl extends IdentifiableImpl implements SadAnaly
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -218,6 +248,10 @@ public class SadAnalyzerProjectImpl extends IdentifiableImpl implements SadAnaly
 				return;
 			case SadAnalyzerModelPackage.SAD_ANALYZER_PROJECT__UIMA_URI:
 				setUimaURI((String)newValue);
+				return;
+			case SadAnalyzerModelPackage.SAD_ANALYZER_PROJECT__CROSSCUTTING_CONCERNS:
+				getCrosscuttingConcerns().clear();
+				getCrosscuttingConcerns().addAll((Collection<? extends CrosscuttingConcern>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -240,6 +274,9 @@ public class SadAnalyzerProjectImpl extends IdentifiableImpl implements SadAnaly
 			case SadAnalyzerModelPackage.SAD_ANALYZER_PROJECT__UIMA_URI:
 				setUimaURI(UIMA_URI_EDEFAULT);
 				return;
+			case SadAnalyzerModelPackage.SAD_ANALYZER_PROJECT__CROSSCUTTING_CONCERNS:
+				getCrosscuttingConcerns().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -258,6 +295,8 @@ public class SadAnalyzerProjectImpl extends IdentifiableImpl implements SadAnaly
 				return SAD_URI_EDEFAULT == null ? sadURI != null : !SAD_URI_EDEFAULT.equals(sadURI);
 			case SadAnalyzerModelPackage.SAD_ANALYZER_PROJECT__UIMA_URI:
 				return UIMA_URI_EDEFAULT == null ? uimaURI != null : !UIMA_URI_EDEFAULT.equals(uimaURI);
+			case SadAnalyzerModelPackage.SAD_ANALYZER_PROJECT__CROSSCUTTING_CONCERNS:
+				return crosscuttingConcerns != null && !crosscuttingConcerns.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

@@ -84,6 +84,14 @@ public class SadAnalyzerModelAdapterFactory extends AdapterFactoryImpl {
 				return createSadAnalyzerProjectAdapter();
 			}
 			@Override
+			public Adapter caseCrosscuttingConcern(CrosscuttingConcern object) {
+				return createCrosscuttingConcernAdapter();
+			}
+			@Override
+			public Adapter caseImpact(Impact object) {
+				return createImpactAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -142,6 +150,34 @@ public class SadAnalyzerModelAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createSadAnalyzerProjectAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link edu.isistan.sadanalyzer.model.CrosscuttingConcern <em>Crosscutting Concern</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see edu.isistan.sadanalyzer.model.CrosscuttingConcern
+	 * @generated
+	 */
+	public Adapter createCrosscuttingConcernAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link edu.isistan.sadanalyzer.model.Impact <em>Impact</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see edu.isistan.sadanalyzer.model.Impact
+	 * @generated
+	 */
+	public Adapter createImpactAdapter() {
 		return null;
 	}
 

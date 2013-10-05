@@ -7,6 +7,7 @@
 package edu.isistan.sadanalyzer.model;
 
 import SadModel.Sad;
+import org.eclipse.emf.common.util.EList;
 
 /**
  * <!-- begin-user-doc -->
@@ -19,6 +20,7 @@ import SadModel.Sad;
  *   <li>{@link edu.isistan.sadanalyzer.model.SadAnalyzerProject#getSad <em>Sad</em>}</li>
  *   <li>{@link edu.isistan.sadanalyzer.model.SadAnalyzerProject#getSadURI <em>Sad URI</em>}</li>
  *   <li>{@link edu.isistan.sadanalyzer.model.SadAnalyzerProject#getUimaURI <em>Uima URI</em>}</li>
+ *   <li>{@link edu.isistan.sadanalyzer.model.SadAnalyzerProject#getCrosscuttingConcerns <em>Crosscutting Concerns</em>}</li>
  * </ul>
  * </p>
  *
@@ -104,5 +106,21 @@ public interface SadAnalyzerProject extends Identifiable, Nameable {
 	 * @generated
 	 */
 	void setUimaURI(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Crosscutting Concerns</b></em>' reference list.
+	 * The list contents are of type {@link edu.isistan.sadanalyzer.model.CrosscuttingConcern}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Crosscutting Concerns</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Crosscutting Concerns</em>' reference list.
+	 * @see edu.isistan.sadanalyzer.model.SadAnalyzerModelPackage#getSadAnalyzerProject_CrosscuttingConcerns()
+	 * @model
+	 * @generated
+	 */
+	EList<CrosscuttingConcern> getCrosscuttingConcerns();
 
 } // SadAnalyzerProject

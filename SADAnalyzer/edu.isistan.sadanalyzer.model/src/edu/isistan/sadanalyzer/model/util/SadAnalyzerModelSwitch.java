@@ -90,6 +90,21 @@ public class SadAnalyzerModelSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case SadAnalyzerModelPackage.CROSSCUTTING_CONCERN: {
+				CrosscuttingConcern crosscuttingConcern = (CrosscuttingConcern)theEObject;
+				T result = caseCrosscuttingConcern(crosscuttingConcern);
+				if (result == null) result = caseIdentifiable(crosscuttingConcern);
+				if (result == null) result = caseNameable(crosscuttingConcern);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case SadAnalyzerModelPackage.IMPACT: {
+				Impact impact = (Impact)theEObject;
+				T result = caseImpact(impact);
+				if (result == null) result = caseIdentifiable(impact);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -136,6 +151,36 @@ public class SadAnalyzerModelSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseSadAnalyzerProject(SadAnalyzerProject object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Crosscutting Concern</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Crosscutting Concern</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseCrosscuttingConcern(CrosscuttingConcern object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Impact</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Impact</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseImpact(Impact object) {
 		return null;
 	}
 

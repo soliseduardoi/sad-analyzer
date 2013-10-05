@@ -35,6 +35,24 @@ public interface SadAnalyzerModelFactory extends EFactory {
 	SadAnalyzerProject createSadAnalyzerProject();
 
 	/**
+	 * Returns a new object of class '<em>Crosscutting Concern</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Crosscutting Concern</em>'.
+	 * @generated
+	 */
+	CrosscuttingConcern createCrosscuttingConcern();
+
+	/**
+	 * Returns a new object of class '<em>Impact</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Impact</em>'.
+	 * @generated
+	 */
+	Impact createImpact();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
