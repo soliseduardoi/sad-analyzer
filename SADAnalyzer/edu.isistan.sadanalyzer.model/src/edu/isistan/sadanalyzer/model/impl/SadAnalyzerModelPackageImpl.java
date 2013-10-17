@@ -249,6 +249,15 @@ public class SadAnalyzerModelPackageImpl extends EPackageImpl implements SadAnal
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getCrosscuttingConcern_Name() {
+		return (EAttribute)crosscuttingConcernEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getImpact() {
 		return impactEClass;
 	}
@@ -349,6 +358,7 @@ public class SadAnalyzerModelPackageImpl extends EPackageImpl implements SadAnal
 		createEAttribute(crosscuttingConcernEClass, CROSSCUTTING_CONCERN__DESCRIPTION);
 		createEReference(crosscuttingConcernEClass, CROSSCUTTING_CONCERN__IMPACTS);
 		createEReference(crosscuttingConcernEClass, CROSSCUTTING_CONCERN__SADS);
+		createEAttribute(crosscuttingConcernEClass, CROSSCUTTING_CONCERN__NAME);
 
 		impactEClass = createEClass(IMPACT);
 		createEAttribute(impactEClass, IMPACT__REALIZATION);
@@ -414,6 +424,7 @@ public class SadAnalyzerModelPackageImpl extends EPackageImpl implements SadAnal
 		initEAttribute(getCrosscuttingConcern_Description(), ecorePackage.getEString(), "Description", null, 0, 1, CrosscuttingConcern.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getCrosscuttingConcern_Impacts(), this.getImpact(), null, "Impacts", null, 0, -1, CrosscuttingConcern.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getCrosscuttingConcern_Sads(), theSadModelPackage.getSad(), null, "sads", null, 0, -1, CrosscuttingConcern.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCrosscuttingConcern_Name(), ecorePackage.getEString(), "name", null, 0, 1, CrosscuttingConcern.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(impactEClass, Impact.class, "Impact", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getImpact_Realization(), ecorePackage.getEString(), "Realization", null, 0, 1, Impact.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

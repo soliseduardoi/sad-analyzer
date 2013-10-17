@@ -34,6 +34,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  *   <li>{@link edu.isistan.sadanalyzer.model.impl.CrosscuttingConcernImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link edu.isistan.sadanalyzer.model.impl.CrosscuttingConcernImpl#getImpacts <em>Impacts</em>}</li>
  *   <li>{@link edu.isistan.sadanalyzer.model.impl.CrosscuttingConcernImpl#getSads <em>Sads</em>}</li>
+ *   <li>{@link edu.isistan.sadanalyzer.model.impl.CrosscuttingConcernImpl#getName <em>Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -79,6 +80,26 @@ public class CrosscuttingConcernImpl extends IdentifiableImpl implements Crosscu
 	 * @ordered
 	 */
 	protected EList<Sad> sads;
+
+	/**
+	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String name = NAME_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -149,6 +170,27 @@ public class CrosscuttingConcernImpl extends IdentifiableImpl implements Crosscu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setName(String newName) {
+		String oldName = name;
+		name = newName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, SadAnalyzerModelPackage.CROSSCUTTING_CONCERN__NAME, oldName, name));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -158,6 +200,8 @@ public class CrosscuttingConcernImpl extends IdentifiableImpl implements Crosscu
 				return getImpacts();
 			case SadAnalyzerModelPackage.CROSSCUTTING_CONCERN__SADS:
 				return getSads();
+			case SadAnalyzerModelPackage.CROSSCUTTING_CONCERN__NAME:
+				return getName();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -182,6 +226,9 @@ public class CrosscuttingConcernImpl extends IdentifiableImpl implements Crosscu
 				getSads().clear();
 				getSads().addAll((Collection<? extends Sad>)newValue);
 				return;
+			case SadAnalyzerModelPackage.CROSSCUTTING_CONCERN__NAME:
+				setName((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -203,6 +250,9 @@ public class CrosscuttingConcernImpl extends IdentifiableImpl implements Crosscu
 			case SadAnalyzerModelPackage.CROSSCUTTING_CONCERN__SADS:
 				getSads().clear();
 				return;
+			case SadAnalyzerModelPackage.CROSSCUTTING_CONCERN__NAME:
+				setName(NAME_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -221,6 +271,8 @@ public class CrosscuttingConcernImpl extends IdentifiableImpl implements Crosscu
 				return impacts != null && !impacts.isEmpty();
 			case SadAnalyzerModelPackage.CROSSCUTTING_CONCERN__SADS:
 				return sads != null && !sads.isEmpty();
+			case SadAnalyzerModelPackage.CROSSCUTTING_CONCERN__NAME:
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -237,6 +289,8 @@ public class CrosscuttingConcernImpl extends IdentifiableImpl implements Crosscu
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (Description: ");
 		result.append(description);
+		result.append(", name: ");
+		result.append(name);
 		result.append(')');
 		return result.toString();
 	}

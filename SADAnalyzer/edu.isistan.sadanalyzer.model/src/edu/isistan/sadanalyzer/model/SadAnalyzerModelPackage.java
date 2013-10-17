@@ -192,13 +192,22 @@ public interface SadAnalyzerModelPackage extends EPackage {
 	int CROSSCUTTING_CONCERN__SADS = IDENTIFIABLE_FEATURE_COUNT + 2;
 
 	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CROSSCUTTING_CONCERN__NAME = IDENTIFIABLE_FEATURE_COUNT + 3;
+
+	/**
 	 * The number of structural features of the '<em>Crosscutting Concern</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CROSSCUTTING_CONCERN_FEATURE_COUNT = IDENTIFIABLE_FEATURE_COUNT + 3;
+	int CROSSCUTTING_CONCERN_FEATURE_COUNT = IDENTIFIABLE_FEATURE_COUNT + 4;
 
 	/**
 	 * The meta object id for the '{@link edu.isistan.sadanalyzer.model.impl.ImpactImpl <em>Impact</em>}' class.
@@ -393,6 +402,17 @@ public interface SadAnalyzerModelPackage extends EPackage {
 	EReference getCrosscuttingConcern_Sads();
 
 	/**
+	 * Returns the meta object for the attribute '{@link edu.isistan.sadanalyzer.model.CrosscuttingConcern#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see edu.isistan.sadanalyzer.model.CrosscuttingConcern#getName()
+	 * @see #getCrosscuttingConcern()
+	 * @generated
+	 */
+	EAttribute getCrosscuttingConcern_Name();
+
+	/**
 	 * Returns the meta object for class '{@link edu.isistan.sadanalyzer.model.Impact <em>Impact</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -584,6 +604,14 @@ public interface SadAnalyzerModelPackage extends EPackage {
 		 * @generated
 		 */
 		EReference CROSSCUTTING_CONCERN__SADS = eINSTANCE.getCrosscuttingConcern_Sads();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CROSSCUTTING_CONCERN__NAME = eINSTANCE.getCrosscuttingConcern_Name();
 
 		/**
 		 * The meta object literal for the '{@link edu.isistan.sadanalyzer.model.impl.ImpactImpl <em>Impact</em>}' class.

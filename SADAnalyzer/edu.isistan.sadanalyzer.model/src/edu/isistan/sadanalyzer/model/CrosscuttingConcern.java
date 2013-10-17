@@ -21,6 +21,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link edu.isistan.sadanalyzer.model.CrosscuttingConcern#getDescription <em>Description</em>}</li>
  *   <li>{@link edu.isistan.sadanalyzer.model.CrosscuttingConcern#getImpacts <em>Impacts</em>}</li>
  *   <li>{@link edu.isistan.sadanalyzer.model.CrosscuttingConcern#getSads <em>Sads</em>}</li>
+ *   <li>{@link edu.isistan.sadanalyzer.model.CrosscuttingConcern#getName <em>Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -86,5 +87,31 @@ public interface CrosscuttingConcern extends Identifiable, Nameable {
 	 * @generated
 	 */
 	EList<Sad> getSads();
+
+	/**
+	 * Returns the value of the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Name</em>' attribute.
+	 * @see #setName(String)
+	 * @see edu.isistan.sadanalyzer.model.SadAnalyzerModelPackage#getCrosscuttingConcern_Name()
+	 * @model
+	 * @generated
+	 */
+	String getName();
+
+	/**
+	 * Sets the value of the '{@link edu.isistan.sadanalyzer.model.CrosscuttingConcern#getName <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Name</em>' attribute.
+	 * @see #getName()
+	 * @generated
+	 */
+	void setName(String value);
 
 } // CrosscuttingConcern
