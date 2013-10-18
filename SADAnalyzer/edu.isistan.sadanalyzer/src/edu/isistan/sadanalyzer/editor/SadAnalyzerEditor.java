@@ -34,6 +34,7 @@ import edu.isistan.reassistant.ccdetector.model.CrosscuttingConcernRuleSet;
 import edu.isistan.sadanalyzer.CCDetector;
 import edu.isistan.sadanalyzer.model.SadAnalyzerProject;
 import edu.isistan.sadanalyzer.pages.SadAnalyzerSetUpPage;
+import edu.isistan.sadanalyzer.pages.SadAnalyzerViewerPage;
 import edu.isistan.sadanalyzer.query.QueryEngine;
 import edu.isistan.sadanalyzer.query.UIMASADQueryAdapter;
 
@@ -74,10 +75,9 @@ public class SadAnalyzerEditor extends FormEditor implements IEditingDomainProvi
 		
 		int index;
 		try {
-			FormPage SadAnalyzerSetUpPage = new SadAnalyzerSetUpPage(this);
-			index = addPage(SadAnalyzerSetUpPage);
+			FormPage sadAnalyzerSetUpPage = new SadAnalyzerSetUpPage(this);
+			index = addPage(sadAnalyzerSetUpPage);
 			setPageText(index, Messages.SadAnalyzerEditor_Configuration);
-
 			
 		} catch (PartInitException e) {
 			e.printStackTrace();
@@ -183,14 +183,14 @@ public class SadAnalyzerEditor extends FormEditor implements IEditingDomainProvi
 		catch (Exception e) {
 			resource = resourceSet.getResource(fileURI, true);
 		}
-//		uimaRoot = new UIMASADQueryAdapter(resource.getContents());
+		uimaRoot = new UIMASADQueryAdapter(resource.getContents());
 		
 		
-		URI platformURI = URI.createFileURI(modelRoot.getUimaURI());
-		final String modelUIMA = CommonPlugin.resolve(platformURI).toFileString();
-		QueryEngine engine = new QueryEngine(modelUIMA);
+//		URI platformURI = URI.createFileURI(modelRoot.getUimaURI());
+//		final String modelUIMA = CommonPlugin.resolve(platformURI).toFileString();
+//		QueryEngine engine = new QueryEngine(modelUIMA);
 		
-		engine.beginQueriesExecution(new NullProgressMonitor());
+//		engine.beginQueriesExecution(new NullProgressMonitor());
 //		try {
 //			EMap<CrosscuttingConcernRule, EList<EObject>> directRuleResults = engine.queryDirectRules();
 //			EMap<CrosscuttingConcernRule, EList<EObject>> impactRuleResults = engine.queryImpactRules();
@@ -199,7 +199,7 @@ public class SadAnalyzerEditor extends FormEditor implements IEditingDomainProvi
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-		engine.endQueriesExecution(null);
+//		engine.endQueriesExecution(null);
 	}
 	
 	private void createSadModel() {

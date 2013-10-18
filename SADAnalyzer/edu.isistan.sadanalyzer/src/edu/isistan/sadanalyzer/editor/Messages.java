@@ -34,6 +34,10 @@ public class Messages extends NLS {
 	public static String SadAnalyzerSettingsWizard_ImportFile;
 	public static String SadAnalyzerSettingsWizard_Description;
 	public static String SadAnalyzerSettingsWizard_Import;
+	public static String SadAnalyzerEditor_Viewer;
+	public static String SadAnalyzerEditor_ViewerTitle;
+	public static String SadAnalyzerEditor_ViewerDetail;
+	public static String SadAnalyzerEditor_ViewerDetailDescription;
 	
 	static {
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);
