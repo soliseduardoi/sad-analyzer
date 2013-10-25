@@ -55,8 +55,8 @@ public class SadUIMAProcessor {
 //			AnalysisEngine sentenceTokenAE = factory.getStanfordSentenceTokenAA(typeSystemDescription, typePriorities, monitorResource); total++;
 //			// Word Annotators
 			AnalysisEngine stopwordAE = factory.getNLPStopwordAA(typeSystemDescription, typePriorities, monitorResource); total++;
-//			AnalysisEngine stemmerAE = factory.getNLPStemmerAA(typeSystemDescription, typePriorities, monitorResource); total++;
-//			AnalysisEngine lemmaAE = factory.getMateToolsLemmaAA(typeSystemDescription, typePriorities, monitorResource); total++;
+			AnalysisEngine stemmerAE = factory.getNLPStemmerAA(typeSystemDescription, typePriorities, monitorResource); total++;
+			AnalysisEngine lemmaAE = factory.getMateToolsLemmaAA(typeSystemDescription, typePriorities, monitorResource); total++;
 			//AnalysisEngine morphAE = factory.getMateToolsMorphAA(typeSystemDescription, typePriorities, monitorResource); total++;
 			// POS Annotators
 			//AnalysisEngine posAE = factory.getOpenNLPPOSAA(typeSystemDescription, typePriorities, monitorResource); total++;
@@ -98,8 +98,8 @@ public class SadUIMAProcessor {
 					 tokenAE,
 //					sentenceTokenAE, 
 					 stopwordAE,
-//				stemmerAE, 
-//					lemmaAE, 
+				stemmerAE, 
+					lemmaAE, 
 					//morphAE, 
 //					posAE, 
 //					domainNumberAE, domainNumberExlusionAE,
