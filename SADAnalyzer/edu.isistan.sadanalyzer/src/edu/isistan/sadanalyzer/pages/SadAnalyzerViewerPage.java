@@ -1,6 +1,8 @@
 package edu.isistan.sadanalyzer.pages;
 
 
+import org.eclipse.jface.action.Action;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ListViewer;
@@ -14,19 +16,25 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.List;
-import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IEditorSite;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.editor.FormEditor;
 import org.eclipse.ui.forms.editor.FormPage;
 import org.eclipse.ui.forms.events.ExpansionAdapter;
 import org.eclipse.ui.forms.events.ExpansionEvent;
 import org.eclipse.ui.forms.widgets.ColumnLayout;
+import org.eclipse.ui.forms.widgets.FormText;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.Section;
+import org.eclipse.ui.part.EditorPart;
 
 import edu.isistan.sadanalyzer.editor.Messages;
 import edu.isistan.sadanalyzer.editor.SadAnalyzerEditor;
@@ -45,17 +53,22 @@ public class SadAnalyzerViewerPage extends FormPage {
 
 	public static final String ID = "edu.isistan.sadanalyzer.pages.SadAnalyzerViewerPage";
 	public static final String TITLE = Messages.SadAnalyzerEditor_Viewer;
+	public static final String IMAGE_PATH ="../../../../icons";
 	
 	private ListViewer listViewerSectionsSelected;
-	private ListViewer listQualityAttributesSelected;
+	private java.util.List listQualityAttributesSelected;
 	private List attributes;
 	private List sections;
 	private ListViewer listSections;
 	private ListViewer listAttributes;
-	private Text querySourceText;
 	private SadSection sadSection;
 	private CrosscuttingConcern crossCutting;
 	private StyledText styledText;
+	private int occurrences;
+	private Label labelOccurrences;
+	private Label labelImage;
+	private Composite compositeLabel;
+	private FormText formText;
 	
 	private UIMASADQueryAdapter uimaRoot;
 	
@@ -67,10 +80,12 @@ public class SadAnalyzerViewerPage extends FormPage {
 		super(editor, ID, TITLE);
 	}
 	
-	public SadAnalyzerViewerPage(FormEditor editor, ListViewer listViewerSectionsSelected, ListViewer listQualityAttributesSelected) {
+	public SadAnalyzerViewerPage(FormEditor editor, ListViewer listViewerSectionsSelected, java.util.List listQualityAttributesSelected) {
 		super(editor, ID, TITLE);
-		this.listViewerSectionsSelected = listViewerSectionsSelected;		
-		uimaRoot = ((SadAnalyzerEditor)getEditor()).getUimaRoot();
+		this.listViewerSectionsSelected = listViewerSectionsSelected;	
+		this.listQualityAttributesSelected=listQualityAttributesSelected;
+		uimaRoot = ((SadAnalyzerEditor)getEditor()).getUimaRoot();	
+		occurrences = 0;
 	}
 	
 	/**
@@ -93,7 +108,19 @@ public class SadAnalyzerViewerPage extends FormPage {
 		Composite body = form.getBody();
 		FormToolkit toolkit = managedForm.getToolkit();
 		form.setText(Messages.SadAnalyzerEditor_ViewerTitle);
-						
+		
+		Action deleteView = new Action("run", Action.AS_CHECK_BOX){
+			public void run() {
+				deleteView();
+			}
+		};
+		deleteView.setToolTipText("Close View");
+		deleteView.setEnabled(Boolean.TRUE);
+		deleteView.setImageDescriptor(ImageDescriptor.createFromFile(this.getClass(),IMAGE_PATH + "/delete.gif"));
+		
+		form.getToolBarManager().add(deleteView);
+		form.getToolBarManager().update(true);
+					
 		toolkit.decorateFormHeading(form.getForm());
 		toolkit.paintBordersFor(body);
 		
@@ -110,17 +137,56 @@ public class SadAnalyzerViewerPage extends FormPage {
 		toolkit.paintBordersFor(body);
 		managedForm.getForm().getBody().setLayout(layout);
 		viewTextDetail(managedForm, Messages.SadAnalyzerEditor_ViewerDetail, Messages.SadAnalyzerEditor_ViewerDetailDescription);
+		viewMatches(managedForm);
+	}
+	
+	private void deleteView(){
+		IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+		IWorkbenchPage page = window.getActivePage();
+		for(IEditorReference reference : page.getEditorReferences()){
+		  if(reference .getId().equals(SadAnalyzerEditor.ID)){
+		    EditorPart part = (EditorPart) reference.getEditor(true);
+		    SadAnalyzerEditor editor = (SadAnalyzerEditor)part;
+		    editor.removePage(editor.getActivePage());
+		  }
+		}
+		this.dispose();
+	}
+	
+	private void viewMatches(IManagedForm managedForm){
 		
+		FormToolkit toolkit = managedForm.getToolkit();
+		
+		compositeLabel = new Composite(managedForm.getForm().getBody(), SWT.NONE);
+		compositeLabel.setLayout(new FillLayout(SWT.HORIZONTAL));
+		toolkit.adapt(compositeLabel);
+		toolkit.paintBordersFor(compositeLabel);		
+		GridLayout layout = new GridLayout();
+		layout.numColumns = 2;
+		compositeLabel.setLayout(layout);
+		
+		GridData gd = new GridData();
+		gd.widthHint = 15;
+		gd.heightHint = 20;
+		
+		labelImage = toolkit.createLabel(compositeLabel, "");
+		labelImage.setImage(ImageDescriptor.createFromFile(this.getClass(),IMAGE_PATH + "/warning.gif").createImage());
+		labelImage.setVisible(false);
+		labelImage.setLayoutData(gd);
+		
+		GridData gd1 = new GridData();
+		gd1.widthHint = 150;
+		gd1.heightHint = 20;
+		labelOccurrences = toolkit.createLabel(compositeLabel, "");		
+		labelOccurrences.setVisible(false);
+		labelOccurrences.setLayoutData(gd1);
 	}
 	
 	private void viewTextDetail(IManagedForm managedForm, String title, String desc) {
-		Composite client = createSection(managedForm, title, desc, 5);
-	
-		FormToolkit toolkit = managedForm.getToolkit();
+		Composite client = createSection(managedForm, title, desc, 3);
 		
 		listSections = new ListViewer(client, SWT.BORDER | SWT.V_SCROLL);		
 		listSections.setLabelProvider(new SadSectionLabelProvider(uimaRoot));
-		
 				
 		setListViewer(listViewerSectionsSelected, listSections);
 				
@@ -133,20 +199,15 @@ public class SadAnalyzerViewerPage extends FormPage {
 		listAttributes = new ListViewer(client, SWT.BORDER | SWT.V_SCROLL);		
 		listAttributes.setLabelProvider(new CrosscuttingConcernLabelProvider());
 		
-		
-		setListViewer(listQualityAttributesSelected, listAttributes);
+		setListViewerAttribute(listQualityAttributesSelected, listAttributes);
 		
 		attributes = listAttributes.getList();
 		attributes.setLayoutData(gd);
 		
 		gd = new GridData(GridData.VERTICAL_ALIGN_BEGINNING);		
-		
-//		querySourceText = toolkit.createText(client, "", SWT.V_SCROLL);
-//		querySourceText.setEditable(false);
 		gd = new GridData();
 		gd.widthHint = 900;
 		gd.heightHint= 500;
-//		querySourceText.setLayoutData(gd);
 		styledText = new StyledText(client, SWT.BORDER | SWT.READ_ONLY | SWT.WRAP | SWT.V_SCROLL | SWT.MULTI);
 		styledText.setBlockSelection(true);
 		styledText.setLayoutData(gd);
@@ -218,27 +279,53 @@ public class SadAnalyzerViewerPage extends FormPage {
 			list.add(source.getElementAt(i));
 		}
 	}
+	private void setListViewerAttribute(java.util.List source, ListViewer list){
+		for(int i=0; list.getList().getItems().length > 0;){
+			Object o = list.getElementAt(i);
+			list.remove(o);
+		}
+		for(int i = 0; i < source.size(); i++){
+			list.add(source.get(i));
+		}
+	}
 	
-	public void refresh(ListViewer listViewerSectionsSelected, ListViewer listQualityAttributesSelected){
+	public void refresh(ListViewer listViewerSectionsSelected, java.util.List listQualityAttributesSelected){
 		
 		setListViewer(listViewerSectionsSelected, listSections);
-		setListViewer(listQualityAttributesSelected, listAttributes);
+		setListViewerAttribute(listQualityAttributesSelected, listAttributes);
 		styledText.setText("");
 		styledText.update();
 		attributes.update();
 		sections.update();
+		
+		labelImage.setVisible(false);
+		labelOccurrences.setVisible(false);
+		labelOccurrences.update();
+		labelImage.update();
+		compositeLabel.update();
 	}
 	
 	private void viewQueryText(){
-		if(null != sadSection && null != crossCutting){			
+		if(null != sadSection && null != crossCutting){	
+			occurrences = 0;
 			styledText.setText(uimaRoot.getCoveredText(sadSection));
 			for(Impact impact : crossCutting.getImpacts()) {
 				Sentence sentence = impact.getSentence();
-				Color color = new Color(Display.getDefault(),255, 0, 255);
+				Color color = new Color(Display.getDefault(),255, 255, 51);
 				StyleRange newStyleRange = createStyleRange(sentence, color);
 				setStyledRange(newStyleRange);
-			}			
+			}	
+			setOccurrences();		
 		}
+	}
+	
+	private void setOccurrences(){	
+		labelImage.setVisible(true);
+		labelOccurrences.setText(Messages.SadAnalyzerEditor_ViewerOccurences+ ": "+occurrences);
+		labelOccurrences.setVisible(true);
+		labelOccurrences.update();
+		labelImage.update();
+		compositeLabel.update();
 	}
 	
 	private StyleRange createStyleRange(Sentence sentence, Color color) {
@@ -246,31 +333,32 @@ public class SadAnalyzerViewerPage extends FormPage {
 		styleRange.start = sentence.getBegin() - sadSection.getBegin();
 		styleRange.length = sentence.getEnd() - sentence.getBegin();
 		styleRange.fontStyle = SWT.BOLD;
-		//styleRange.foreground = color;
 		styleRange.background = color;
-		//styleRange.underline = true;
-		//styleRange.underlineColor = color;
 		return styleRange;
 	}
 	
 	private void setStyledRange(StyleRange newStyleRange) {
-		StyleRange[] existingStyleRanges = 	styledText.getStyleRanges(newStyleRange.start, newStyleRange.length, true);
-		if(existingStyleRanges != null && existingStyleRanges.length > 0) {
-			int existingStyleRangesSize = existingStyleRanges.length;
-			int increment = newStyleRange.length / (existingStyleRangesSize + 1);
-			int incrementRest = newStyleRange.length % (existingStyleRangesSize + 1);
-			int lastStart = newStyleRange.start;
-			for(int i = 0; i < existingStyleRangesSize; i++) {
-				StyleRange styleRange = existingStyleRanges[i];
-				styleRange.start = lastStart;
-				styleRange.length = increment;
-				lastStart = lastStart + increment;
+		try{			
+			StyleRange[] existingStyleRanges = 	styledText.getStyleRanges(newStyleRange.start, newStyleRange.length, true);			
+			if(existingStyleRanges != null && existingStyleRanges.length > 0) {
+				int existingStyleRangesSize = existingStyleRanges.length;
+				int increment = newStyleRange.length / (existingStyleRangesSize + 1);
+				int incrementRest = newStyleRange.length % (existingStyleRangesSize + 1);
+				int lastStart = newStyleRange.start;
+				for(int i = 0; i < existingStyleRangesSize; i++) {
+					StyleRange styleRange = existingStyleRanges[i];
+					styleRange.start = lastStart;
+					styleRange.length = increment;
+					lastStart = lastStart + increment;
+				}
+				styledText.replaceStyleRanges(newStyleRange.start, newStyleRange.length, existingStyleRanges);
+				newStyleRange.start = lastStart;
+				newStyleRange.length = increment + incrementRest;
+				
 			}
-			styledText.replaceStyleRanges(newStyleRange.start, newStyleRange.length, existingStyleRanges);
-			newStyleRange.start = lastStart;
-			newStyleRange.length = increment + incrementRest;
-		}
-		styledText.setStyleRange(newStyleRange);
+			styledText.setStyleRange(newStyleRange);
+			occurrences = occurrences + 1;
+		}catch(Exception e){}
 	}
 	
 }

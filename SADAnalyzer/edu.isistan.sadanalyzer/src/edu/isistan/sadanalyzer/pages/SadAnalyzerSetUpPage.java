@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.common.CommonPlugin;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.EMap;
@@ -189,7 +190,8 @@ public class SadAnalyzerSetUpPage extends FormPage {
 			URI platformURI = URI.createFileURI(modelRoot.getUimaURI());
 			final String modelUIMA = CommonPlugin.resolve(platformURI).toFileString();
 			QueryEngine engine = new QueryEngine(modelUIMA);
-//			engine.beginQueriesExecution(new NullProgressMonitor());
+			NullProgressMonitor monitor = new NullProgressMonitor();
+			engine.beginQueriesExecution(monitor);
 			//
 			java.util.List<CrosscuttingConcern> crosscuttingConcerns = null;
 			try {
@@ -200,10 +202,10 @@ public class SadAnalyzerSetUpPage extends FormPage {
 				e.printStackTrace();
 			}
 	
-//			engine.endQueriesExecution(null);
+			engine.endQueriesExecution(monitor);
 			
 			if(crosscuttingConcerns != null){			
-				
+								
 				IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 				IWorkbenchPage page = window.getActivePage();
 				for(IEditorReference reference : page.getEditorReferences()){
@@ -212,7 +214,7 @@ public class SadAnalyzerSetUpPage extends FormPage {
 				    SadAnalyzerEditor editor = (SadAnalyzerEditor)part;
 				    SadAnalyzerViewerPage pageView = (SadAnalyzerViewerPage) editor.findPage(SadAnalyzerViewerPage.ID);
 				    if(null == pageView){
-				    	FormPage sdAnalyzerViewerPage = new SadAnalyzerViewerPage(editor, listViewerSectionsSelected,  new ListViewer((Composite) crosscuttingConcerns));			    	
+				    	FormPage sdAnalyzerViewerPage = new SadAnalyzerViewerPage(editor, listViewerSectionsSelected,  crosscuttingConcerns);			    	
 						try {
 							editor.addPage(sdAnalyzerViewerPage);						
 						} catch (PartInitException p) {
@@ -220,8 +222,9 @@ public class SadAnalyzerSetUpPage extends FormPage {
 							p.printStackTrace();
 						}
 				    }else{
-				    	pageView.refresh(listViewerSectionsSelected, new ListViewer((Composite) crosscuttingConcerns));
+				    	pageView.refresh(listViewerSectionsSelected, crosscuttingConcerns);
 				    }
+				    editor.setActivePage(SadAnalyzerViewerPage.ID);
 				  }
 				}
 			}

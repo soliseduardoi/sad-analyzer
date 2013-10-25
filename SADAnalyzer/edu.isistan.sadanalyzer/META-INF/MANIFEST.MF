@@ -27,4 +27,5 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.emf.query2.stringsyntaxtools.ui;bundle-version="0.7.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Import-Package: org.eclipse.emf.ecore.xmi.impl
+Import-Package: org.eclipse.contribution.visualiser.core,
+ org.eclipse.emf.ecore.xmi.impl

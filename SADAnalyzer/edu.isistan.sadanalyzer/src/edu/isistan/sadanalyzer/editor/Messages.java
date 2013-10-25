@@ -38,6 +38,7 @@ public class Messages extends NLS {
 	public static String SadAnalyzerEditor_ViewerTitle;
 	public static String SadAnalyzerEditor_ViewerDetail;
 	public static String SadAnalyzerEditor_ViewerDetailDescription;
+	public static String SadAnalyzerEditor_ViewerOccurences;
 	
 	static {
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);
