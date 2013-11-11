@@ -6,9 +6,12 @@
  */
 package edu.isistan.sadanalyzer.model.impl;
 
+import SadModel.Artifact;
 import SadModel.Sad;
 
+import SadModel.SadModelPackage;
 import edu.isistan.sadanalyzer.model.CrosscuttingConcern;
+import edu.isistan.sadanalyzer.model.Nameable;
 import edu.isistan.sadanalyzer.model.SadAnalyzerModelPackage;
 import edu.isistan.sadanalyzer.model.SadAnalyzerProject;
 

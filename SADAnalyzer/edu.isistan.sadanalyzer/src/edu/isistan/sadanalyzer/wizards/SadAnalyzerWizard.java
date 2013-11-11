@@ -58,7 +58,7 @@ public class SadAnalyzerWizard extends Wizard implements INewWizard {
 	
 	protected SadAnalyzerModelPackage sadAnalyzerModelPackage = SadAnalyzerModelPackage.eINSTANCE;
 	protected SadAnalyzerModelFactory sadAnalyzerModelFactory = sadAnalyzerModelPackage.getSadAnalyzerModelFactory();
-	
+		
 	
 	/**
 	 * Constructor for SampleNewWizard.
@@ -66,7 +66,7 @@ public class SadAnalyzerWizard extends Wizard implements INewWizard {
 	public SadAnalyzerWizard() {
 		super();
 		validModel = new Boolean(Boolean.TRUE);
-		setNeedsProgressMonitor(true);
+		setNeedsProgressMonitor(true);		
 	}
 	
 	/**
@@ -214,4 +214,5 @@ public class SadAnalyzerWizard extends Wizard implements INewWizard {
 		SadAnalyzerProject project = sadAnalyzerModelFactory.createSadAnalyzerProject();
 		return project;
 	}
+	
 }

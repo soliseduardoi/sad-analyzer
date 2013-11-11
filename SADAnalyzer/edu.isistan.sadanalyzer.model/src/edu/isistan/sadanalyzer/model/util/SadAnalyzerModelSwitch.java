@@ -6,6 +6,7 @@
  */
 package edu.isistan.sadanalyzer.model.util;
 
+import SadModel.Artifact;
 import edu.isistan.sadanalyzer.model.*;
 
 import org.eclipse.emf.ecore.EObject;

@@ -206,6 +206,18 @@ public class SadAnalyzerSetUpPage extends FormPage {
 			
 			if(crosscuttingConcerns != null){			
 								
+				java.util.List<CrosscuttingConcern> attributes = new ArrayList<CrosscuttingConcern>();
+				for(int i=0; i < crosscuttingConcerns.size(); i++){
+					CrosscuttingConcern c = crosscuttingConcerns.get(i);
+					boolean match = false;
+					for(int j=0; j < listQualityAttributesSelected.getList().getItems().length && !match; j++){
+						if(listQualityAttributesSelected.getList().getItem(j).equals(c.getName())){
+							attributes.add(c);
+							match = true;
+						}
+					}
+				}
+				
 				IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 				IWorkbenchPage page = window.getActivePage();
 				for(IEditorReference reference : page.getEditorReferences()){
@@ -214,7 +226,7 @@ public class SadAnalyzerSetUpPage extends FormPage {
 				    SadAnalyzerEditor editor = (SadAnalyzerEditor)part;
 				    SadAnalyzerViewerPage pageView = (SadAnalyzerViewerPage) editor.findPage(SadAnalyzerViewerPage.ID);
 				    if(null == pageView){
-				    	FormPage sdAnalyzerViewerPage = new SadAnalyzerViewerPage(editor, listViewerSectionsSelected,  crosscuttingConcerns);			    	
+				    	FormPage sdAnalyzerViewerPage = new SadAnalyzerViewerPage(editor, listViewerSectionsSelected,  attributes);			    	
 						try {
 							editor.addPage(sdAnalyzerViewerPage);						
 						} catch (PartInitException p) {
@@ -222,7 +234,7 @@ public class SadAnalyzerSetUpPage extends FormPage {
 							p.printStackTrace();
 						}
 				    }else{
-				    	pageView.refresh(listViewerSectionsSelected, crosscuttingConcerns);
+				    	pageView.refresh(listViewerSectionsSelected, attributes);
 				    }
 				    editor.setActivePage(SadAnalyzerViewerPage.ID);
 				  }

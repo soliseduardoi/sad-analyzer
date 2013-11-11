@@ -6,6 +6,7 @@
  */
 package edu.isistan.sadanalyzer.model;
 
+import SadModel.Artifact;
 import SadModel.Sad;
 import org.eclipse.emf.common.util.EList;
 

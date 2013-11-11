@@ -5,14 +5,9 @@ import java.util.EventObject;
 import java.util.HashMap;
 
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.emf.common.CommonPlugin;
 import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.command.CommandStackListener;
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -29,13 +24,10 @@ import org.eclipse.ui.forms.editor.FormEditor;
 import org.eclipse.ui.forms.editor.FormPage;
 
 import SadModel.Sad;
-import edu.isistan.reassistant.ccdetector.model.CrosscuttingConcernRule;
 import edu.isistan.reassistant.ccdetector.model.CrosscuttingConcernRuleSet;
 import edu.isistan.sadanalyzer.CCDetector;
 import edu.isistan.sadanalyzer.model.SadAnalyzerProject;
 import edu.isistan.sadanalyzer.pages.SadAnalyzerSetUpPage;
-import edu.isistan.sadanalyzer.pages.SadAnalyzerViewerPage;
-import edu.isistan.sadanalyzer.query.QueryEngine;
 import edu.isistan.sadanalyzer.query.UIMASADQueryAdapter;
 
 /**
@@ -58,12 +50,10 @@ public class SadAnalyzerEditor extends FormEditor implements IEditingDomainProvi
 	private SadAnalyzerProject modelRoot;
 	private Sad sadModelRoot;
 	
-//	protected DataBindingContext bindingContext;
 	
 	public SadAnalyzerEditor(){
 		super();
 		initializeEditingDomain();
-	
 	}
 
 	/**
@@ -156,8 +146,6 @@ public class SadAnalyzerEditor extends FormEditor implements IEditingDomainProvi
 	
 	private void createRulesModel() {
 		
-		
-		
 		URI resourceURI = URI.createFileURI(CCDetector.getRuleSetPath());
 		Exception exception = null;
 		Resource resource = null;
@@ -184,22 +172,6 @@ public class SadAnalyzerEditor extends FormEditor implements IEditingDomainProvi
 			resource = resourceSet.getResource(fileURI, true);
 		}
 		uimaRoot = new UIMASADQueryAdapter(resource.getContents());
-		
-		
-//		URI platformURI = URI.createFileURI(modelRoot.getUimaURI());
-//		final String modelUIMA = CommonPlugin.resolve(platformURI).toFileString();
-//		QueryEngine engine = new QueryEngine(modelUIMA);
-		
-//		engine.beginQueriesExecution(new NullProgressMonitor());
-//		try {
-//			EMap<CrosscuttingConcernRule, EList<EObject>> directRuleResults = engine.queryDirectRules();
-//			EMap<CrosscuttingConcernRule, EList<EObject>> impactRuleResults = engine.queryImpactRules();
-//		
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		engine.endQueriesExecution(null);
 	}
 	
 	private void createSadModel() {
@@ -214,26 +186,24 @@ public class SadAnalyzerEditor extends FormEditor implements IEditingDomainProvi
 		}
 		sadModelRoot = (Sad) resource.getContents().get(resource.getContents().size()-1);
 	}
-
 	
 	
-		public CrosscuttingConcernRuleSet getRulesModelRoot() {
-				
-				return rulesModelRoot;
-			}
-		
-		public UIMASADQueryAdapter getUimaRoot() {
+	public CrosscuttingConcernRuleSet getRulesModelRoot() {
 			
-			return uimaRoot;
+			return rulesModelRoot;
 		}
-
-		public Sad getSadModel(){
-			return sadModelRoot;
-		}
-		
-		public SadAnalyzerProject getSadProjectModel(){
-			return modelRoot;
-		}
-
 	
+	public UIMASADQueryAdapter getUimaRoot() {
+		
+		return uimaRoot;
+	}
+
+	public Sad getSadModel(){
+		return sadModelRoot;
+	}
+	
+	public SadAnalyzerProject getSadProjectModel(){
+		return modelRoot;
+	}	
+		
 }
