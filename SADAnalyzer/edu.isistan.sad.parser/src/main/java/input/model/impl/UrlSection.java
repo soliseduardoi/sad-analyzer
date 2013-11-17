@@ -74,6 +74,13 @@ public class UrlSection extends Section{
 		
 		return SECTION_ID + UUID.randomUUID().toString();
 	}
+
+	public void setAttNotWritten(Attribute att, String sectionName) {
+		this.attribute = att;		
+		this.setName(sectionName);
+		
+	}	
+	
 	
 	
 	

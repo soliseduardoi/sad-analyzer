@@ -21,6 +21,10 @@ public class XmlReader {
 	private List<TemplateStructure> plainStructure;
 	
 	private static String SECTION = "section";
+	private static String ITEM = "item";
+	
+	private static String WRITTEN= "written";
+	private static String CHILDLINK="childLink";
 
 	public XmlReader(String url){
 		plainStructure = new ArrayList<TemplateStructure>();
@@ -44,7 +48,32 @@ public class XmlReader {
 				if(null != element.getAttributeValue(LINK)){
 					templateStructure.setLink(element.getAttributeValue(LINK));
 				}
+				if( null != element.getAttributeValue(WRITTEN) ){					
+					templateStructure.setWritten(false);					
+				}
 				templateStructure.addSubSection(createStructure(element.getChildren()));
+			}
+			else{
+				if(ITEM.equals(element.getName())){
+						if( null != element.getAttributeValue(CHILDLINK) ){
+							
+							templateStructure.setChildLink(true);
+							templateStructure.addSubSection(createStructure(element.getChildren()));
+						}else
+						
+							{
+							 if(null != element.getAttributeValue(WRITTEN)){
+								templateStructure.setWritten(false);
+							}
+							
+						}
+						
+				}else{
+					if(LINK.equals(element.getName())){
+						templateStructure.setLinkType(true);
+					}
+					
+				}
 			}
 			tree.add(templateStructure);
 		}

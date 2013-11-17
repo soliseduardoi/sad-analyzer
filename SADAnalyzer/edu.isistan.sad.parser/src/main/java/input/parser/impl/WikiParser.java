@@ -78,10 +78,6 @@ public class WikiParser implements SadParser {
 		return cant;
 	}
 
-	public void generate(CompositeSection document) {
-
-		
-	}
 
 	private void validateUrls(List<TemplateStructure> template,
 			List<Attribute> urls,CompositeSection document ) {
@@ -91,17 +87,11 @@ public class WikiParser implements SadParser {
 		int urlIndex = 0;
 		int templateIndex = 0;		
 		
-		boolean valid = urls.size() > 0
-				&& validateAgainstTemplate(document, template, templateIndex,
-						urls, urlIndex);
+		boolean valid = urls.size() > 0 && validateAgainstTemplate(document, template, templateIndex,urls, urlIndex);
 
 		if (valid) {
 			System.out.println("Estructura VAlida");
-//			structure.setValid();
-			descartarUrlsSobrantes(urls, this.lastIndexValid);
-//			this.structureWrapped = structure;
-//			setSadGenerated(true);
-			urls.toString();
+			descartarUrlsSobrantes(urls, this.lastIndexValid);			
 		} else {
 			document = null;
 		}
@@ -129,35 +119,153 @@ public class WikiParser implements SadParser {
 
 		boolean valid = false;
 		UrlSection urlSection = new UrlSection(urlBase);
-
-		// Si nodo en el template es un item
 		TemplateStructure templateNode = template.get(templateIndex);
+		// Si nodo en el template es un item
 		if (templateNode.isItem()) {
 			document.addSection(urlSection);
-			urlSection.setAtt(urls.get(urlIndex),templateNode.getTitle());
-			valid = validateItem(document, template, templateIndex, urls,
-					urlIndex);
+			//item lleno
+			if(templateNode.isWritten()){
+				urlSection.setAtt(urls.get(urlIndex),templateNode.getTitle());
+				if(templateNode.isChildLink()){
+					//Item con link hijos					
+					templateIndex++;
+					valid= validateChildLinks(document,template,templateIndex, urls, urlIndex);
+				}else{
+					//Item normal
+					valid = validateItem(document,template,templateIndex,urls,urlIndex);
+				}				
 
-		} else {
-			// Seccion con link
-			if (!templateNode.isItem() && templateNode.hasLink()) {
+			}else{//Item con link pendiente
+					urlSection.setAttNotWritten(urls.get(urlIndex),templateNode.getTitle());
+				
+					valid = validateItemNotWritten(document,template,templateIndex,urls,urlIndex);
+				 }
+		} else {// Seccion con link escrito
+			if (!templateNode.isLinkType()&& !templateNode.isItem() && templateNode.hasLink() && templateNode.isWritten()) {
 				document.addSection(urlSection);
 				urlSection.setAtt(urls.get(urlIndex),templateNode.getTitle());
 				valid = validateSectionWithLink(document, template,
 						templateIndex, urls, urlIndex);
 
-			} else {
+			}else
+			{	//Seccion con link sin completar
+				if(!templateNode.isLinkType()&&!templateNode.isItem() && templateNode.hasLink() && !templateNode.isWritten()){
+					document.addSection(urlSection);
+					urlSection.setAttNotWritten(urls.get(urlIndex),templateNode.getTitle());
+					valid = validateSectionWithLinkNotWritten(document,template,templateIndex,urls,urlIndex);
+						
+				}			
+			else {
 				// Seccion sin link
-				if (!templateNode.hasLink()) {
-					valid = validateSectionWithoutLink(document, template,
-							templateIndex, urls, urlIndex);
-				}
-			}
+				if (!templateNode.isLinkType()&&!templateNode.hasLink()) {
+					valid = validateSectionWithoutLink(document,template,templateIndex,urls,urlIndex);
+				   }
+							
+			    }
 
+			}
 		}
 		return valid;
 
 	}
+
+	private boolean validateChildLinks(CompositeSection document, List<TemplateStructure> template, int templateIndex, List<Attribute> urls, int urlIndex) {
+		int index=0;
+		String sectionUrl= urls.get(urlIndex).getValue();
+		try{
+			URL url = new URL(urlBase+sectionUrl);
+			Source source=new Source(url);
+			List<Attribute> urlsChildLink = source.getURIAttributes();
+			descartarUrls(template.get(templateIndex), urlsChildLink);
+			int urlsChildLinkIndex=0;
+			index= validateCHildLinksAgainstTemplate( document,template, templateIndex, urlsChildLink, urlsChildLinkIndex);
+			if(index!=-1){
+				return validateAgainstTemplate(document, template, index, urls, ++urlIndex);
+		   }
+		}catch (Exception e) {
+			return false;
+		 }
+		return false;
+	}
+
+	private int validateCHildLinksAgainstTemplate(
+			CompositeSection document, List<TemplateStructure> template,
+			int templateIndex, List<Attribute> urlsChildLink,
+			int urlsChildLinkIndex) {
+		
+		int index = 0;
+		boolean valid=false;
+		
+		for (; templateIndex < template.size() && !valid;templateIndex++) {
+			UrlSection urlSection = new UrlSection(urlBase);
+			TemplateStructure templateNode = template.get(templateIndex);
+			if (templateNode.isLinkType()) {
+				if (matching(templateNode, urlsChildLink.get(urlsChildLinkIndex))) {
+					urlSection.setAtt(urlsChildLink.get(urlsChildLinkIndex),templateNode.getTitle());
+					document.addSection(urlSection);
+					urlsChildLinkIndex++;				
+					
+				}else{
+					return -1;
+				}
+			}else{
+				index=templateIndex;
+				valid=true;
+			}
+			
+		}	
+		
+		return index;
+
+	}
+	private boolean validateSectionWithLinkNotWritten(
+			CompositeSection document, List<TemplateStructure> template,
+			int templateIndex, List<Attribute> urls, int urlIndex) {
+		
+		boolean valid = false;
+		TemplateStructure templateNode = template.get(templateIndex);
+		Attribute att= urls.get(urlIndex);
+		String urlRaw=  att.getValue();
+		
+		if (urlRaw.contains("action=edit"))	{
+
+			// Seccion VAcia
+			if (templateNode.isEmpty()) {
+				/**
+				 * Agrego urls hasta el proximo matching...
+				 */
+				valid = validateEmptySection(document,template,templateIndex,urls,urlIndex);
+
+			} else {
+				// no puedo preguntar por el siguiente del template y de las
+				// url.. porq el template tambien es lineal. Ver de usar las dos
+				// estructuras mezcladas.
+
+				if (templateIndex < template.size() - 1	&& urlIndex < urls.size() - 1) {
+					// debo validar hijos y luego avanzar. COmo la estructura
+					// del template es lineal. Simplemente llamo recursivamente
+					// avanzando en las dos estructuras
+					valid = validateAgainstTemplate(document,template,++templateIndex,urls,++urlIndex);
+				} else {
+
+					if (templateIndex < template.size() - 1) {
+						valid = true;
+						this.lastIndexValid = urlIndex;
+					} else {
+						// Recorri las urls completas. Estructura invalida
+						valid = false;
+					}
+
+				}
+			}
+
+		} else {
+			valid = false;
+		}
+		return valid;
+	}
+
+	
 
 	private boolean validateSectionWithoutLink(CompositeSection document,
 			List<TemplateStructure> template, int templateIndex,
@@ -178,8 +286,7 @@ public class WikiParser implements SadParser {
 				// en el template porq como no tiene link no hay que avanzar en
 				// la pagina
 
-			valid = validateAgainstTemplate(document, template, ++templateIndex,
-					urls, urlIndex);
+			valid = validateAgainstTemplate(document,template,++templateIndex,urls,urlIndex);
 
 		}
 		return valid;
@@ -426,5 +533,36 @@ public class WikiParser implements SadParser {
 //		System.out.println("Tiempo de ejecucion: "+(t2-t1)/1000.0);
 //
 //	}
+	
+	private boolean validateItemNotWritten(CompositeSection document,
+			List<TemplateStructure> template, int templateIndex,
+			List<Attribute> urls, int urlIndex) {
+		boolean ret;
+	
+		Attribute att= urls.get(urlIndex);
+		String urlRaw=  att.getValue();
+		if (urlRaw.contains("action=edit")) {
+
+			// Avanzo en ambas estructuras *1
+			if (templateIndex < template.size() - 1
+					&& urlIndex < urls.size() - 1) {
+				ret = validateAgainstTemplate(document, template,
+						++templateIndex, urls, ++urlIndex);
+			} else {
+				// Recorri el template entero. Estructura valida
+				if (templateIndex == template.size() - 1) {
+					ret = true;
+					this.lastIndexValid = urlIndex;
+				} else {
+					// Recorri las urls completas. Estructura invalida
+					ret = false;
+				}
+			}
+		} else {
+			// Corto. estructura invalida
+			ret = false;
+		}
+		return ret;
+	}
 
 }

@@ -9,7 +9,19 @@ public class TemplateStructure {
 	private List<TemplateStructure> subItems;	
 	private boolean link=true;
 	
+	private boolean written=true;
+	private boolean childLink=false;
+	private boolean linkType=false;
 	
+	
+	public boolean isLinkType() {
+		return linkType;
+	}
+
+	public boolean isChildLink() {
+		return childLink;
+	}
+
 	public TemplateStructure(){
 		subItems = null;
 	}
@@ -58,7 +70,7 @@ public class TemplateStructure {
 	}
 	
 	public boolean isItem(){
-		return subItems ==null;
+		return( !linkType && (subItems ==null )  || (subItems!=null && childLink==true));
 		
 	}
 	
@@ -103,5 +115,24 @@ public class TemplateStructure {
 		
 		return subItems!=null && subItems.size()==0;
 	}
+
+	public boolean isWritten() {
+		return written;
+	}
+
+	public void setWritten(boolean written) {
+		this.written = written;
+	}
+
+	public void setChildLink(boolean b) {
+		this.childLink= b;
+		
+	}
+
+	public void setLinkType(boolean b) {
+		this.linkType=b;
+		
+	}
+	
 	
 }
