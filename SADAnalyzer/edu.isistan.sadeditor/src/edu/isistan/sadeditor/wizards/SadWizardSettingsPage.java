@@ -214,6 +214,7 @@ public class SadWizardSettingsPage extends WizardPage {
 		}
 
 		comboEncoding.select(0);
+		comboEncoding.setEnabled(false);
 		comboEncoding.addModifyListener(validator);
 
 		setPageComplete(validatePage());
@@ -303,14 +304,17 @@ public class SadWizardSettingsPage extends WizardPage {
 				fields = false;
 			}
 		}
-		if(getDirectoryTemplateField().getText().isEmpty()){
-			fields = false;
-		}
+		
 		if(this.sadFromURLRadio.getSelection()){
 			if(getUrlPath().getText().length() <= Messages.Sad_UrlField.length()){
 				fields = false;
 			}
 		}	
+		if(getDirectoryTemplateField().getText().isEmpty()){
+			if(this.sadFromURLRadio.getSelection()){
+				fields = false;
+			}
+		}
 		if(!getEncodings().contains(comboEncoding.getText())){
 			fields = false;
 		}
