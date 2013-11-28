@@ -16,7 +16,7 @@
    <extension
          point="org.eclipse.ui.newWizards">
       <category
-            name="Sad Wizards"
+            name="SAD Editor Wizards"
             id="edu.isistan.sadeditor">
       </category>
       <wizard

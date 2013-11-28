@@ -147,8 +147,6 @@ public class SadWizard extends Wizard implements INewWizard{
 						Sad sadModel = createSadModel(resource);
 						if (sadModel != null) {
 							sadModel.setID(sadWizardNewFilePage.getFileName());
-//							sadModel.setTitle(initialObjectCreationPage.getName());
-//							sadModel.setContent(sadWizardSettingsPage.getContent());
 							resource.getContents().add(sadModel);
 							
 						}else{
@@ -158,7 +156,7 @@ public class SadWizard extends Wizard implements INewWizard{
 						// Save the contents of the resource to the file system
 						Map<Object, Object> options = new HashMap<Object, Object>();
 						//Agregar el encoding para seleccionar en la vista
-						options.put(XMLResource.OPTION_ENCODING,sadWizardSettingsPage.getComboEncoding().getText());
+						options.put(XMLResource.OPTION_ENCODING,Messages.SadWizard_XMLEncoding);
 						resource.save(options);
 					}
 					catch (Exception exception) {
@@ -179,7 +177,6 @@ public class SadWizard extends Wizard implements INewWizard{
 					}
 						
 					SadParser parser = SadParserFactory.getParser(selection);
-//					String urlTraget= "https://wiki.sei.cmu.edu/sad/index.php/The_Java_Pet_Store_SAD";
 					Section project=  parser.getSad(sadWizardSettingsPage.getDirectoryTemplateField().getText(),sadWizardSettingsPage.getUrl());	
 					
 					if((project != null)){
@@ -220,13 +217,12 @@ public class SadWizard extends Wizard implements INewWizard{
 								 	 
 			}
 			catch (PartInitException exception) {
-				MessageDialog.openError(workbenchWindow.getShell(), "" /*Messages.UCSEditor_OpenEditorErrorLabel*/, exception.getMessage());
+				MessageDialog.openError(workbenchWindow.getShell(), "", exception.getMessage());
 				return false;
 			}
 			return true;
 		}
 		catch (Exception exception) {
-			//UCSEditorActivator.INSTANCE.log(exception);
 			return false;
 		}
 	}	

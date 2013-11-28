@@ -47,18 +47,7 @@ public class SadWizardSettingsPage extends WizardPage {
 	private static String previouslyBrowsedArchive = ""; 
 	protected Button sadFromArchiveRadio;
 	protected Button sadFromURLRadio;
-	protected Combo comboEncoding;
-	/**
-	 * @return the comboEncoding
-	 */
-	public Combo getComboEncoding() {
-		return comboEncoding;
-	}
-
-	protected List<String> encodings;
-
-
-	
+		
 	
 	/**
 	 * Create the wizard.
@@ -190,33 +179,8 @@ public class SadWizardSettingsPage extends WizardPage {
 			public void widgetSelected(SelectionEvent e) {
 				urlRadioSelected();
 			}
-		});
+		});		
 		
-		Label labelEncoding = new Label(composite, SWT.LEFT);
-		{
-			labelEncoding.setText(Messages.SadWizard_XMLEncoding);
-
-			GridData data = new GridData();
-			data.horizontalAlignment = GridData.FILL;
-			labelEncoding.setLayoutData(data);
-		}
-		
-		comboEncoding = new Combo(composite, SWT.BORDER);
-		{
-			GridData data = new GridData();
-			data.horizontalAlignment = GridData.FILL;
-			data.grabExcessHorizontalSpace = true;
-			comboEncoding.setLayoutData(data);
-		}
-
-		for (String encoding : getEncodings()) {
-			comboEncoding.add(encoding);
-		}
-
-		comboEncoding.select(0);
-		comboEncoding.setEnabled(false);
-		comboEncoding.addModifyListener(validator);
-
 		setPageComplete(validatePage());
 		setControl(composite);
 	}
@@ -247,15 +211,6 @@ public class SadWizardSettingsPage extends WizardPage {
 		setPageComplete(validatePage());
 	}
 	
-	protected Collection<String> getEncodings() {
-		if (encodings == null) {
-			encodings = new ArrayList<String>();
-			for (StringTokenizer stringTokenizer = new StringTokenizer(Messages.SadWizard_XMLEncodingChoices); stringTokenizer.hasMoreTokens(); ) {
-				encodings.add(stringTokenizer.nextToken());
-			}
-		}
-		return encodings;
-	}
 	
 	/**
 	 * The browse button has been selected. Select the location.
@@ -315,9 +270,7 @@ public class SadWizardSettingsPage extends WizardPage {
 				fields = false;
 			}
 		}
-		if(!getEncodings().contains(comboEncoding.getText())){
-			fields = false;
-		}
+		
 		return fields; 
 	}
 	

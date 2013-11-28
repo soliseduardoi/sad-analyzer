@@ -27,7 +27,6 @@ public class Messages extends NLS {
 	public static String SadWizard_Settings_URL_Field;
 	public static String SadWizard_Settings_Document_Field;
 	public static String SadWizard_Settings_Template_Field;
-	public static String SadWizard_XMLEncodingChoices;
 	public static String SadWizard_XMLEncoding;
 	public static String SadEditor_OverviewTitle;
 	public static String SadEditor_OverviewSource;
