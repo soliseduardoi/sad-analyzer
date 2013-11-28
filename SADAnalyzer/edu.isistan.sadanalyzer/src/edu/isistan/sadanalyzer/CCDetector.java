@@ -3,7 +3,7 @@ package edu.isistan.sadanalyzer;
 public class CCDetector {
 	
 	public static String getRuleSetPath() {
-		return getModelsPath() + "/rules/ruleset-sad2.xmi";
+		return getModelsPath() + "/rules/ruleset-domainactions.xmi";
 	}
 	
 	private static String getModelsPath() {

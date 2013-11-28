@@ -16,11 +16,11 @@
    <extension
          point="org.eclipse.ui.newWizards">
       <category
-            name="SAD Analyzer"
+            name="SAD Analyzer Wizards"
             id="edu.isistan.sadanalyzer">
       </category>
       <wizard
-            name="Sad Analyzer Editor file"
+            name="Sad Analyzer file"
             icon="icons/sample.gif"
             category="edu.isistan.sadanalyzer"
             class="edu.isistan.sadanalyzer.wizards.SadAnalyzerWizard"

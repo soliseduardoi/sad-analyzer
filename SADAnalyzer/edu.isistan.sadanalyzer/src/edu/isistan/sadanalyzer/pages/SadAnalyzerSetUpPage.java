@@ -161,7 +161,7 @@ public class SadAnalyzerSetUpPage extends FormPage {
 		createDetailAnalyzer(managedForm, Messages.SadAnalyzerEditor_ConfigurationDetail, Messages.SadAnalyzerEditor_ConfigurationDetailDescription);
 		createTreeModel(managedForm, Messages.SadAnalyzerEditor_ConfigurationModelTree, Messages.SadAnalyzerEditor_ConfigurationModelTreeDescription);
 		createRunUimasad(managedForm, Messages.SadAnalyzerEditor_ConfigurationRun, Messages.SadAnalyzerEditor_ConfigurationRunDescription);
-		createQualityAttributes(managedForm, Messages.SadAnalyzerEditor_ConfigurationModelTree, Messages.SadAnalyzerEditor_ConfigurationModelTreeDescription);
+		createQualityAttributes(managedForm, Messages.SadAnalyzerEditor_ConfigurationConcern, Messages.SadAnalyzerEditor_ConfigurationConcernDescription);
 	}
 	
 	private void createRunUimasad(IManagedForm mform, String title, String desc) {
