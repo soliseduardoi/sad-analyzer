@@ -85,7 +85,7 @@ public class SadSentenceAnnotator extends JCasAnnotator_ImplBase {
 				SadSection section = (SadSection) sAnnotation;
 				String sectionText = section.getCoveredText();
 //				String[] splittedText = sectionText.split("\\r?\\n");
-				String[] splittedText = sectionText.split("\\.");
+				String[] splittedText = sectionText.split("\\. ");
 				
 				for(String text : splittedText) {
 					String[] sentences = sdetector.sentDetect(text);
