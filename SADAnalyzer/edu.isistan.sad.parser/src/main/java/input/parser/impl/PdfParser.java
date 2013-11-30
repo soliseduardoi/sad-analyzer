@@ -33,8 +33,8 @@ public class PdfParser implements SadParser {
 	private XmlReader structureXml;
 	
 	public static void main(String[] args){
-		String path = "D:\\MSLite architecture.pdf";
-//		String path = "D:\\Resumen de Mak.pdf";
+//		String path = "D:\\MSLite architecture.pdf";
+		String path = "D:\\Resumen de Mak.pdf";
 //		String path = "D:\\Nokia_N8-00.pdf";
 		String pathTemplate="";
 		
@@ -47,7 +47,9 @@ public class PdfParser implements SadParser {
 	 */
 	public Section getSad(String pathTemplate, String urlSad) {
 		Section section = new CompositeSection();	
-		structureXml = new XmlReader(pathTemplate);		
+		if(!pathTemplate.isEmpty()){
+			structureXml = new XmlReader(pathTemplate);
+		}
 		
 		 try {
 			 File input = new File(urlSad);
@@ -58,7 +60,7 @@ public class PdfParser implements SadParser {
 		     if(root!=null){  
 			     // Se pide el primer nodo del árbol
 			     PDOutlineItem item = root.getFirstChild();
-			     if(!structureXml.getStructure().isEmpty()){
+			     if(structureXml != null){
 				     if(validateTemplate(item)){
 				    	 section = parserSections(item, doc);
 				    	 section.setName( input.getName());
