@@ -33,8 +33,8 @@ public class PdfParser implements SadParser {
 	private XmlReader structureXml;
 	
 	public static void main(String[] args){
-//		String path = "D:\\MSLite architecture.pdf";
-		String path = "D:\\Resumen de Mak.pdf";
+		String path = "D:\\MSLite architecture.pdf";
+//		String path = "D:\\Resumen de Mak.pdf";
 //		String path = "D:\\Nokia_N8-00.pdf";
 		String pathTemplate="";
 		
@@ -63,17 +63,17 @@ public class PdfParser implements SadParser {
 			     if(structureXml != null){
 				     if(validateTemplate(item)){
 				    	 section = parserSections(item, doc);
-				    	 section.setName( input.getName());
 				     }else{
 				       	section = null;
 				     }
 				 }else{
 					 section = parserSections(item, doc);
-			    	 section.setName( input.getName()); 
 				 }
 		     }else{
-		    	 section.setText(extractText(0, doc, doc.getNumberOfPages()));
-		    	 section.setName(input.getName());
+		    	 	Item s = new Item();
+					s.setText(extractText(0, doc, doc.getNumberOfPages()));
+					s.setName(input.getName());				
+					((CompositeSection) section).addSection(s);		    	
 		     }
 		     return section;
 		 } catch (IOException e) {
