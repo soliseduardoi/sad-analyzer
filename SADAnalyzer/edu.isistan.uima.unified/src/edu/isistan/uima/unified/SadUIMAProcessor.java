@@ -49,45 +49,35 @@ public class SadUIMAProcessor {
 			ExternalResourceDescription monitorResource = factory.getProgressMonitorResource();
 			// Collection Reader
 			CollectionReader collectionReader = factory.getSADCR(typeSystemDescription, typePriorities, monitorResource, inputFile); total++;
+//			CollectionReader collectionReader = factory.getXMIReaderCR(typeSystemDescription, typePriorities, monitorResource, sharedDataResource, inputFile); total++;
+	
 			// Sentence and Token Annotators
 			AnalysisEngine sentenceAE = factory.getOpenNLPSentenceAA(typeSystemDescription, typePriorities, monitorResource); total++;
 			AnalysisEngine tokenAE = factory.getOpenNLPTokenAA(typeSystemDescription, typePriorities, monitorResource); total++;
-//			AnalysisEngine sentenceTokenAE = factory.getStanfordSentenceTokenAA(typeSystemDescription, typePriorities, monitorResource); total++;
-//			// Word Annotators
+
+			// Word Annotators
 			AnalysisEngine stopwordAE = factory.getNLPStopwordAA(typeSystemDescription, typePriorities, monitorResource); total++;
 			AnalysisEngine stemmerAE = factory.getNLPStemmerAA(typeSystemDescription, typePriorities, monitorResource); total++;
 			AnalysisEngine lemmaAE = factory.getMateToolsLemmaAA(typeSystemDescription, typePriorities, monitorResource); total++;
-			//AnalysisEngine morphAE = factory.getMateToolsMorphAA(typeSystemDescription, typePriorities, monitorResource); total++;
+
 			// POS Annotators
-			//AnalysisEngine posAE = factory.getOpenNLPPOSAA(typeSystemDescription, typePriorities, monitorResource); total++;
-//			AnalysisEngine posAE = factory.getStanfordPOSAA(typeSystemDescription, typePriorities, monitorResource); total++;
-			//AnalysisEngine posAE = factory.getMateToolsPOSAA(typeSystemDescription, typePriorities, monitorResource); total++;
-			// Entity Annotators
-			//AnalysisEngine entityAE = factory.getStanfordEntityAA(typeSystemDescription, typePriorities, monitorResource); total++;
-			//AnalysisEngine entityDateAE = factory.getOpenNLPEntityDateAA(typeSystemDescription, typePriorities, monitorResource); total++;
-			//AnalysisEngine entityLocationAE = factory.getOpenNLPEntityLocationAA(typeSystemDescription, typePriorities, monitorResource); total++;
-			//AnalysisEngine entityMoneyAE = factory.getOpenNLPEntityMoneyAA(typeSystemDescription, typePriorities, monitorResource); total++;
-			//AnalysisEngine entityOrganizationAE = factory.getOpenNLPEntityOrganizationAA(typeSystemDescription, typePriorities, monitorResource); total++;
-			//AnalysisEngine entityPercentageAE = factory.getOpenNLPEntityPercentageAA(typeSystemDescription, typePriorities, monitorResource); total++;
-			//AnalysisEngine entityPersonAE = factory.getOpenNLPEntityPersonAA(typeSystemDescription, typePriorities, monitorResource); total++;
-			//AnalysisEngine entityTimeAE = factory.getOpenNLPEntityTimeAA(typeSystemDescription, typePriorities, monitorResource); total++;
+
+			AnalysisEngine posAE = factory.getStanfordPOSAA(typeSystemDescription, typePriorities, monitorResource); total++;
+
 			// Dependency Annotators
-//			AnalysisEngine chunkAE = factory.getOpenNLPChunkAA(typeSystemDescription, typePriorities, monitorResource); total++;
-//			AnalysisEngine sddependencyAE = factory.getStanfordDependencyAA(typeSystemDescription, typePriorities, monitorResource); total++;
 //		    AnalysisEngine conlldependencyAE = factory.getMateToolsDependencyAA(typeSystemDescription, typePriorities, monitorResource); total++;
-//			// Wordnet Annotators
-//			AnalysisEngine wordnetAE = factory.getJWNLWordNetAA(typeSystemDescription, typePriorities, monitorResource); total++;
-//			AnalysisEngine wsdAE = factory.getBanerjeeWSDAA(typeSystemDescription, typePriorities, monitorResource); total++;
+
+			// SRL Annotators
+
+//			AnalysisEngine conllsrlAE = factory.getCoNLLSRLAA(typeSystemDescription, typePriorities, monitorResource); total++;
+			
 			// Domain Annotators
-//			AnalysisEngine domainNumberAE = factory.getDomainNumberAA(typeSystemDescription, typePriorities, monitorResource); total++;
-//			AnalysisEngine domainNumberExlusionAE = factory.getDomainNumberExclusionAA(typeSystemDescription, typePriorities, monitorResource); total++;
 //			AnalysisEngine domainActionAE = factory.getDomainActionAA(typeSystemDescription, typePriorities, monitorResource); total++;
+	
 			// CAS Writer Consumer
 			AnalysisEngine writerCC = factory.getXMIWriterCC(typeSystemDescription, typePriorities, monitorResource, sharedDataResource, outputFile); total++;
-			// SRL Annotators
-//			AnalysisEngine sdsrlAE = factory.getSDSRLAA(typeSystemDescription, typePriorities, monitorResource); total++;
-//			AnalysisEngine conllsrlAE = factory.getCoNLLSRLAA(typeSystemDescription, typePriorities, monitorResource); total++;
-			//
+			
+			
 			ProgressMonitorResource progressMonitorResource = (ProgressMonitorResource) collectionReader.getUimaContext().getResourceObject("monitor");
 			progressMonitorResource.setMonitor(monitor);
 			monitor.beginTask("UIMA pipeline execution", total);
@@ -96,20 +86,12 @@ public class SadUIMAProcessor {
 					collectionReader,
 					sentenceAE,
 					 tokenAE,
-//					sentenceTokenAE, 
 					 stopwordAE,
-				stemmerAE, 
-					lemmaAE, 
-					//morphAE, 
-//					posAE, 
-//					domainNumberAE, domainNumberExlusionAE,
-//					chunkAE,
-//					sddependencyAE, 
+				     stemmerAE, 
+					 lemmaAE,					
+					 posAE, 
 //					conlldependencyAE, 
-//					//entityAE, 
-					//entityDateAE, entityLocationAE, entityMoneyAE, entityOrganizationAE, entityPercentageAE, entityPersonAE, entityTimeAE,
-//					wordnetAE, wsdAE, 
-//					sdsrlAE, conllsrlAE, 
+//					conllsrlAE, 
 //					domainActionAE,
 					writerCC);
 			//
