@@ -289,11 +289,11 @@ public class AnnotationGenerator {
 	}
 
 	public static void generateSad(int i, int length, String id, String name,
-			String text, String kind, JCas aJCas) {
+			String text, String kind, JCas aJCas, int gap) {
 		Sad annotation = new Sad(aJCas);
 		annotation.setIdentification(UUID.randomUUID().toString());
 		annotation.setBegin(i);
-		annotation.setEnd(length);
+		annotation.setEnd(length+gap);
 		annotation.setId(id);
 		annotation.setName(name);
 		annotation.setKind(kind);

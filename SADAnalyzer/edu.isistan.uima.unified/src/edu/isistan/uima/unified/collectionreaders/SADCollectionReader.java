@@ -65,8 +65,13 @@ public class SADCollectionReader extends JCasCollectionReader_ImplBase {
 		
 		subMonitor = new SubProgressMonitor(monitorResource.getMonitor(), 1, SubProgressMonitor.PREPEND_MAIN_LABEL_TO_SUBTASK);
 		subMonitor.beginTask(this.getClass().getSimpleName(), project.getSections().size());
+		int gap= 0;
+		if(project.getSections().size()==2){
+			gap =1;
+		}
 		
 		for(SadSection section : project.getSections()) {
+			
 			int begin = buffer.length();
 			
 			StringBuffer bufferDocument = new StringBuffer();
@@ -81,7 +86,7 @@ public class SADCollectionReader extends JCasCollectionReader_ImplBase {
 		}
 		String allDocument = buffer.toString();
 		aJCas.setDocumentText(allDocument);
-		AnnotationGenerator.generateSad(0, allDocument.length(), project.getID(), project.getTitle(), project.getContent(), "Sad", aJCas);
+		AnnotationGenerator.generateSad(0, allDocument.length(), project.getID(), project.getTitle(), project.getContent(), "Sad", aJCas,gap);
 		processed = true;
 		
 		subMonitor.done();
