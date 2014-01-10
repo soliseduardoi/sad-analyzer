@@ -40,6 +40,7 @@ import org.eclipse.ui.forms.widgets.ColumnLayout;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.Section;
+import org.eclipse.wb.swt.ResourceManager;
 
 import SadModel.Sad;
 import SadModel.SadSection;
@@ -53,7 +54,6 @@ public class OverviewPage extends FormPage {
 	public static final String ID = "edu.isistan.sadeditor.pages.OverviewPage";
 	public static final String TITLE = "Overview";
 	private static final String UIMA_EXTENSION = "uimasad";
-	public static final String IMAGE_PATH ="../../../../icons/run.gif";
 	
 	private EditingDomain editingDomain;
 	private Sad modelRoot;
@@ -111,8 +111,8 @@ public class OverviewPage extends FormPage {
 			}
 		};
 		execution.setToolTipText("Run"); //$NON-NLS-1$
-		execution.setEnabled(Boolean.TRUE);
-		execution.setImageDescriptor(ImageDescriptor.createFromFile(this.getClass(),IMAGE_PATH));
+		execution.setEnabled(Boolean.TRUE);		
+		execution.setImageDescriptor(ResourceManager.getPluginImageDescriptor("edu.isistan.sadeditor", "icons/run.gif"));
 		
 		form.getToolBarManager().add(execution);
 		form.getToolBarManager().update(true);
@@ -180,12 +180,10 @@ public class OverviewPage extends FormPage {
 	private void createExecutionSection(IManagedForm mform, String title, String desc) {
 		Composite client = createSection(mform, title, desc, 2);
 		FormToolkit toolkit = mform.getToolkit();
-			
-		ImageDescriptor image = ImageDescriptor.createFromFile(this.getClass(),IMAGE_PATH);
 		
 		// Run
 		Button btnAdd=  toolkit.createButton(client, Messages.Sad_OverviewRun,SWT.BUTTON1);
-		btnAdd.setImage(image.createImage());
+		btnAdd.setImage(ResourceManager.getPluginImage("edu.isistan.sadeditor", "icons/run.gif"));
 		btnAdd.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
