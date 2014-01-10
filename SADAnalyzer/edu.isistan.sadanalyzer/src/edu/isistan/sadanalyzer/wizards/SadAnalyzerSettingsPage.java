@@ -19,6 +19,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
+import org.eclipse.wb.swt.ResourceManager;
 
 import edu.isistan.sadanalyzer.editor.Messages;
 import edu.isistan.sadanalyzer.validators.SadAnalyzerWizardValidator;
@@ -36,7 +37,6 @@ public class SadAnalyzerSettingsPage extends WizardPage {
 	private Label labelUimaSad;
 	private Text textUimaSad;
 	private Button browseUimaSadButton;
-	private static final String IMAGE_PATH ="../../../../icons";
 	private	ImageDescriptor image;
 	
 	/**
@@ -45,7 +45,7 @@ public class SadAnalyzerSettingsPage extends WizardPage {
 	 */
 	protected SadAnalyzerSettingsPage(IStructuredSelection selection) {
 		super(ID);
-		image = ImageDescriptor.createFromFile(this.getClass(),IMAGE_PATH + "/add.gif");
+		image = ResourceManager.getPluginImageDescriptor("edu.isistan.sadanalyzer", "icons/add.gif");
 	}
 	
 	public Text getTextSadPath() {
