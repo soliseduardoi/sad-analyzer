@@ -23,9 +23,11 @@ public class Messages extends NLS {
 	public static String SadWizard_ErrorFileName;
 	public static String SadWizard_SourceSad;	
 	public static String SadWizard_Settings_Import;
+	public static String SadWizard_Settings_RootDirectory;
 	public static String SadWizard_Settings_Browse;
 	public static String SadWizard_Settings_URL_Field;
 	public static String SadWizard_Settings_Document_Field;
+	public static String SadWizard_Settings_DokuWiki_Path;
 	public static String SadWizard_Settings_Template_Field;
 	public static String SadWizard_XMLEncoding;
 	public static String SadEditor_OverviewTitle;

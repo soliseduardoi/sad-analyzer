@@ -45,6 +45,7 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.Section;
 import org.eclipse.ui.part.EditorPart;
+import org.eclipse.wb.swt.ResourceManager;
 
 import SadModel.Sad;
 import edu.isistan.reassistant.ccdetector.model.CompositionRule;
@@ -69,7 +70,6 @@ public class SadAnalyzerSetUpPage extends FormPage {
 
 	public static final String ID = "edu.isistan.sadanalyzer.pages.SadAnalyzerSetUpPage";
 	public static final String TITLE = Messages.SadAnalyzerEditor_Configuration;
-	public static final String IMAGE_PATH ="../../../../icons";
 	
 	private ListViewer listViewerSections;
 	private ListViewer listViewerSectionsSelected;
@@ -134,7 +134,7 @@ public class SadAnalyzerSetUpPage extends FormPage {
 		};
 		executionAnalyzer.setToolTipText("Run"); //$NON-NLS-1$
 		executionAnalyzer.setEnabled(Boolean.TRUE);
-		executionAnalyzer.setImageDescriptor(ImageDescriptor.createFromFile(this.getClass(),IMAGE_PATH + "/run.gif"));
+		executionAnalyzer.setImageDescriptor(ResourceManager.getPluginImageDescriptor("edu.isistan.sadanalyzer", "icons/run.gif"));
 		
 		form.getToolBarManager().add(executionAnalyzer);
 		form.getToolBarManager().update(true);
@@ -167,12 +167,10 @@ public class SadAnalyzerSetUpPage extends FormPage {
 	private void createRunUimasad(IManagedForm mform, String title, String desc) {
 		Composite client = createSection(mform, title, desc, 2);
 		FormToolkit toolkit = mform.getToolkit();
-			
-		ImageDescriptor image = ImageDescriptor.createFromFile(this.getClass(),IMAGE_PATH + "/run.gif");
-		
+					
 		// Run
 		Button btnAdd=  toolkit.createButton(client, Messages.SadAnalyzerEditor_ConfigurationRunButton,SWT.BUTTON1);
-		btnAdd.setImage(image.createImage());
+		btnAdd.setImage(ResourceManager.getPluginImage("edu.isistan.sadanalyzer", "icons/run.gif"));
 		btnAdd.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -329,15 +327,12 @@ public class SadAnalyzerSetUpPage extends FormPage {
 		
 		Button btnAddAll = toolkit.createButton(compositeBtn, ">> Add All", SWT.NONE);
 		
-		ImageDescriptor imageAdd = ImageDescriptor.createFromFile(this.getClass(),IMAGE_PATH + "/add.gif");
 		Button btnAdd = toolkit.createButton(compositeBtn, "Add", SWT.NONE);
-		btnAdd.setImage(imageAdd.createImage());
-		btnAdd.setToolTipText("Add Quality attribute");
-			
-		
-		ImageDescriptor imageRemove = ImageDescriptor.createFromFile(this.getClass(),IMAGE_PATH + "/delete.gif");
+		btnAdd.setImage(ResourceManager.getPluginImage("edu.isistan.sadanalyzer", "icons/add.gif"));
+		btnAdd.setToolTipText("Add Quality attribute");			
+				
 		Button btnRemove = toolkit.createButton(compositeBtn, "Remove", SWT.NONE);
-		btnRemove.setImage(imageRemove.createImage());
+		btnRemove.setImage(ResourceManager.getPluginImage("edu.isistan.sadanalyzer", "icons/delete.gif"));
 		btnRemove.setToolTipText("Remove Quality attribute");
 		
 		
@@ -461,15 +456,13 @@ public class SadAnalyzerSetUpPage extends FormPage {
 		
 		Button btnAddAll = toolkit.createButton(compositeBtn, ">> Add All", SWT.NONE);
 		
-		ImageDescriptor imageAdd = ImageDescriptor.createFromFile(this.getClass(),IMAGE_PATH + "/add.gif");
 		Button btnAdd = toolkit.createButton(compositeBtn, "Add", SWT.NONE);
-		btnAdd.setImage(imageAdd.createImage());
+		btnAdd.setImage(ResourceManager.getPluginImage("edu.isistan.sadanalyzer", "icons/add.gif"));
 		btnAdd.setToolTipText("Add Quality attribute");
 			
 		
-		ImageDescriptor imageRemove = ImageDescriptor.createFromFile(this.getClass(),IMAGE_PATH + "/delete.gif");
 		Button btnRemove = toolkit.createButton(compositeBtn, "Remove", SWT.NONE);
-		btnRemove.setImage(imageRemove.createImage());
+		btnRemove.setImage(ResourceManager.getPluginImage("edu.isistan.sadanalyzer", "icons/delete.gif"));
 		btnRemove.setToolTipText("Remove Quality attribute");
 		
 		listViewerSectionsSelected = new ListViewer(client, SWT.BORDER | SWT.V_SCROLL);

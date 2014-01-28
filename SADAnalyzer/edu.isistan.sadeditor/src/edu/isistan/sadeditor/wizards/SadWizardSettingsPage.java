@@ -1,10 +1,6 @@
 package edu.isistan.sadeditor.wizards;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.StringTokenizer;
 
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
@@ -15,8 +11,8 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
@@ -39,13 +35,16 @@ public class SadWizardSettingsPage extends WizardPage {
 
 	private Text urlPath;
 	private Text archivePathField;
+	private Text dokuWikiPathRootDirectory;
 	private Text directoryTemplateField;
 	private Button browseArchivesButton;
+	private Button browseDokuWikiButton;
 	private Button browseTemplateDirectoriesButton;
 	private static final String[] FILE_IMPORT_MASK = {"*.pdf"};
 	private static final String[] FILE_IMPORT_TEMPLATE_MASK = {"*.xml"};
 	private static String previouslyBrowsedArchive = ""; 
 	protected Button sadFromArchiveRadio;
+	protected Button dokuWikiRadio;
 	protected Button sadFromURLRadio;
 		
 	
@@ -74,7 +73,8 @@ public class SadWizardSettingsPage extends WizardPage {
 			data.horizontalAlignment = GridData.FILL;
 			composite.setLayoutData(data);
 		}
-//		 sad url radio button
+
+		// Sad url radio button
 		sadFromURLRadio = new Button(composite, SWT.RADIO);
 		sadFromURLRadio.setText(Messages.SadWizard_Settings_URL_Field);
 		
@@ -91,8 +91,6 @@ public class SadWizardSettingsPage extends WizardPage {
 		ghostButton.setVisible(false);
 		setButtonLayoutData(ghostButton);
 		
-		
-		
 		sadFromArchiveRadio = new Button(composite, SWT.RADIO);		
 		sadFromArchiveRadio.setText(Messages.SadWizard_Settings_Document_Field);
 		
@@ -106,12 +104,26 @@ public class SadWizardSettingsPage extends WizardPage {
 		browseArchivesButton = new Button(composite, SWT.PUSH);
 		browseArchivesButton.setText(Messages.SadWizard_Settings_Browse);
 		setButtonLayoutData(browseArchivesButton);
+		
+		//wikiDoku
+				
+		dokuWikiRadio = new Button(composite, SWT.RADIO);		
+		dokuWikiRadio.setText(Messages.SadWizard_Settings_DokuWiki_Path);
+		
+		dokuWikiPathRootDirectory = new Text(composite, SWT.BORDER);
+
+		GridData dokuWikiPathData = new GridData(GridData.HORIZONTAL_ALIGN_FILL | GridData.GRAB_HORIZONTAL);
+		dokuWikiPathRootDirectory.setLayoutData(dokuWikiPathData); 
+		dokuWikiPathRootDirectory.setEditable(false);
+		// browse button
+		browseDokuWikiButton = new Button(composite, SWT.PUSH);
+		browseDokuWikiButton.setText(Messages.SadWizard_Settings_Browse);
+		setButtonLayoutData(browseDokuWikiButton);
 
 		sadFromURLRadio.setSelection(true);
-		archivePathField.setEnabled(false);
 		browseArchivesButton.setEnabled(false);	
-		
-		
+		browseDokuWikiButton.setEnabled(false);
+				
 		Label title = new Label(composite, SWT.NONE);
 		title.setText(Messages.SadWizard_Settings_Template_Field + ": ");
 		
@@ -180,33 +192,98 @@ public class SadWizardSettingsPage extends WizardPage {
 				urlRadioSelected();
 			}
 		});		
+		browseDokuWikiButton.addSelectionListener(new SelectionAdapter() {
+			/*
+			 * (non-Javadoc)
+			 * 
+			 * @see
+			 * org.eclipse.swt.events.SelectionAdapter#widgetSelected(org.eclipse
+			 * .swt.events.SelectionEvent)
+			 */
+			public void widgetSelected(SelectionEvent e) {
+				handleLocationDokuWikiButtonPressed(dokuWikiPathRootDirectory);
+			}
+		});
+		dokuWikiRadio.addSelectionListener(new SelectionAdapter() {
+			/*
+			 * (non-Javadoc)
+			 * 
+			 * @see
+			 * org.eclipse.swt.events.SelectionListener#widgetSelected(org.eclipse
+			 * .swt.events.SelectionEvent)
+			 */
+			public void widgetSelected(SelectionEvent e) {
+				dokuWikiRadioSelected();
+			}
+		});
 		
 		setPageComplete(validatePage());
 		setControl(composite);
 	}
 	
+	private void dokuWikiRadioSelected() {
+		if (dokuWikiRadio.getSelection()) {
+			browseTemplateDirectoriesButton.setEnabled(false);
+			dokuWikiRadio.setSelection(true);
+			dokuWikiPathRootDirectory.setEnabled(true);
+			browseDokuWikiButton.setEnabled(true);
+			dokuWikiPathRootDirectory.setFocus();
+			archivePathField.setEnabled(false);
+			browseArchivesButton.setEnabled(false);
+			sadFromArchiveRadio.setSelection(false);
+			sadFromURLRadio.setSelection(false);
+			urlPath.setEditable(false);
+		}
+		setPageComplete(validatePage());
+	}
 	
 
 	private void urlRadioSelected() {
 		if (sadFromURLRadio.getSelection()) {
+			browseTemplateDirectoriesButton.setEnabled(true);
 			sadFromURLRadio.setSelection(true);
 			urlPath.setEnabled(true);
 			archivePathField.setEnabled(false);
 			browseArchivesButton.setEnabled(false);
 			urlPath.setFocus();
 			sadFromArchiveRadio.setSelection(false);
+			dokuWikiRadio.setSelection(false);
+			dokuWikiPathRootDirectory.setEditable(false);
+			browseDokuWikiButton.setEnabled(false);
 		}
 		setPageComplete(validatePage());
 	}
 	
 	private void archiveRadioSelected() {
 		if (sadFromArchiveRadio.getSelection()) {
+			browseTemplateDirectoriesButton.setEnabled(false);
 			sadFromArchiveRadio.setSelection(true);
 			urlPath.setEnabled(false);
 			archivePathField.setEnabled(true);
 			browseArchivesButton.setEnabled(true);
 			archivePathField.setFocus();
 			sadFromURLRadio.setSelection(false);
+			dokuWikiRadio.setSelection(false);
+			dokuWikiPathRootDirectory.setEditable(false);
+			browseDokuWikiButton.setEnabled(false);
+		}
+		setPageComplete(validatePage());
+	}
+	
+	/**
+	 * @param dokuWikiPathRootDirectory
+	 * 
+	 * */
+	private void handleLocationDokuWikiButtonPressed(Text dokuWikiPathRootDirectory) {
+				
+		DirectoryDialog dialog = new DirectoryDialog(dokuWikiPathRootDirectory.getShell());
+		dialog.setText(Messages.SadWizard_Settings_RootDirectory);
+		String dirname = dialog.open();
+		if(dirname != null){
+			File dir = new File(dirname);
+			if(dir.exists()){
+				dokuWikiPathRootDirectory.setText(dirname);
+			}
 		}
 		setPageComplete(validatePage());
 	}
@@ -260,6 +337,12 @@ public class SadWizardSettingsPage extends WizardPage {
 			}
 		}
 		
+		if(this.dokuWikiRadio.getSelection()){
+			if(getDokuWikiPathRootDirectory().getText().isEmpty()){
+				fields = false;
+			}
+		}
+		
 		if(this.sadFromURLRadio.getSelection()){
 			if(getUrlPath().getText().length() <= Messages.Sad_UrlField.length()){
 				fields = false;
@@ -289,6 +372,16 @@ public class SadWizardSettingsPage extends WizardPage {
 	}
 
 
+	public Text getDokuWikiPathRootDirectory() {
+		return dokuWikiPathRootDirectory;
+	}
+
+
+	public void setDokuWikiPathRootDirectory(Text dokuWikiPathRootDirectory) {
+		this.dokuWikiPathRootDirectory = dokuWikiPathRootDirectory;
+	}
+
+
 	public void setArchivePathField(Text archivePathField) {
 		this.archivePathField = archivePathField;
 	}
@@ -309,6 +402,9 @@ public class SadWizardSettingsPage extends WizardPage {
 		if(sadFromArchiveRadio.getSelection()){
 			ret=getArchivePathField().getText();
 		}
+		if(dokuWikiRadio.getSelection()){
+			ret=getDokuWikiPathRootDirectory().getText();
+		}
 		return ret;
 	}
 
@@ -316,6 +412,11 @@ public class SadWizardSettingsPage extends WizardPage {
 	public boolean isWikiSelection() {
 		
 		return sadFromURLRadio.getSelection();
+	}
+	
+	public boolean isDokuWikiSelection() {
+		
+		return dokuWikiRadio.getSelection();
 	}
 
 }

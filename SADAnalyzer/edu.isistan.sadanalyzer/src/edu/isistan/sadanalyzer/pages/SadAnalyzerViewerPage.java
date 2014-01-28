@@ -35,6 +35,7 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.Section;
 import org.eclipse.ui.part.EditorPart;
+import org.eclipse.wb.swt.ResourceManager;
 
 import edu.isistan.sadanalyzer.editor.Messages;
 import edu.isistan.sadanalyzer.editor.SadAnalyzerEditor;
@@ -53,7 +54,6 @@ public class SadAnalyzerViewerPage extends FormPage {
 
 	public static final String ID = "edu.isistan.sadanalyzer.pages.SadAnalyzerViewerPage";
 	public static final String TITLE = Messages.SadAnalyzerEditor_Viewer;
-	public static final String IMAGE_PATH ="../../../../icons";
 	
 	private ListViewer listViewerSectionsSelected;
 	private java.util.List listQualityAttributesSelected;
@@ -116,7 +116,7 @@ public class SadAnalyzerViewerPage extends FormPage {
 		};
 		deleteView.setToolTipText("Close View");
 		deleteView.setEnabled(Boolean.TRUE);
-		deleteView.setImageDescriptor(ImageDescriptor.createFromFile(this.getClass(),IMAGE_PATH + "/delete.gif"));
+		deleteView.setImageDescriptor(ResourceManager.getPluginImageDescriptor("edu.isistan.sadanalyzer", "icons/delete.gif"));
 		
 		form.getToolBarManager().add(deleteView);
 		form.getToolBarManager().update(true);
@@ -170,7 +170,7 @@ public class SadAnalyzerViewerPage extends FormPage {
 		gd.heightHint = 20;
 		
 		labelImage = toolkit.createLabel(compositeLabel, "");
-		labelImage.setImage(ImageDescriptor.createFromFile(this.getClass(),IMAGE_PATH + "/warning.gif").createImage());
+		labelImage.setImage(ResourceManager.getPluginImage("edu.isistan.sadanalyzer", "icons/warning.gif"));
 		labelImage.setVisible(false);
 		labelImage.setLayoutData(gd);
 		

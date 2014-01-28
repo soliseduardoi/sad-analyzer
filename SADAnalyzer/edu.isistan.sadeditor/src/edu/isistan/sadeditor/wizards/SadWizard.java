@@ -174,6 +174,10 @@ public class SadWizard extends Wizard implements INewWizard{
 					String selection=SadParserFactory.PDF;
 					if(sadWizardSettingsPage.isWikiSelection()){
 						selection=SadParserFactory.WIKI;
+					}else{
+						if(sadWizardSettingsPage.isDokuWikiSelection()){
+							selection=SadParserFactory.DOKUWIKI;
+						}
 					}
 						
 					SadParser parser = SadParserFactory.getParser(selection);
