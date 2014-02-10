@@ -33,8 +33,8 @@ public class PdfParser implements SadParser {
 	private XmlReader structureXml;
 	
 	public static void main(String[] args){
-		String path = "D:\\MSLite architecture.pdf";
-//		String path = "D:\\Resumen de Mak.pdf";
+//		String path = "D:\\MSLite architecture.pdf";
+		String path = "D:\\Resumen de Mak.pdf";
 //		String path = "D:\\Nokia_N8-00.pdf";
 		String pathTemplate="";
 		
