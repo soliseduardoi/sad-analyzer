@@ -68,7 +68,6 @@ public class SadAnalyzerViewerPage extends FormPage {
 	private Label labelOccurrences;
 	private Label labelImage;
 	private Composite compositeLabel;
-	private FormText formText;
 	
 	private UIMASADQueryAdapter uimaRoot;
 	
@@ -185,18 +184,18 @@ public class SadAnalyzerViewerPage extends FormPage {
 	private void viewTextDetail(IManagedForm managedForm, String title, String desc) {
 		Composite client = createSection(managedForm, title, desc, 3);
 		
-		listSections = new ListViewer(client, SWT.BORDER | SWT.V_SCROLL);		
+		listSections = new ListViewer(client, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);		
 		listSections.setLabelProvider(new SadSectionLabelProvider(uimaRoot));
 				
 		setListViewer(listViewerSectionsSelected, listSections);
 				
 		GridData gd = new GridData();
-		gd.widthHint = 300;
-		gd.heightHint = 500;
+		gd.widthHint = 250;
+		gd.heightHint = 400;
 		sections = listSections.getList();
 		sections.setLayoutData(gd);	
 		
-		listAttributes = new ListViewer(client, SWT.BORDER | SWT.V_SCROLL);		
+		listAttributes = new ListViewer(client, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);		
 		listAttributes.setLabelProvider(new CrosscuttingConcernLabelProvider());
 		
 		setListViewerAttribute(listQualityAttributesSelected, listAttributes);
@@ -206,9 +205,9 @@ public class SadAnalyzerViewerPage extends FormPage {
 		
 		gd = new GridData(GridData.VERTICAL_ALIGN_BEGINNING);		
 		gd = new GridData();
-		gd.widthHint = 900;
-		gd.heightHint= 500;
-		styledText = new StyledText(client, SWT.BORDER | SWT.READ_ONLY | SWT.WRAP | SWT.V_SCROLL | SWT.MULTI);
+		gd.widthHint = 600;
+		gd.heightHint= 400;
+		styledText = new StyledText(client, SWT.BORDER | SWT.READ_ONLY | SWT.WRAP | SWT.V_SCROLL | SWT.H_SCROLL | SWT.MULTI);
 		styledText.setBlockSelection(true);
 		styledText.setLayoutData(gd);
 		managedForm.getToolkit().adapt(styledText);
@@ -247,8 +246,8 @@ public class SadAnalyzerViewerPage extends FormPage {
 		toolkit.adapt(compositeDetails);
 		toolkit.paintBordersFor(compositeDetails);		
 		
-		Section section = toolkit.createSection(compositeDetails, Section.TWISTIE
-				| Section.TITLE_BAR | Section.DESCRIPTION | Section.EXPANDED);
+		Section section = toolkit.createSection(compositeDetails, Section.TITLE_BAR 
+				| Section.DESCRIPTION | Section.EXPANDED);
 		section.setText(title);
 		section.setDescription(desc);
 		Composite client = toolkit.createComposite(section);

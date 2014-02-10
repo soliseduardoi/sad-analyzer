@@ -298,7 +298,7 @@ public class SadAnalyzerSetUpPage extends FormPage {
 		Composite client = createSection(managedForm, title, desc, 3);
 		FormToolkit toolkit = managedForm.getToolkit();
 		
-		listQualityAttributesSource = new ListViewer(client, SWT.BORDER | SWT.V_SCROLL);
+		listQualityAttributesSource = new ListViewer(client, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
 		listQualityAttributesSource.setLabelProvider(new CrosscuttingConcernRuleLabelProvider());
 		
 		Iterator<CrosscuttingConcernRule> rules = rulesModelRoot.getRules().iterator();
@@ -310,8 +310,8 @@ public class SadAnalyzerSetUpPage extends FormPage {
 		}	
 				
 		GridData gd = new GridData();
-		gd.widthHint = 250;
-		gd.heightHint = 200;
+		gd.widthHint = 200;
+		gd.heightHint = 300;
 		listQualityAtributes1 = listQualityAttributesSource.getList();
 		listQualityAtributes1.setLayoutData(gd);
 		
@@ -336,7 +336,7 @@ public class SadAnalyzerSetUpPage extends FormPage {
 		btnRemove.setToolTipText("Remove Quality attribute");
 		
 		
-		listQualityAttributesSelected = new ListViewer(client, SWT.BORDER | SWT.V_SCROLL);
+		listQualityAttributesSelected = new ListViewer(client, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
 		
 		listQualityAtributes2 = listQualityAttributesSelected.getList();
 		listQualityAtributes2.setLayoutData(gd);
@@ -410,7 +410,7 @@ public class SadAnalyzerSetUpPage extends FormPage {
 		Text sadFileSourceText = toolkit.createText(client, sadFileSource, SWT.SINGLE);
 		sadFileSourceText.setEditable(false);
 		gd = new GridData();
-		gd.widthHint = 500;
+		gd.widthHint = 350;
 		sadFileSourceText.setLayoutData(gd);
 				
 		toolkit.createLabel(client, Messages.SadAnalyzerEditor_UIMASadFile+":");
@@ -419,7 +419,7 @@ public class SadAnalyzerSetUpPage extends FormPage {
 		Text uimaSadFileText = toolkit.createText(client, uimaSadFile, SWT.SINGLE);
 		uimaSadFileText.setEditable(false);
 		gd = new GridData();
-		gd.widthHint = 500;
+		gd.widthHint = 350;
 		uimaSadFileText.setLayoutData(gd);		
 	}
 	
@@ -427,7 +427,7 @@ public class SadAnalyzerSetUpPage extends FormPage {
 		Composite client = createSection(managedForm, title, desc, 3);
 		FormToolkit toolkit = managedForm.getToolkit();
 		
-		listViewerSections = new ListViewer(client, SWT.BORDER | SWT.V_SCROLL);		
+		listViewerSections = new ListViewer(client, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);		
 		listViewerSections.setLabelProvider(new SadSectionLabelProvider(uimaRoot));
 		EList<SadSection> sections = uimaRoot.getSadSection();
 		
@@ -440,8 +440,8 @@ public class SadAnalyzerSetUpPage extends FormPage {
 	
 				
 		GridData gd = new GridData();
-		gd.widthHint = 250;
-		gd.heightHint = 200;
+		gd.widthHint = 200;
+		gd.heightHint = 300;
 		listSections = listViewerSections.getList();
 		listSections.setLayoutData(gd);	
 		
@@ -465,7 +465,7 @@ public class SadAnalyzerSetUpPage extends FormPage {
 		btnRemove.setImage(ResourceManager.getPluginImage("edu.isistan.sadanalyzer", "icons/delete.gif"));
 		btnRemove.setToolTipText("Remove Quality attribute");
 		
-		listViewerSectionsSelected = new ListViewer(client, SWT.BORDER | SWT.V_SCROLL);
+		listViewerSectionsSelected = new ListViewer(client, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
 		
 		listSectionsSelected = listViewerSectionsSelected.getList();
 		listSectionsSelected.setLayoutData(gd);
@@ -540,8 +540,8 @@ public class SadAnalyzerSetUpPage extends FormPage {
 		toolkit.adapt(compositeDetails);
 		toolkit.paintBordersFor(compositeDetails);		
 		
-		Section section = toolkit.createSection(compositeDetails, Section.TWISTIE
-				| Section.TITLE_BAR | Section.DESCRIPTION | Section.EXPANDED);
+		Section section = toolkit.createSection(compositeDetails, Section.TITLE_BAR 
+				| Section.DESCRIPTION | Section.EXPANDED);
 		section.setText(title);
 		section.setDescription(desc);
 		//toolkit.createCompositeSeparator(section);
