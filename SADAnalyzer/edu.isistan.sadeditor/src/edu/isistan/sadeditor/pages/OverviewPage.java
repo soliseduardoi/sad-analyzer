@@ -14,12 +14,12 @@ import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.domain.IEditingDomainProvider;
 import org.eclipse.emf.edit.ui.util.EditUIUtil;
 import org.eclipse.jface.action.Action;
-import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ListViewer;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.FillLayout;
@@ -59,9 +59,7 @@ public class OverviewPage extends FormPage {
 	private Sad modelRoot;
 	private DataBindingContext bindingContext;	
 	private ListViewer listViewerSections;
-	private Text overviewSourceText;
-	private String textSection="";
-	
+	private StyledText styledText;
 
 	/**
 	 * Create the form page.
@@ -155,12 +153,14 @@ public class OverviewPage extends FormPage {
 		gd = new GridData(GridData.VERTICAL_ALIGN_BEGINNING);		
 		toolkit.createLabel(client,"");
 		
-		overviewSourceText = toolkit.createText(client, textSection, SWT.V_SCROLL);
-		overviewSourceText.setEditable(false);
 		gd = new GridData();
-		gd.widthHint = 700;
-		gd.heightHint= 300;
-		overviewSourceText.setLayoutData(gd);	
+		gd.widthHint = 450;
+		gd.heightHint= 450;	
+		styledText = new StyledText(client, SWT.BORDER | SWT.READ_ONLY | SWT.WRAP | SWT.V_SCROLL | SWT.H_SCROLL | SWT.MULTI);
+		styledText.setBlockSelection(true);
+		styledText.setLayoutData(gd);
+		managedForm.getToolkit().adapt(styledText);
+		managedForm.getToolkit().paintBordersFor(styledText);
 							
 		listViewerSections.addSelectionChangedListener(new ISelectionChangedListener(){
 			public void selectionChanged(SelectionChangedEvent event) {
@@ -168,8 +168,8 @@ public class OverviewPage extends FormPage {
 				for(Iterator<SadSection> it = modelRoot.getSections().iterator();it.hasNext();){
 					SadSection section = it.next();
 					if(null != section.getText() && section.getName().equals(selection.getFirstElement())){
-						overviewSourceText.setText(section.getText());
-						overviewSourceText.update();
+						styledText.setText(section.getText());
+						styledText.update();
 					}
 				}			
 			}
@@ -238,7 +238,7 @@ public class OverviewPage extends FormPage {
 		Text overviewSourceText = toolkit.createText(client, overviewSource, SWT.SINGLE);
 		overviewSourceText.setEditable(false);
 		gd = new GridData();
-		gd.widthHint = 500;
+		gd.widthHint = 350;
 		overviewSourceText.setLayoutData(gd);
 		
 		
@@ -248,7 +248,7 @@ public class OverviewPage extends FormPage {
 		Text overviewTemplateText = toolkit.createText(client, overviewTemplate, SWT.SINGLE);
 		overviewTemplateText.setEditable(false);
 		gd = new GridData();
-		gd.widthHint = 500;
+		gd.widthHint = 350;
 		overviewTemplateText.setLayoutData(gd);		
 		
 	}
@@ -258,7 +258,7 @@ public class OverviewPage extends FormPage {
 	private void createTreeModel(IManagedForm managedForm, String title, String desc) {
 		Composite client = createSection(managedForm, title, desc, 2);
 				
-		listViewerSections = new ListViewer(client, SWT.BORDER | SWT.V_SCROLL);
+		listViewerSections = new ListViewer(client, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
 		
 				
 		for(Iterator<SadSection> it = modelRoot.getSections().iterator();it.hasNext();){
@@ -269,8 +269,8 @@ public class OverviewPage extends FormPage {
 		}
 		
 		GridData gd = new GridData();
-		gd.widthHint = 500;
-		gd.heightHint = 100;		
+		gd.widthHint = 350;
+		gd.heightHint = 250;		
 		List listSections = listViewerSections.getList();
 		listSections.setLayoutData(gd);		
 		
@@ -286,10 +286,12 @@ public class OverviewPage extends FormPage {
 		toolkit.adapt(compositeDetails);
 		toolkit.paintBordersFor(compositeDetails);		
 		
-		Section section = toolkit.createSection(compositeDetails, Section.TWISTIE
-				| Section.TITLE_BAR | Section.DESCRIPTION | Section.EXPANDED);
+		Section section = toolkit.createSection(compositeDetails, Section.TITLE_BAR | 
+				Section.DESCRIPTION | Section.EXPANDED | Section.CLIENT_INDENT);
+		section.setSize(5, 100);
 		section.setText(title);
 		section.setDescription(desc);
+		
 		//toolkit.createCompositeSeparator(section);
 		Composite client = toolkit.createComposite(section);
 		GridLayout layout = new GridLayout();
@@ -299,7 +301,7 @@ public class OverviewPage extends FormPage {
 		section.setClient(client);
 		section.addExpansionListener(new ExpansionAdapter() {
 			public void expansionStateChanged(ExpansionEvent e) {
-				form.reflow(false);
+				form.reflow(true);
 			}
 		});
 		return client;

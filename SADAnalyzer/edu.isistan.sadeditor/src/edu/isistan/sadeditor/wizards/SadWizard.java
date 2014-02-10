@@ -185,9 +185,8 @@ public class SadWizard extends Wizard implements INewWizard{
 					
 					if((project != null)){
 						sad = sadModelFactory.createSad();	
-						sad.setTitle(sadWizardSettingsPage.getUrl());
+						sad.setTitle(sadWizardSettingsPage.getUrl());						
 						sad.setTemplatePath(sadWizardSettingsPage.getDirectoryTemplateField().getText());
-						
 						for(Section section : project.getSections()){
 							SadSection sadSection = sadModelFactory.createSadSection();
 							sadSection.setName(section.getName());

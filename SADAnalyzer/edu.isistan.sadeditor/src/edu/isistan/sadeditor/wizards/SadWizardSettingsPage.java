@@ -232,6 +232,7 @@ public class SadWizardSettingsPage extends WizardPage {
 			browseArchivesButton.setEnabled(false);
 			sadFromArchiveRadio.setSelection(false);
 			sadFromURLRadio.setSelection(false);
+			urlPath.setEnabled(false);
 			urlPath.setEditable(false);
 		}
 		setPageComplete(validatePage());
@@ -243,6 +244,7 @@ public class SadWizardSettingsPage extends WizardPage {
 			browseTemplateDirectoriesButton.setEnabled(true);
 			sadFromURLRadio.setSelection(true);
 			urlPath.setEnabled(true);
+			urlPath.setEditable(true);
 			archivePathField.setEnabled(false);
 			browseArchivesButton.setEnabled(false);
 			urlPath.setFocus();
@@ -259,6 +261,7 @@ public class SadWizardSettingsPage extends WizardPage {
 			browseTemplateDirectoriesButton.setEnabled(false);
 			sadFromArchiveRadio.setSelection(true);
 			urlPath.setEnabled(false);
+			urlPath.setEditable(false);
 			archivePathField.setEnabled(true);
 			browseArchivesButton.setEnabled(true);
 			archivePathField.setFocus();
