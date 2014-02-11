@@ -28,6 +28,7 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.osgi.framework.Bundle;
 
+
 /**
  * Utility class for managing OS resources associated with SWT/JFace controls such as colors, fonts, images,
  * etc.
