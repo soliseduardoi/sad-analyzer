@@ -15,7 +15,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.domain.IEditingDomainProvider;
 import org.eclipse.jface.action.Action;
-import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.ListViewer;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
@@ -62,6 +61,7 @@ import edu.isistan.sadanalyzer.providers.CrosscuttingConcernRuleLabelProvider;
 import edu.isistan.sadanalyzer.providers.SadSectionLabelProvider;
 import edu.isistan.sadanalyzer.query.QueryEngine;
 import edu.isistan.sadanalyzer.query.UIMASADQueryAdapter;
+import edu.isistan.uima.unified.ruta.RutaEngine;
 import edu.isistan.uima.unified.typesystems.nlp.Sentence;
 import edu.isistan.uima.unified.typesystems.sad.SadSection;
 
@@ -183,6 +183,8 @@ public class SadAnalyzerSetUpPage extends FormPage {
 		
 		//TODO hacer el filtro para ejecutar los queries con listQualityAttributesSelected y listViewerSectionsSelected
 					
+//		pruebaRuta();
+		
 		if((listViewerSectionsSelected.getList().getItems().length > 0) && (listQualityAttributesSelected.getList().getItems().length > 0)){
 			// query
 			URI platformURI = URI.createFileURI(modelRoot.getUimaURI());
@@ -242,6 +244,21 @@ public class SadAnalyzerSetUpPage extends FormPage {
 	}
 	
 	
+	private void pruebaRuta() {
+		URI platformURI = URI.createFileURI(modelRoot.getUimaURI());
+		
+		String inputFile =platformURI.toString();
+		 		
+		IFile file =(IFile)getEditorInput().getAdapter(IFile.class);
+		String outputFile = file.getLocationURI().toString();
+		outputFile= (String) outputFile.subSequence(0, outputFile.length()-3);
+		
+		outputFile+="ruta";
+		
+		RutaEngine rutaEngine = new RutaEngine();
+		rutaEngine.execute(inputFile, outputFile);
+	}
+
 	private java.util.List<CrosscuttingConcern> process(EMap<CrosscuttingConcernRule, EList<EObject>> directRuleResults, EMap<CrosscuttingConcernRule, EList<EObject>> impactRuleResults) {
 		java.util.List<CrosscuttingConcern> crosscuttingConcernsList = new ArrayList<CrosscuttingConcern>();
 		Set<CrosscuttingConcernRule> rules = new HashSet<CrosscuttingConcernRule>();

@@ -24,7 +24,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.emf.query2.stringsyntax;bundle-version="0.7.0",
  org.eclipse.emf.query2.core;bundle-version="0.7.0",
  org.eclipse.emf.query2.stringsyntax.ui;bundle-version="0.7.0",
- org.eclipse.emf.query2.stringsyntaxtools.ui;bundle-version="0.7.0"
+ org.eclipse.emf.query2.stringsyntaxtools.ui;bundle-version="0.7.0",
+ edu.isistan.uima.unified;bundle-version="1.0.1"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: org.eclipse.contribution.visualiser.core,
