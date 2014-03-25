@@ -2,8 +2,8 @@
 <typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
   <name>ECoreTypeDescriptor</name>
   <description/>
-  <version>1.0</version>
-  <vendor>Alejandro Rago</vendor>
+  <version>1.1</version>
+  <vendor>Modified by Eduardo Solis</vendor>
   <imports>
     <import location="IdentifiableTypeDescriptor.xml"/>
     <import location="sad/SadTypeDescriptor.xml"/>    
@@ -22,6 +22,7 @@
     <import location="srl/StructureTypeDescriptor.xml"/>
     <import location="srl/PredicateTypeDescriptor.xml"/>
     <import location="srl/ArgumentTypeDescriptor.xml"/>
+	<import location="domain/CrosscuttingConcernTypeDescriptor.xml"/>
     <import location="domain/DomainNumberTypeDescriptor.xml"/>
     <import location="domain/DomainActionTypeDescriptor.xml"/>
   </imports>

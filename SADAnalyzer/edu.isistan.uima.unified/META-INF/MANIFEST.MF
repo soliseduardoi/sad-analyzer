@@ -13,9 +13,9 @@ Require-Bundle: org.eclipse.core.runtime,
  edu.isistan.uima.libs;bundle-version="1.0.1",
  edu.isistan.softwarearchitecturedocumentationanalyzer;bundle-version="1.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Bundle-ActivationPolicy: lazy
 Eclipse-RegisterBuddy: edu.isistan.uima.libs
 Export-Package: edu.isistan.uima.unified,
+ edu.isistan.uima.unified.ruta,
  edu.isistan.uima.unified.utils
 Bundle-ClassPath: .
 

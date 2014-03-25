@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
+    <name>edu.isistan.reassistant.ruta.domain.DomainNumberTypeSystem</name>
+    <imports>
+        <import location="../../../../../typesystems/BasicTypeSystem.xml"/>
+        <import location="../../../../../typesystems/domain/DomainNumberTypeDescriptor.xml"/>
+        <import location="../../../../../typesystems/nlp/SentenceTypeDescriptor.xml"/>
+        <import location="../../../../../typesystems/nlp/TokenTypeDescriptor.xml"/>
+    </imports>
+    <types>
+        <typeDescription>
+            <name>edu.isistan.textmarker.DomainNumber.Step</name>
+            <description>Type defined in edu.isistan.textmarker.DomainNumber</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>edu.isistan.textmarker.DomainNumber.StepNumber</name>
+            <description>Type defined in edu.isistan.textmarker.DomainNumber</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>edu.isistan.textmarker.DomainNumber.StepSeparator</name>
+            <description>Type defined in edu.isistan.textmarker.DomainNumber</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>edu.isistan.textmarker.DomainNumber.StepJoiner</name>
+            <description>Type defined in edu.isistan.textmarker.DomainNumber</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>edu.isistan.textmarker.DomainNumber.StepClosure</name>
+            <description>Type defined in edu.isistan.textmarker.DomainNumber</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+    </types>
+</typeSystemDescription>
