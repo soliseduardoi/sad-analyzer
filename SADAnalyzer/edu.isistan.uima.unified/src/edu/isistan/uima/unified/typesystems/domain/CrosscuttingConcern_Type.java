@@ -12,6 +12,7 @@ import org.apache.uima.cas.Type;
 import org.apache.uima.cas.impl.FeatureImpl;
 import org.apache.uima.cas.Feature;
 import edu.isistan.uima.unified.typesystems.IdentifiableAnnotation_Type;
+import edu.isistan.uima.unified.typesystems.nlp.Sentence;
 
 /** 
  * Updated by JCasGen Fri Jan 31 20:11:57 ART 2014
@@ -94,7 +95,27 @@ public class CrosscuttingConcern_Type extends IdentifiableAnnotation_Type {
     
   
 
-
+  /** @generated */
+  final Feature casFeat_sentence;
+  /** @generated */
+  final int     casFeatCode_sentence;
+  /** @generated
+   * @param addr low level Feature Structure reference
+   * @return the feature value 
+   */ 
+  public int getSentence(int addr) {
+        if (featOkTst && casFeat_sentence == null)
+      jcas.throwFeatMissing("sentence", "edu.isistan.uima.unified.typesystems.domain.CrosscuttingConcern");
+    return ll_cas.ll_getRefValue(addr, casFeatCode_sentence);
+  }
+  /** @generated
+   * @param addr low level Feature Structure reference
+   * @param v value to set 
+   */    
+  public void setSentence(int addr, int v) {
+        if (featOkTst && casFeat_sentence == null)
+      jcas.throwFeatMissing("sentence", "edu.isistan.uima.unified.typesystems.domain.CrosscuttingConcern");
+    ll_cas.ll_setRefValue(addr, casFeatCode_sentence, v);}
 
   /** initialize variables to correspond with Cas Type and Features
 	 * @generated
@@ -112,6 +133,9 @@ public class CrosscuttingConcern_Type extends IdentifiableAnnotation_Type {
  
     casFeat_kind = jcas.getRequiredFeatureDE(casType, "kind", "uima.cas.String", featOkTst);
     casFeatCode_kind  = (null == casFeat_kind) ? JCas.INVALID_FEATURE_CODE : ((FeatureImpl)casFeat_kind).getCode();
+    
+    casFeat_sentence = jcas.getRequiredFeatureDE(casType, "sentence", "edu.isistan.uima.unified.typesystems.nlp.Sentence", featOkTst);
+    casFeatCode_sentence  = (null == casFeat_sentence) ? JCas.INVALID_FEATURE_CODE : ((FeatureImpl)casFeat_sentence).getCode();
 
   }
 }

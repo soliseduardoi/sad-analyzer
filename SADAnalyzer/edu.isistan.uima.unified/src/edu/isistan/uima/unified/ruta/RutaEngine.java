@@ -1,11 +1,10 @@
 package edu.isistan.uima.unified.ruta;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Vector;
 
-import org.apache.commons.io.IOUtils;
 import org.apache.uima.UIMAException;
 import org.apache.uima.analysis_engine.AnalysisEngineDescription;
 import org.apache.uima.collection.CollectionReaderDescription;
@@ -30,6 +29,9 @@ public class RutaEngine {
 	
 	private static final String RUTA_EXT = "ruta";
 	private ArrayList<RutaScript> scripts = new ArrayList<RutaScript>();
+	private boolean rutaScriptProcessed= false;
+	TypeSystemDescription typeSystemDescription; 
+	TypePriorities typePriorities;
 	
 			
 	private  String getRuleSetPath() {
@@ -57,12 +59,21 @@ public class RutaEngine {
 				String name= file.getName();			
 			
 				if (RUTA_EXT.equals(name.substring(name.length()-4, name.length()))) {
+				
 					RutaScript script = new RutaScript(file.getPath());
+					script.setName(name.substring(0, name.length()-5));
 					scripts.add(script);				
 				}
 		   }	
 			
 	   }
+		try {
+			typeSystemDescription = getTypeSystemDescription();
+			typePriorities =getTypePriorities();
+		} catch (ResourceInitializationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	
@@ -70,41 +81,40 @@ public class RutaEngine {
 		
 		try{
 		boolean debug = true;
-		TypeSystemDescription typeSystemDescription = getTypeSystemDescription();
-		TypePriorities typePriorities =getTypePriorities();
-		
+		long startTime = System.currentTimeMillis();
+			
 		CollectionReaderDescription reader = getXMIReaderCR(typeSystemDescription, typePriorities, inputFile);
 		
-		AnalysisEngineDescription writer = getXMIWriterCC(typeSystemDescription, typePriorities, outputFile);
-		
+//		AnalysisEngineDescription writer = getXMIWriterCC(typeSystemDescription, typePriorities, outputFile);
+		int index= 0;
 		JCasIterable iterable = SimplePipeline.iteratePipeline(
 				reader, 
-				getRutaAA(typeSystemDescription, typePriorities,readScript("Accuracy.ruta"), debug),
-				getRutaAA(typeSystemDescription, typePriorities,readScript("Concurrence.ruta"), debug),
-				getRutaAA(typeSystemDescription, typePriorities,readScript("ErrorManagement.ruta"), debug),
-				getRutaAA(typeSystemDescription, typePriorities,readScript("ExternalCommunication.ruta"), debug),
-				getRutaAA(typeSystemDescription, typePriorities,readScript("IntegrityManagement.ruta"), debug),
-				getRutaAA(typeSystemDescription, typePriorities,readScript("Latency.ruta"), debug),
-				getRutaAA(typeSystemDescription, typePriorities,readScript("Persistence.ruta"), debug),
-				getRutaAA(typeSystemDescription, typePriorities,readScript("Presentation.ruta"), debug),
-				getRutaAA(typeSystemDescription, typePriorities,readScript("Reliability.ruta"), debug),
-				getRutaAA(typeSystemDescription, typePriorities,readScript("UserAccessControl.ruta"), debug),
-				writer
+				getRutaAA(typeSystemDescription, typePriorities,scripts.get(index++).getScriptCode(), debug),
+				getRutaAA(typeSystemDescription, typePriorities,scripts.get(index++).getScriptCode(), debug),
+				getRutaAA(typeSystemDescription, typePriorities,scripts.get(index++).getScriptCode(), debug),
+				getRutaAA(typeSystemDescription, typePriorities,scripts.get(index++).getScriptCode(), debug),
+				getRutaAA(typeSystemDescription, typePriorities,scripts.get(index++).getScriptCode(), debug),
+				getRutaAA(typeSystemDescription, typePriorities,scripts.get(index++).getScriptCode(), debug),
+				getRutaAA(typeSystemDescription, typePriorities,scripts.get(index++).getScriptCode(), debug),
+				getRutaAA(typeSystemDescription, typePriorities,scripts.get(index++).getScriptCode(), debug),
+				getRutaAA(typeSystemDescription, typePriorities,scripts.get(index++).getScriptCode(), debug),
+				getRutaAA(typeSystemDescription, typePriorities,scripts.get(index).getScriptCode(), debug)
 				);
 		for(JCas jCas : iterable) {
 			System.out.printf("Found %d Sentences instances%n", JCasUtil.select(jCas, Sentence.class).size());
 			System.out.printf("Found %d token instances%n", JCasUtil.select(jCas, Token.class).size());			
 			System.out.printf("Found %d crosscutting concern instances%n", JCasUtil.select(jCas, CrosscuttingConcern.class).size());
 		}
+		long endTime = System.currentTimeMillis();
+		long time=  endTime - startTime;
+		
+		System.out.println("Tiempo pipeline: "+ Long.toString(time/1000)+" seg.");
 		
 	} catch (ResourceInitializationException e) {
 		e.printStackTrace();
 	} catch (UIMAException e) {
 		e.printStackTrace();
-	} catch (IOException e) {
-		e.printStackTrace();
-	}
-		
+	} 		
 		
 	}
 	
@@ -116,22 +126,22 @@ public class RutaEngine {
 	}
 	
 	private TypePriorities getTypePriorities() throws ResourceInitializationException {
-//		return TypePrioritiesFactory.createTypePriorities(
-//		"edu.isistan.uima.unified.typesystems.sad.SadSection",
-//		"edu.isistan.uima.unified.typesystems.sad.Sad",
-//		"edu.isistan.uima.unified.typesystems.nlp.Sentence",
-//		"edu.isistan.uima.unified.typesystems.domain.CrosscuttingConcern",
-//		"edu.isistan.uima.unified.typesystems.srl.Predicate",
-//		"edu.isistan.uima.unified.typesystems.srl.Structure",
-//		"edu.isistan.uima.unified.typesystems.srl.Argument",
-//		"edu.isistan.uima.unified.typesystems.nlp.SDDependency",
-//		"edu.isistan.uima.unified.typesystems.nlp.Chunk",
-//		"edu.isistan.uima.unified.typesystems.nlp.Entity",
-//		"edu.isistan.uima.unified.typesystems.srl.Role",
-//		"edu.isistan.uima.unified.typesystems.domain.DomainNumber",
-//		"edu.isistan.uima.unified.typesystems.nlp.Token",
-//		"edu.isistan.uima.unified.typesystems.wordnet.Sense");
-		return null;
+		return TypePrioritiesFactory.createTypePriorities(
+		"edu.isistan.uima.unified.typesystems.sad.SadSection",
+		"edu.isistan.uima.unified.typesystems.sad.Sad",
+		"edu.isistan.uima.unified.typesystems.nlp.Sentence",
+		"edu.isistan.uima.unified.typesystems.domain.CrosscuttingConcern",
+		"edu.isistan.uima.unified.typesystems.srl.Predicate",
+		"edu.isistan.uima.unified.typesystems.srl.Structure",
+		"edu.isistan.uima.unified.typesystems.srl.Argument",
+		"edu.isistan.uima.unified.typesystems.nlp.SDDependency",
+		"edu.isistan.uima.unified.typesystems.nlp.Chunk",
+		"edu.isistan.uima.unified.typesystems.nlp.Entity",
+		"edu.isistan.uima.unified.typesystems.srl.Role",
+		"edu.isistan.uima.unified.typesystems.domain.DomainNumber",
+		"edu.isistan.uima.unified.typesystems.nlp.Token",
+		"edu.isistan.uima.unified.typesystems.wordnet.Sense");
+//		return null;
 	}
 	
 	private CollectionReaderDescription getXMIReaderCR(TypeSystemDescription typeSystemDescription, TypePriorities typePriorities, String inputFile) throws ResourceInitializationException, InvalidXMLException {
@@ -140,11 +150,11 @@ public class RutaEngine {
 		return crDescription;
 	}
 	
-	private AnalysisEngineDescription getXMIWriterCC(TypeSystemDescription typeSystemDescription, TypePriorities typePriorities, String outputFile) throws ResourceInitializationException, InvalidXMLException {
-		AnalysisEngineDescription aeDescription = 
-				AnalysisEngineFactory.createEngineDescription(XMIWriterConsumer.class, typeSystemDescription, typePriorities, "output", outputFile);
-		return aeDescription;
-	}
+//	private AnalysisEngineDescription getXMIWriterCC(TypeSystemDescription typeSystemDescription, TypePriorities typePriorities, String outputFile) throws ResourceInitializationException, InvalidXMLException {
+//		AnalysisEngineDescription aeDescription = 
+//				AnalysisEngineFactory.createEngineDescription(XMIWriterConsumer.class, typeSystemDescription, typePriorities, "output", outputFile);
+//		return aeDescription;
+//	}
 	
 	private AnalysisEngineDescription getRutaAA(TypeSystemDescription typeSystemDescription, TypePriorities typePriorities, String script, boolean debug) throws ResourceInitializationException, InvalidXMLException {
 		AnalysisEngineDescription aeDescription = 
@@ -152,18 +162,87 @@ public class RutaEngine {
 		return aeDescription;
 	}
 	
+		
 	
-	private String readScript(String path) throws IOException {
-//		InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream( getRuleSetPath()+path);
-//		String script = IOUtils.toString(inputStream, "UTF-8");
-		String script =getRuleSetPath()+path;
+public void executeMultiplesPipeline(String inputFile) {
 		
-		File f = new File(script);
-		FileInputStream fs = new FileInputStream(f);
+		try{
+		boolean debug = true;
+		long startTime = System.currentTimeMillis();
+				
+		CollectionReaderDescription reader = getXMIReaderCR(typeSystemDescription, typePriorities, inputFile);
+		Collection<CrosscuttingConcern> concerns = new Vector<CrosscuttingConcern>();
+//		AnalysisEngineDescription writer = getXMIWriterCC(typeSystemDescription, typePriorities, outputFile);
+//		int index= 0;
+//		Collection<Sentence> sentences = null;
+//		Collection<Token> tokens = null;
+//		Collection<CrosscuttingConcern> concerns = new Vector<CrosscuttingConcern>();
+//		ArrayList<JCasIterable> iterables= new ArrayList<JCasIterable>();
+		for (int i = 0; i < scripts.size(); i++) {
+			
+			RutaScript sriptConcern = scripts.get(i);
+			
+			if(sriptConcern.isEnable()){
+			
+			JCasIterable iterable = SimplePipeline.iteratePipeline(reader, 
+					getRutaAA(typeSystemDescription, typePriorities,sriptConcern.getScriptCode(), debug));
+//			sriptConcern.setJCasIter(iterable);
+			for(JCas jCas : iterable) {
+//				sriptConcern.setjCas(jCas);
+				
+				sriptConcern.setConcerns(JCasUtil.select(jCas, CrosscuttingConcern.class));
+	
+				}
+			}
 		
-		return IOUtils.toString(fs, "UTF-8");
+		}
+		
+		long endTime = System.currentTimeMillis();
+		long time=  endTime - startTime;
+		
+		System.out.println("Tiempo pipeline multiple: "+ Long.toString(time/1000)+"seg.");
+		rutaScriptProcessed=true;
+			
+		
+	} catch (ResourceInitializationException e) {
+		e.printStackTrace();
+	} catch (UIMAException e) {
+		e.printStackTrace();
+	} 		
+		
+	}
+
+public Collection<CrosscuttingConcern> getConcern() {
+	long startTime = System.currentTimeMillis();
+	Collection<CrosscuttingConcern> concerns = new Vector<CrosscuttingConcern>();
+	if(rutaScriptProcessed){
+		
+		for (int i = 0; i < scripts.size(); i++) {
+				
+			RutaScript sriptConcern = scripts.get(i);
+			if(sriptConcern.isEnable())
+							
+				concerns.addAll(sriptConcern.getConcerns());
+						
+		}		
+		
 	}
 	
+	long endTime = System.currentTimeMillis();
+	long time=  endTime - startTime;
+	System.out.println("Tiempo select en Uima: "+ Long.toString(time/1000)+"seg, Cantidad de concern detectados: "+ concerns.size());
+	return concerns;
+	
+}
+
+/**
+ * @return the scripts
+ */
+public ArrayList<RutaScript> getScripts() {
+	return scripts;
+}
+
+
 	
 	
 	

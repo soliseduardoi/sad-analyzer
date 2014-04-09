@@ -16,6 +16,7 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Eclipse-RegisterBuddy: edu.isistan.uima.libs
 Export-Package: edu.isistan.uima.unified,
  edu.isistan.uima.unified.ruta,
+ edu.isistan.uima.unified.typesystems.domain,
  edu.isistan.uima.unified.utils
 Bundle-ClassPath: .
 

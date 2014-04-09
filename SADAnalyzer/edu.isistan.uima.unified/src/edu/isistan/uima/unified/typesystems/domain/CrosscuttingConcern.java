@@ -3,11 +3,12 @@
 /* First created by JCasGen Fri Jan 31 12:47:48 ART 2014 */
 package edu.isistan.uima.unified.typesystems.domain;
 
-import org.apache.uima.jcas.JCas; 
+import org.apache.uima.jcas.JCas;
 import org.apache.uima.jcas.JCasRegistry;
 import org.apache.uima.jcas.cas.TOP_Type;
 
 import edu.isistan.uima.unified.typesystems.IdentifiableAnnotation;
+import edu.isistan.uima.unified.typesystems.nlp.Sentence;
 
 
 /** 
@@ -118,6 +119,21 @@ public class CrosscuttingConcern extends IdentifiableAnnotation {
     if (CrosscuttingConcern_Type.featOkTst && ((CrosscuttingConcern_Type)jcasType).casFeat_kind == null)
       jcasType.jcas.throwFeatMissing("kind", "edu.isistan.uima.unified.typesystems.domain.CrosscuttingConcern");
     jcasType.ll_cas.ll_setStringValue(addr, ((CrosscuttingConcern_Type)jcasType).casFeatCode_kind, v);}    
-  }
+ 
 
+
+public Sentence getSentence() {
+    if (CrosscuttingConcern_Type.featOkTst && ((CrosscuttingConcern_Type)jcasType).casFeat_sentence == null)
+      jcasType.jcas.throwFeatMissing("sentence", "edu.isistan.uima.unified.typesystems.domain.CrosscuttingConcern");
+    return (Sentence)(jcasType.ll_cas.ll_getFSForRef(jcasType.ll_cas.ll_getRefValue(addr, ((CrosscuttingConcern_Type)jcasType).casFeatCode_sentence)));}
+    
+  /** setter for Sentence - sets  
+   * @generated
+   * @param v value to set into the feature 
+   */
+  public void setSentence(Sentence v) {
+    if (CrosscuttingConcern_Type.featOkTst && ((CrosscuttingConcern_Type)jcasType).casFeat_sentence == null)
+      jcasType.jcas.throwFeatMissing("sentence", "edu.isistan.uima.unified.typesystems.domain.CrosscuttingConcern");
+    jcasType.ll_cas.ll_setRefValue(addr, ((CrosscuttingConcern_Type)jcasType).casFeatCode_sentence, jcasType.ll_cas.ll_getFSRef(v));}   
+  }
     
