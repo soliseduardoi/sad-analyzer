@@ -29,6 +29,7 @@ import edu.isistan.sadanalyzer.CCDetector;
 import edu.isistan.sadanalyzer.model.SadAnalyzerProject;
 import edu.isistan.sadanalyzer.pages.SadAnalyzerSetUpPage;
 import edu.isistan.sadanalyzer.query.UIMASADQueryAdapter;
+import edu.isistan.uima.unified.ruta.RutaEngine;
 
 /**
  * An example showing how to create a multi-page editor.
@@ -49,6 +50,7 @@ public class SadAnalyzerEditor extends FormEditor implements IEditingDomainProvi
 	private UIMASADQueryAdapter uimaRoot;
 	private SadAnalyzerProject modelRoot;
 	private Sad sadModelRoot;
+	private RutaEngine rutaEngine;
 	
 	
 	public SadAnalyzerEditor(){
@@ -136,14 +138,20 @@ public class SadAnalyzerEditor extends FormEditor implements IEditingDomainProvi
 		}
 		
 		modelRoot = (SadAnalyzerProject) resource.getContents().get(0);
+		createRutaModel();
 		createUIMAModel();
-		
 		createRulesModel();
 		createSadModel();
-		
+		createRutaModel();
 			 
 	}
 	
+	private void createRutaModel() {
+		
+		rutaEngine = new RutaEngine();
+		
+	}
+
 	private void createRulesModel() {
 		
 		URI resourceURI = URI.createFileURI(CCDetector.getRuleSetPath());
@@ -204,6 +212,11 @@ public class SadAnalyzerEditor extends FormEditor implements IEditingDomainProvi
 	
 	public SadAnalyzerProject getSadProjectModel(){
 		return modelRoot;
+	}
+
+	public RutaEngine getRutaModel() {
+		
+		return rutaEngine;
 	}	
 		
 }

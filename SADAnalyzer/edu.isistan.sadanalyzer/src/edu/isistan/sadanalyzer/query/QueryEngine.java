@@ -130,7 +130,7 @@ public class QueryEngine {
 						EList<EObject> result = query(directQueryText);
 						if(directQuery.isInclude())
 							ruleResultsInclude.addAll(result);
-						else
+						else	
 							ruleResultsExclude.addAll(result);
 						//
 						if(!(monitor instanceof NullProgressMonitor))

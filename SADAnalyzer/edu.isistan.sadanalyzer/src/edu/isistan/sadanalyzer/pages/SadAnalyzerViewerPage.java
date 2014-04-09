@@ -309,6 +309,7 @@ public class SadAnalyzerViewerPage extends FormPage {
 			occurrences = 0;
 			styledText.setText(uimaRoot.getCoveredText(sadSection));
 			for(Impact impact : crossCutting.getImpacts()) {
+				//Se rompe aca
 				Sentence sentence = impact.getSentence();
 				Color color = new Color(Display.getDefault(),255, 255, 51);
 				StyleRange newStyleRange = createStyleRange(sentence, color);

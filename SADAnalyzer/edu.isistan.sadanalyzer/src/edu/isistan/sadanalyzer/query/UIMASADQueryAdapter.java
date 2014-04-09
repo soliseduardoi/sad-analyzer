@@ -72,7 +72,6 @@ public class UIMASADQueryAdapter {
 	// Roots
 	private EList<EObject> uimaRoots;
 
-	private EObjectCondition cStructure;
 	
 	public UIMASADQueryAdapter(EList<EObject> uimaRoots) {		
 		this.uimaRoots = uimaRoots;
@@ -114,43 +113,11 @@ public class UIMASADQueryAdapter {
 		String coveredText = sofaString.substring(annotation.getBegin(), annotation.getEnd());
 		return coveredText;
 	}
-	
-	// Annotation range condition
-	private EObjectCondition cRange(Annotation annotation) {
-		int begin = annotation.getBegin();
-		int end = annotation.getEnd();
-		EObjectCondition cRangeBegin = new EObjectAttributeValueCondition(TCasPackage.Literals.ANNOTATION__BEGIN, NumberCondition.between(begin, true, end, true));
-		EObjectCondition cRangeEnd = new EObjectAttributeValueCondition(TCasPackage.Literals.ANNOTATION__END, NumberCondition.between(begin, true, end, true));
-		return cRangeBegin.AND(cRangeEnd);
-	}
-	
-	private EObjectCondition cRangeInverse(Annotation annotation) {
-		int begin = annotation.getBegin();
-		int end = annotation.getEnd();
-		EObjectCondition cRangeBegin = new EObjectAttributeValueCondition(TCasPackage.Literals.ANNOTATION__BEGIN, NumberCondition.lessThanOrEquals(begin));
-		EObjectCondition cRangeEnd = new EObjectAttributeValueCondition(TCasPackage.Literals.ANNOTATION__END, NumberCondition.greaterThanOrEquals(end));
-		return cRangeBegin.AND(cRangeEnd);
-	}
-	
-	// Annotation identification
-	private EObjectCondition cIdentification(EAttribute attribute, String identification) {
-		EObjectCondition condition = new EObjectAttributeValueCondition(attribute, new StringValue(identification));
-		return condition;
-	}
+
 
 	// Queries
 
-	/**
-	 * Obtiene un Sad
-	 * @return
-	 */
-	
-	public Sad getSad() {
-		SELECT statement = new SELECT(new FROM(uimaRoots), new WHERE(cSad));
-		IQueryResult result = statement.execute();
-		return fromIQueryResultToEList(result, new BasicEList<Sad>()).get(0);
-	}	
-	
+
 	
 	/**
 	 * Obtiene una lista de SadSection
@@ -164,272 +131,20 @@ public class UIMASADQueryAdapter {
 	}
 	
 
-	/**
-	 * Obtiene una lista de SadSection dado un Sad
-	 * @param sad
-	 * @return
-	 */
-	
-	public EList<SadSection> getSadSection(Sad sad) {
-		SELECT statement = new SELECT(new FROM(uimaRoots), new WHERE(cSadSection.AND(cRange(sad))));
-		IQueryResult result = statement.execute();
-		return fromIQueryResultToEList(result, new BasicEList<SadSection>());
-	}
-	
-	
-	public EList<Sentence> getSentences() {
-		SELECT statement = new SELECT(new FROM(uimaRoots), new WHERE(cSentence));
-		IQueryResult result = statement.execute();
-		return fromIQueryResultToEList(result, new BasicEList<Sentence>());
-	}
-	
-	public EList<Sentence> getSentences(Section section) {
-		SELECT statement = new SELECT(new FROM(uimaRoots), new WHERE(cSentence.AND(cRange(section))));
-		IQueryResult result = statement.execute();
-		return fromIQueryResultToEList(result, new BasicEList<Sentence>());
-	}
-	
-	/**
-	 * Obtiene todas las sentencias dado un Sad
-	 * @param section
-	 * @return
-	 */
-	
-	public EList<Sentence> getSentences(Sad sad) {
-		SELECT statement = new SELECT(new FROM(uimaRoots), new WHERE(cSentence.AND(cRange(sad))));
-		IQueryResult result = statement.execute();
-		return fromIQueryResultToEList(result, new BasicEList<Sentence>());
-	}
-	
-	/**
-	 * Obtiene todas las sentencias dado una SadSection
-	 * @param section
-	 * @return
-	 */
-	
-	public EList<Sentence> getSentences(SadSection sadSection) {
-		SELECT statement = new SELECT(new FROM(uimaRoots), new WHERE(cSentence.AND(cRange(sadSection))));
-		IQueryResult result = statement.execute();
-		return fromIQueryResultToEList(result, new BasicEList<Sentence>());
-	}
-	
-	public EList<Sentence> getSentences(Document document) {
-		SELECT statement = new SELECT(new FROM(uimaRoots), new WHERE(cSentence.AND(cRange(document))));
-		IQueryResult result = statement.execute();
-		return fromIQueryResultToEList(result, new BasicEList<Sentence>());
-	}
-	
-	public EList<Token> getTokens() {
-		SELECT statement = new SELECT(new FROM(uimaRoots), new WHERE(cToken));
-		IQueryResult result = statement.execute();
-		return fromIQueryResultToEList(result, new BasicEList<Token>());
-	}
-	
-	public EList<Token> getTokens(Sentence sentence) {
-		SELECT statement = new SELECT(new FROM(uimaRoots), new WHERE(cToken.AND(cRange(sentence))));
-		IQueryResult result = statement.execute();
-		return fromIQueryResultToEList(result, new BasicEList<Token>());
-	}
-	
-	public EList<Token> getTokens(Chunk chunk) {
-		SELECT statement = new SELECT(new FROM(uimaRoots), new WHERE(cToken.AND(cRange(chunk))));
-		IQueryResult result = statement.execute();
-		return fromIQueryResultToEList(result, new BasicEList<Token>());
-	}
-	
-	public EList<Token> getTokens(Role role) {
-		
-		return null;
-	}
-	
-	public EList<Token> getTokens(SDDependency dependency) {
-		SELECT statement = new SELECT(new FROM(uimaRoots), new WHERE(
-				cToken.AND(cRange(dependency.getDep()).OR(cRange(dependency.getGov())))));
-		IQueryResult result = statement.execute();
-		return fromIQueryResultToEList(result, new BasicEList<Token>());
-	}
-	
-	public Token getTokenDep(SDDependency dependency) {
-		SELECT statement = new SELECT(new FROM(uimaRoots), new WHERE(cToken.AND(cRange(dependency.getDep()))));
-		IQueryResult result = statement.execute();
-		if(result.size() > 0)
-			return fromIQueryResultToEList(result, new BasicEList<Token>()).get(0);
-		else
-			return null;
-	}
-	
-	public Token getTokenGov(SDDependency dependency) {
-		SELECT statement = new SELECT(new FROM(uimaRoots), new WHERE(cToken.AND(cRange(dependency.getGov()))));
-		IQueryResult result = statement.execute();
-		if(result.size() > 0)
-			return fromIQueryResultToEList(result, new BasicEList<Token>()).get(0);
-		else
-			return null;
-	}
-	
-	public Token getToken(Sense sense) {
-		SELECT statement = new SELECT(new FROM(uimaRoots), new WHERE(cToken.AND(cRange(sense))));
-		IQueryResult result = statement.execute();
-		if(result.size() > 0)
-			return fromIQueryResultToEList(result, new BasicEList<Token>()).get(0);
-		else
-			return null;
-	}
-	
-	public EList<Chunk> getChunks() {
-		SELECT statement = new SELECT(new FROM(uimaRoots), new WHERE(cChunk));
-		IQueryResult result = statement.execute();
-		return fromIQueryResultToEList(result, new BasicEList<Chunk>());
-	}
-	
-	public EList<Chunk> getChunks(Sentence sentence) {
-		SELECT statement = new SELECT(new FROM(uimaRoots), new WHERE(cChunk.AND(cRange(sentence))));
-		IQueryResult result = statement.execute();
-		return fromIQueryResultToEList(result, new BasicEList<Chunk>());
-	}
-	
-	public EList<SDDependency> getDependencies() {
-		SELECT statement = new SELECT(new FROM(uimaRoots), new WHERE(cSDDependency));
-		IQueryResult result = statement.execute();
-		return fromIQueryResultToEList(result, new BasicEList<SDDependency>());
-	}
-	
-	public EList<SDDependency> getDependencies(Sentence sentence) {
-		SELECT statement = new SELECT(new FROM(uimaRoots), new WHERE(cSDDependency.AND(cRange(sentence))));
-		IQueryResult result = statement.execute();
-		return fromIQueryResultToEList(result, new BasicEList<SDDependency>());
-	}
-	
-	public EList<Entity> getEntities() {
-		SELECT statement = new SELECT(new FROM(uimaRoots), new WHERE(cEntity));
-		IQueryResult result = statement.execute();
-		return fromIQueryResultToEList(result, new BasicEList<Entity>());
-	}
-	
-	public EList<Entity> getEntities(Sentence sentence) {
-		SELECT statement = new SELECT(new FROM(uimaRoots), new WHERE(cEntity.AND(cRange(sentence))));
-		IQueryResult result = statement.execute();
-		return fromIQueryResultToEList(result, new BasicEList<Entity>());
-	}
-	
-	public EList<Structure> getStructures() {
-		SELECT statement = new SELECT(new FROM(uimaRoots), new WHERE(cStructure));
-		IQueryResult result = statement.execute();
-		return fromIQueryResultToEList(result, new BasicEList<Structure>());
-	}
-	
-	public EList<Structure> getStructures(Sentence sentence) {
-		SELECT statement = new SELECT(new FROM(uimaRoots), new WHERE(cStructure.AND(cRange(sentence))));
-		IQueryResult result = statement.execute();
-		return fromIQueryResultToEList(result, new BasicEList<Structure>());
-	}
-	
-
-	
-	
-	public EList<Sense> getSenses() {
-		SELECT statement = new SELECT(new FROM(uimaRoots), new WHERE(cSense));
-		IQueryResult result = statement.execute();
-		return fromIQueryResultToEList(result, new BasicEList<Sense>());
-	}
-	
-	public EList<Sense> getSenses(Sentence sentence) {
-		SELECT statement = new SELECT(new FROM(uimaRoots), new WHERE(cSense.AND(cRange(sentence))));
-		IQueryResult result = statement.execute();
-		return fromIQueryResultToEList(result, new BasicEList<Sense>());
-	}
-	
-	public Sense getSense(Token token) {
-		SELECT statement = new SELECT(new FROM(uimaRoots), new WHERE(cSense.AND(cRange(token))));
-		IQueryResult result = statement.execute();
-		if(result.size() > 0)
-			return fromIQueryResultToEList(result, new BasicEList<Sense>()).get(0);
-		else
-			return null;
-	}
-	//
-
-	
-	public Sentence getParentSentence(Structure structure) {
-		SELECT statement = new SELECT(new FROM(uimaRoots), new WHERE(cSentence.AND(cRangeInverse(structure))));
-		IQueryResult result = statement.execute();
-		if(result.size() > 0)
-			return fromIQueryResultToEList(result, new BasicEList<Sentence>()).get(0);
-		else
-			return null;
-	}
-	
-	public EList<Sentence> getContext(Document document, Section section, Sentence sentence) {
-		EList<Sentence> context = getSentences(section);
-		EList<Sentence> result = new BasicEList<Sentence>();
-		if(context.size() > 3) {
-			int index = context.indexOf(sentence);
-			if(index - 1 >= 0 && index + 1 < context.size()) {
-				result.add(context.get(index - 1));
-				result.add(sentence);
-				result.add(context.get(index + 1));
-			}
-			else if(index - 1 >= 0 && index - 2 >= 0) {
-				result.add(context.get(index - 2));
-				result.add(context.get(index - 1));
-				result.add(sentence);
-			}
-			else {
-				result.add(sentence);
-				result.add(context.get(index + 1));
-				result.add(context.get(index + 2));
-			}
-		}
-		return result;
-	}
-	//
-	public EList<DomainNumber> getDomainNumbers() {
-		SELECT statement = new SELECT(new FROM(uimaRoots), new WHERE(cDomainNumber));
-		IQueryResult result = statement.execute();
-		return fromIQueryResultToEList(result, new BasicEList<DomainNumber>());
-	}
-
-	public EList<DomainAction> getDomainActions() {
-		SELECT statement = new SELECT(new FROM(uimaRoots), new WHERE(cDomainAction));
-		IQueryResult result = statement.execute();
-		return fromIQueryResultToEList(result, new BasicEList<DomainAction>());
-	}
-	
-	public EList<DomainAction> getDomainActions(Predicate predicate) {
-		SELECT statement = new SELECT(new FROM(uimaRoots), new WHERE(cDomainAction.AND(cRange(predicate))));
-		IQueryResult result = statement.execute();
-		return fromIQueryResultToEList(result, new BasicEList<DomainAction>());
-	}
-	
-	public EList<DomainAction> getDomainActions(Token token) {
-		SELECT statement = new SELECT(new FROM(uimaRoots), new WHERE(cDomainAction.AND(cRange(token))));
-		IQueryResult result = statement.execute();
-		return fromIQueryResultToEList(result, new BasicEList<DomainAction>());
-	}
-	//
-	public int indexOf(IdentifiableAnnotation annotation, EList<? extends IdentifiableAnnotation> annotations) {
-		int index = 0;
-		for(IdentifiableAnnotation ann : annotations) {
-			if(ann.getIdentification().equals(annotation.getIdentification()))
-				return index;
-			index++;
-		}
-		return -1;
-	}
 	//
 	public void test() {
-		Sad sad = getSad();
-		EList<SadSection> sadSection = getSadSection(sad);
-		sort(sadSection);
-		
-		EList<Sentence> sentences = getSentences(sadSection.get(0));
-		sort(sentences);
-		EList<Token> tokens = getTokens(sentences.get(0));
-		sort(tokens);
-		for(Token token : tokens) {
-			String text = getCoveredText(token);
-			if(text != null)
-				System.out.println(text);
-		}
+//		Sad sad = getSad();
+//		EList<SadSection> sadSection = getSadSection(sad);
+//		sort(sadSection);
+//		
+//		EList<Sentence> sentences = getSentences(sadSection.get(0));
+//		sort(sentences);
+//		EList<Token> tokens = getTokens(sentences.get(0));
+//		sort(tokens);
+//		for(Token token : tokens) {
+//			String text = getCoveredText(token);
+//			if(text != null)
+//				System.out.println(text);
+//		}
 	}
 }

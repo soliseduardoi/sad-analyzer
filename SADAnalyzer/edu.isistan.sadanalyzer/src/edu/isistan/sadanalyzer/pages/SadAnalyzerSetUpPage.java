@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.Vector;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -57,11 +58,13 @@ import edu.isistan.sadanalyzer.model.CrosscuttingConcern;
 import edu.isistan.sadanalyzer.model.Impact;
 import edu.isistan.sadanalyzer.model.SadAnalyzerModelFactory;
 import edu.isistan.sadanalyzer.model.SadAnalyzerProject;
-import edu.isistan.sadanalyzer.providers.CrosscuttingConcernRuleLabelProvider;
+import edu.isistan.sadanalyzer.providers.RutaScriptLabelProvider;
 import edu.isistan.sadanalyzer.providers.SadSectionLabelProvider;
 import edu.isistan.sadanalyzer.query.QueryEngine;
 import edu.isistan.sadanalyzer.query.UIMASADQueryAdapter;
 import edu.isistan.uima.unified.ruta.RutaEngine;
+import edu.isistan.uima.unified.ruta.RutaScript;
+import edu.isistan.uima.unified.typesystems.nlp.NLPFactory;
 import edu.isistan.uima.unified.typesystems.nlp.Sentence;
 import edu.isistan.uima.unified.typesystems.sad.SadSection;
 
@@ -89,6 +92,7 @@ public class SadAnalyzerSetUpPage extends FormPage {
 	
 	private UIMASADQueryAdapter uimaRoot;
 	
+	private RutaEngine rutaEngine;
 	
 	private SadAnalyzerProject modelRoot;
 	private Sad sadModelRoot;
@@ -100,6 +104,7 @@ public class SadAnalyzerSetUpPage extends FormPage {
 	public SadAnalyzerSetUpPage(FormEditor editor) {
 		super(editor, ID, TITLE);
 		editingDomain = ((IEditingDomainProvider)getEditor()).getEditingDomain();
+		rutaEngine = ((SadAnalyzerEditor)getEditor()).getRutaModel();
 		rulesModelRoot =((SadAnalyzerEditor)getEditor()).getRulesModelRoot();
 		uimaRoot = ((SadAnalyzerEditor)getEditor()).getUimaRoot();
 		modelRoot = ((SadAnalyzerEditor)getEditor()).getSadProjectModel();
@@ -174,7 +179,7 @@ public class SadAnalyzerSetUpPage extends FormPage {
 		btnAdd.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-					executeUimaSadProcesor();
+				executeUimaRutaSadProcesor();
 			}
 		});
 	}
@@ -183,7 +188,7 @@ public class SadAnalyzerSetUpPage extends FormPage {
 		
 		//TODO hacer el filtro para ejecutar los queries con listQualityAttributesSelected y listViewerSectionsSelected
 					
-//		pruebaRuta();
+		pruebaRuta();
 		
 		if((listViewerSectionsSelected.getList().getItems().length > 0) && (listQualityAttributesSelected.getList().getItems().length > 0)){
 			// query
@@ -255,8 +260,34 @@ public class SadAnalyzerSetUpPage extends FormPage {
 		
 		outputFile+="ruta";
 		
-		RutaEngine rutaEngine = new RutaEngine();
-		rutaEngine.execute(inputFile, outputFile);
+	   rutaEngine.executeMultiplesPipeline(inputFile);
+	   Vector<CrosscuttingConcern> concerns =  getConcernAdapted(rutaEngine.getScripts());
+	  
+	}
+
+	private Vector<CrosscuttingConcern> getConcernAdapted(
+			ArrayList<RutaScript> scripts) {
+		Vector<CrosscuttingConcern> concerns= new Vector<CrosscuttingConcern>();
+		for (Iterator scriptIterator = scripts.iterator(); scriptIterator.hasNext();) {
+			
+			RutaScript rutaScript = (RutaScript) scriptIterator.next();			
+			CrosscuttingConcern concernAdapted = SadAnalyzerModelFactory.eINSTANCE.createCrosscuttingConcern();
+			concernAdapted.setName(rutaScript.getName());
+			for (Iterator concernIterator = rutaScript.getConcerns().iterator(); concernIterator.hasNext();) {
+				edu.isistan.uima.unified.typesystems.domain.CrosscuttingConcern concern = (edu.isistan.uima.unified.typesystems.domain.CrosscuttingConcern) concernIterator.next();
+			//Ver si el problema puede estar aca
+				Impact impact = SadAnalyzerModelFactory.eINSTANCE.createImpact();
+				Sentence sentence= concern.getSentence();
+				impact.setSentence(sentence);
+				concernAdapted.getImpacts().add(impact);
+			}
+			
+			concerns.add(concernAdapted);
+			
+		
+			
+		}
+		return concerns;
 	}
 
 	private java.util.List<CrosscuttingConcern> process(EMap<CrosscuttingConcernRule, EList<EObject>> directRuleResults, EMap<CrosscuttingConcernRule, EList<EObject>> impactRuleResults) {
@@ -316,15 +347,16 @@ public class SadAnalyzerSetUpPage extends FormPage {
 		FormToolkit toolkit = managedForm.getToolkit();
 		
 		listQualityAttributesSource = new ListViewer(client, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
-		listQualityAttributesSource.setLabelProvider(new CrosscuttingConcernRuleLabelProvider());
+		listQualityAttributesSource.setLabelProvider(new RutaScriptLabelProvider());
+	
+		Iterator<RutaScript> scripts = rutaEngine.getScripts().iterator();
 		
-		Iterator<CrosscuttingConcernRule> rules = rulesModelRoot.getRules().iterator();
-		
-		for ( ;rules.hasNext();) {
-			CrosscuttingConcernRule rule = rules.next();
+		for ( ;scripts.hasNext();) {
+			RutaScript script = scripts.next();
 			
-			listQualityAttributesSource.add(rule);
+			listQualityAttributesSource.add(script);
 		}	
+		
 				
 		GridData gd = new GridData();
 		gd.widthHint = 200;
@@ -357,7 +389,7 @@ public class SadAnalyzerSetUpPage extends FormPage {
 		
 		listQualityAtributes2 = listQualityAttributesSelected.getList();
 		listQualityAtributes2.setLayoutData(gd);
-		listQualityAttributesSelected.setLabelProvider(new CrosscuttingConcernRuleLabelProvider());
+		listQualityAttributesSelected.setLabelProvider(new RutaScriptLabelProvider());
 		
 		Button btnRemoveAll = toolkit.createButton(compositeBtn, "<< Remove All", SWT.NONE);
 		
@@ -365,7 +397,7 @@ public class SadAnalyzerSetUpPage extends FormPage {
 			@Override
 			public void widgetSelected(SelectionEvent e) {				
 				for(int i = 0; listQualityAttributesSource.getList().getItems().length > 0; ){
-					CrosscuttingConcernRule crossC = (CrosscuttingConcernRule)listQualityAttributesSource.getElementAt(i);
+					RutaScript crossC = (RutaScript)listQualityAttributesSource.getElementAt(i);
 					listQualityAttributesSelected.add(crossC);
 					listQualityAttributesSource.remove(crossC);
 				}				
@@ -378,7 +410,7 @@ public class SadAnalyzerSetUpPage extends FormPage {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				for(int i = 0; listQualityAttributesSelected.getList().getItems().length > 0; ){
-					CrosscuttingConcernRule crossC = (CrosscuttingConcernRule)listQualityAttributesSelected.getElementAt(i);
+					RutaScript crossC = (RutaScript)listQualityAttributesSelected.getElementAt(i);
 					listQualityAttributesSource.add(crossC);
 					listQualityAttributesSelected.remove(crossC);
 				}				
@@ -391,7 +423,7 @@ public class SadAnalyzerSetUpPage extends FormPage {
 			public void widgetSelected(SelectionEvent e) {
 				StructuredSelection selection = (StructuredSelection)listQualityAttributesSource.getSelection();
 				if(!selection.isEmpty()) {
-					CrosscuttingConcernRule crossCutting = (CrosscuttingConcernRule)selection.getFirstElement();
+					RutaScript crossCutting = (RutaScript)selection.getFirstElement();
 					listQualityAttributesSource.remove(crossCutting);
 					listQualityAttributesSelected.add(crossCutting);
 					refreshList();
@@ -404,7 +436,7 @@ public class SadAnalyzerSetUpPage extends FormPage {
 			public void widgetSelected(SelectionEvent e) {
 				StructuredSelection selection = (StructuredSelection)listQualityAttributesSelected.getSelection();
 				if(!selection.isEmpty()) {
-					CrosscuttingConcernRule crossCutting = (CrosscuttingConcernRule)selection.getFirstElement();
+					RutaScript crossCutting = (RutaScript)selection.getFirstElement();
 					listQualityAttributesSelected.remove(crossCutting);
 					listQualityAttributesSource.add(crossCutting);
 					refreshList();
@@ -446,6 +478,8 @@ public class SadAnalyzerSetUpPage extends FormPage {
 		
 		listViewerSections = new ListViewer(client, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);		
 		listViewerSections.setLabelProvider(new SadSectionLabelProvider(uimaRoot));
+		
+	  //TODO Ver esto
 		EList<SadSection> sections = uimaRoot.getSadSection();
 		
 		for(Iterator<SadSection> it = sections.iterator();it.hasNext();){
@@ -582,5 +616,94 @@ public class SadAnalyzerSetUpPage extends FormPage {
 		super.setActive(active);
 	}
 	
+	/**
+	 * 
+	 * Nueva implementacion con ruta
+	 */
+	private java.util.List<CrosscuttingConcern> rutaProcess(EMap<CrosscuttingConcernRule, EList<EObject>> directRuleResults, EMap<CrosscuttingConcernRule, EList<EObject>> impactRuleResults) {
+		java.util.List<CrosscuttingConcern> crosscuttingConcernsList = new ArrayList<CrosscuttingConcern>();
+		
+		Set<CrosscuttingConcernRule> rules = new HashSet<CrosscuttingConcernRule>();
+		rules.addAll(directRuleResults.keySet());
+		rules.addAll(impactRuleResults.keySet());
+		for(CrosscuttingConcernRule rule : rules) {
+			CrosscuttingConcern crosscuttingConcern = SadAnalyzerModelFactory.eINSTANCE.createCrosscuttingConcern();
+			crosscuttingConcern.setName(rule.getName());
+			crosscuttingConcern.setDescription(rule.getMetadata());
+			//
+			EList<EObject> directResult = directRuleResults.get(rule);
+			if(directResult != null) {
+				for(EObject object : directResult) {
+					Impact impact = process(rule, object);
+					crosscuttingConcern.getImpacts().add(impact);
+				}
+			}
+			EList<EObject> impactResult = impactRuleResults.get(rule);
+			if(impactResult != null) {
+				for(EObject object : impactResult) {
+					Impact impact = process(rule, object);
+					crosscuttingConcern.getImpacts().add(impact);
+				}
+			}
+			crosscuttingConcernsList.add(crosscuttingConcern);
+		}
+		return crosscuttingConcernsList;
+	}
+	private void executeUimaRutaSadProcesor(){
+	
+       
+		if((listViewerSectionsSelected.getList().getItems().length > 0) && (listQualityAttributesSelected.getList().getItems().length > 0)){
+		
+				URI platformURI = URI.createFileURI(modelRoot.getUimaURI());
+				
+				String inputFile =platformURI.toString();
+				 		
+				IFile file =(IFile)getEditorInput().getAdapter(IFile.class);
+				String outputFile = file.getLocationURI().toString();
+				outputFile= (String) outputFile.subSequence(0, outputFile.length()-3);
+				
+				outputFile+="ruta";
+				
+			   rutaEngine.executeMultiplesPipeline(inputFile);
+			   Vector<CrosscuttingConcern> crosscuttingConcerns =  getConcernAdapted(rutaEngine.getScripts());
+		
+			   if(crosscuttingConcerns != null){			
+										
+				java.util.List<CrosscuttingConcern> attributes = new ArrayList<CrosscuttingConcern>();
+				for(int i=0; i < crosscuttingConcerns.size(); i++){
+					CrosscuttingConcern c = crosscuttingConcerns.get(i);
+					boolean match = false;
+					for(int j=0; j < listQualityAttributesSelected.getList().getItems().length && !match; j++){
+						if(listQualityAttributesSelected.getList().getItem(j).equals(c.getName())){
+							attributes.add(c);
+							match = true;
+						}
+					}
+				}
+				
+				IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+				IWorkbenchPage page = window.getActivePage();
+				for(IEditorReference reference : page.getEditorReferences()){
+				  if(reference .getId().equals(SadAnalyzerEditor.ID)){
+				    EditorPart part = (EditorPart) reference.getEditor(true);
+				    SadAnalyzerEditor editor = (SadAnalyzerEditor)part;
+				    SadAnalyzerViewerPage pageView = (SadAnalyzerViewerPage) editor.findPage(SadAnalyzerViewerPage.ID);
+				    if(null == pageView){
+				    	FormPage sdAnalyzerViewerPage = new SadAnalyzerViewerPage(editor, listViewerSectionsSelected,  attributes);			    	
+						try {
+							editor.addPage(sdAnalyzerViewerPage);						
+						} catch (PartInitException p) {
+							// TODO Auto-generated catch block
+							p.printStackTrace();
+						}
+				    }else{
+				    	pageView.refresh(listViewerSectionsSelected, attributes);
+				    }
+				    editor.setActivePage(SadAnalyzerViewerPage.ID);
+				  }
+				}
+			}		
+	  }
+	}
 	
 }
