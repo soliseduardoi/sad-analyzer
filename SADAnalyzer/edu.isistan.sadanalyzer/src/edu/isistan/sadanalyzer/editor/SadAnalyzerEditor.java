@@ -25,11 +25,9 @@ import org.eclipse.ui.forms.editor.FormPage;
 
 import SadModel.Sad;
 import edu.isistan.reassistant.ccdetector.model.CrosscuttingConcernRuleSet;
-import edu.isistan.sadanalyzer.CCDetector;
 import edu.isistan.sadanalyzer.model.SadAnalyzerProject;
 import edu.isistan.sadanalyzer.pages.SadAnalyzerSetUpPage;
 import edu.isistan.sadanalyzer.query.UIMASADQueryAdapter;
-import edu.isistan.uima.unified.ruta.RutaEngine;
 
 /**
  * An example showing how to create a multi-page editor.
@@ -50,7 +48,7 @@ public class SadAnalyzerEditor extends FormEditor implements IEditingDomainProvi
 	private UIMASADQueryAdapter uimaRoot;
 	private SadAnalyzerProject modelRoot;
 	private Sad sadModelRoot;
-	private RutaEngine rutaEngine;
+	
 	
 	
 	public SadAnalyzerEditor(){
@@ -79,19 +77,19 @@ public class SadAnalyzerEditor extends FormEditor implements IEditingDomainProvi
 
 	@Override
 	public void doSave(IProgressMonitor arg0) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
 	@Override
 	public void doSaveAs() {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
 	@Override
 	public boolean isSaveAsAllowed() {
-		// TODO Auto-generated method stub
+		
 		return false;
 	}
 	
@@ -138,36 +136,16 @@ public class SadAnalyzerEditor extends FormEditor implements IEditingDomainProvi
 		}
 		
 		modelRoot = (SadAnalyzerProject) resource.getContents().get(0);
-		createRutaModel();
+
 		createUIMAModel();
-		createRulesModel();
+
 		createSadModel();
-		createRutaModel();
+		
 			 
 	}
 	
-	private void createRutaModel() {
-		
-		rutaEngine = new RutaEngine();
-		
-	}
 
-	private void createRulesModel() {
-		
-		URI resourceURI = URI.createFileURI(CCDetector.getRuleSetPath());
-		Exception exception = null;
-		Resource resource = null;
-		try {
-			// Load the resource through the editing domain.
-			resource = editingDomain.getResourceSet().getResource(resourceURI, true);
-		}
-		catch (Exception e) {
-			exception = e;
-			resource = editingDomain.getResourceSet().getResource(resourceURI, false);
-		}
-		rulesModelRoot = (CrosscuttingConcernRuleSet) resource.getContents().get(0);		
-		
-	}
+
 	
 	private void createUIMAModel() {
 		ResourceSet resourceSet = new ResourceSetImpl();
@@ -214,9 +192,6 @@ public class SadAnalyzerEditor extends FormEditor implements IEditingDomainProvi
 		return modelRoot;
 	}
 
-	public RutaEngine getRutaModel() {
-		
-		return rutaEngine;
-	}	
+
 		
 }

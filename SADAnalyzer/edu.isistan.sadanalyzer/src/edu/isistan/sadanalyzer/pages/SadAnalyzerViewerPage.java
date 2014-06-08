@@ -2,7 +2,6 @@ package edu.isistan.sadanalyzer.pages;
 
 
 import org.eclipse.jface.action.Action;
-import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ListViewer;
@@ -30,7 +29,6 @@ import org.eclipse.ui.forms.editor.FormPage;
 import org.eclipse.ui.forms.events.ExpansionAdapter;
 import org.eclipse.ui.forms.events.ExpansionEvent;
 import org.eclipse.ui.forms.widgets.ColumnLayout;
-import org.eclipse.ui.forms.widgets.FormText;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.Section;
@@ -39,13 +37,12 @@ import org.eclipse.wb.swt.ResourceManager;
 
 import edu.isistan.sadanalyzer.editor.Messages;
 import edu.isistan.sadanalyzer.editor.SadAnalyzerEditor;
-import edu.isistan.sadanalyzer.model.CrosscuttingConcern;
-import edu.isistan.sadanalyzer.model.Impact;
-import edu.isistan.sadanalyzer.model.impl.CrosscuttingConcernImpl;
 import edu.isistan.sadanalyzer.providers.CrosscuttingConcernLabelProvider;
 import edu.isistan.sadanalyzer.providers.SadSectionLabelProvider;
 import edu.isistan.sadanalyzer.query.UIMASADQueryAdapter;
-import edu.isistan.uima.unified.typesystems.nlp.Sentence;
+import edu.isistan.uima.unified.ruta.CrosscuttingConcernAdapted;
+import edu.isistan.uima.unified.ruta.ImpactWrapper;
+import edu.isistan.uima.unified.ruta.SentenceMark;
 import edu.isistan.uima.unified.typesystems.sad.SadSection;
 import edu.isistan.uima.unified.typesystems.sad.impl.SadSectionImpl;
 
@@ -62,7 +59,7 @@ public class SadAnalyzerViewerPage extends FormPage {
 	private ListViewer listSections;
 	private ListViewer listAttributes;
 	private SadSection sadSection;
-	private CrosscuttingConcern crossCutting;
+	private CrosscuttingConcernAdapted crossCutting;
 	private StyledText styledText;
 	private int occurrences;
 	private Label labelOccurrences;
@@ -228,7 +225,7 @@ public class SadAnalyzerViewerPage extends FormPage {
 			public void selectionChanged(SelectionChangedEvent event) {
 				IStructuredSelection selection = (IStructuredSelection)event.getSelection();			
 				if(!selection.isEmpty()) {
-					crossCutting = (CrosscuttingConcernImpl)selection.getFirstElement();
+					crossCutting = (CrosscuttingConcernAdapted)selection.getFirstElement();
 					viewQueryText();
 				}
 			}
@@ -304,13 +301,14 @@ public class SadAnalyzerViewerPage extends FormPage {
 		compositeLabel.update();
 	}
 	
+
 	private void viewQueryText(){
 		if(null != sadSection && null != crossCutting){	
 			occurrences = 0;
 			styledText.setText(uimaRoot.getCoveredText(sadSection));
-			for(Impact impact : crossCutting.getImpacts()) {
+			for(ImpactWrapper impact : crossCutting.getImpacts()) {
 				//Se rompe aca
-				Sentence sentence = impact.getSentence();
+				SentenceMark sentence = impact.getSentence();
 				Color color = new Color(Display.getDefault(),255, 255, 51);
 				StyleRange newStyleRange = createStyleRange(sentence, color);
 				setStyledRange(newStyleRange);
@@ -328,10 +326,13 @@ public class SadAnalyzerViewerPage extends FormPage {
 		compositeLabel.update();
 	}
 	
-	private StyleRange createStyleRange(Sentence sentence, Color color) {
+	private StyleRange createStyleRange(SentenceMark sentence, Color color) {
 		StyleRange styleRange = new StyleRange();
-		styleRange.start = sentence.getBegin() - sadSection.getBegin();
-		styleRange.length = sentence.getEnd() - sentence.getBegin();
+		int sentenceBegin= sentence.getBegin();
+		int sentenceEnd= sentence.getEnd();
+		int sadSectionBegin= sadSection.getBegin();		
+		styleRange.start = sentenceBegin - sadSectionBegin ;
+		styleRange.length = sentenceEnd-sentenceBegin;
 		styleRange.fontStyle = SWT.BOLD;
 		styleRange.background = color;
 		return styleRange;
