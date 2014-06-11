@@ -29,6 +29,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  * <ul>
  *   <li>{@link SadModel.impl.SadImpl#getSections <em>Sections</em>}</li>
  *   <li>{@link SadModel.impl.SadImpl#getTemplatePath <em>Template Path</em>}</li>
+ *   <li>{@link SadModel.impl.SadImpl#getLocale <em>Locale</em>}</li>
  * </ul>
  * </p>
  *
@@ -63,6 +64,26 @@ public class SadImpl extends ArtifactImpl implements Sad {
 	 * @ordered
 	 */
 	protected String templatePath = TEMPLATE_PATH_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getLocale() <em>Locale</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLocale()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String LOCALE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getLocale() <em>Locale</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLocale()
+	 * @generated
+	 * @ordered
+	 */
+	protected String locale = LOCALE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -121,6 +142,27 @@ public class SadImpl extends ArtifactImpl implements Sad {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getLocale() {
+		return locale;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setLocale(String newLocale) {
+		String oldLocale = locale;
+		locale = newLocale;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, SadModelPackage.SAD__LOCALE, oldLocale, locale));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -128,6 +170,8 @@ public class SadImpl extends ArtifactImpl implements Sad {
 				return getSections();
 			case SadModelPackage.SAD__TEMPLATE_PATH:
 				return getTemplatePath();
+			case SadModelPackage.SAD__LOCALE:
+				return getLocale();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -148,6 +192,9 @@ public class SadImpl extends ArtifactImpl implements Sad {
 			case SadModelPackage.SAD__TEMPLATE_PATH:
 				setTemplatePath((String)newValue);
 				return;
+			case SadModelPackage.SAD__LOCALE:
+				setLocale((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -166,6 +213,9 @@ public class SadImpl extends ArtifactImpl implements Sad {
 			case SadModelPackage.SAD__TEMPLATE_PATH:
 				setTemplatePath(TEMPLATE_PATH_EDEFAULT);
 				return;
+			case SadModelPackage.SAD__LOCALE:
+				setLocale(LOCALE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -182,6 +232,8 @@ public class SadImpl extends ArtifactImpl implements Sad {
 				return sections != null && !sections.isEmpty();
 			case SadModelPackage.SAD__TEMPLATE_PATH:
 				return TEMPLATE_PATH_EDEFAULT == null ? templatePath != null : !TEMPLATE_PATH_EDEFAULT.equals(templatePath);
+			case SadModelPackage.SAD__LOCALE:
+				return LOCALE_EDEFAULT == null ? locale != null : !LOCALE_EDEFAULT.equals(locale);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -198,6 +250,8 @@ public class SadImpl extends ArtifactImpl implements Sad {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (templatePath: ");
 		result.append(templatePath);
+		result.append(", locale: ");
+		result.append(locale);
 		result.append(')');
 		return result.toString();
 	}

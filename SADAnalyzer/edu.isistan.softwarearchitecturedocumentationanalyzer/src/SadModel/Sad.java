@@ -18,6 +18,7 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  *   <li>{@link SadModel.Sad#getSections <em>Sections</em>}</li>
  *   <li>{@link SadModel.Sad#getTemplatePath <em>Template Path</em>}</li>
+ *   <li>{@link SadModel.Sad#getLocale <em>Locale</em>}</li>
  * </ul>
  * </p>
  *
@@ -67,6 +68,32 @@ public interface Sad extends Artifact {
 	 * @generated
 	 */
 	void setTemplatePath(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Locale</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Locale</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Locale</em>' attribute.
+	 * @see #setLocale(String)
+	 * @see SadModel.SadModelPackage#getSad_Locale()
+	 * @model
+	 * @generated
+	 */
+	String getLocale();
+
+	/**
+	 * Sets the value of the '{@link SadModel.Sad#getLocale <em>Locale</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Locale</em>' attribute.
+	 * @see #getLocale()
+	 * @generated
+	 */
+	void setLocale(String value);
 	
 
 } // Sad
