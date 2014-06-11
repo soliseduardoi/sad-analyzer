@@ -1,6 +1,7 @@
 package edu.isistan.uima.unified;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import org.apache.uima.analysis_engine.AnalysisEngine;
@@ -25,6 +26,8 @@ import edu.isistan.uima.unified.analysisengines.domain.DomainNumberExclusionAnno
 import edu.isistan.uima.unified.analysisengines.matetools.CoNLLDependencyAnnotator;
 import edu.isistan.uima.unified.analysisengines.matetools.LemmaAnnotator;
 import edu.isistan.uima.unified.analysisengines.matetools.MorphAnnotator;
+import edu.isistan.uima.unified.analysisengines.nlp.EnglishStemmerAnnotator;
+import edu.isistan.uima.unified.analysisengines.nlp.SpanishStemmerAnnotator;
 import edu.isistan.uima.unified.analysisengines.nlp.StemmerAnnotator;
 import edu.isistan.uima.unified.analysisengines.nlp.StopWordAnnotator;
 import edu.isistan.uima.unified.analysisengines.opennlp.ChunkAnnotator;
@@ -53,7 +56,8 @@ import edu.isistan.uima.unified.sharedresources.XMISharedDataResourceImpl;
 @SuppressWarnings({ "rawtypes" })
 public class SadUIMAFactory {
 	private static SadUIMAFactory instance = null;
-	private Map<Class, Object> cache;
+	private Map<Class, Object> cache;	
+	private String language;
 	
 	private SadUIMAFactory() {
 		cache = new HashMap<Class, Object>();
@@ -65,6 +69,14 @@ public class SadUIMAFactory {
 		return instance;
 	}
 	
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+
 	public String getModelsPath() {
 		String modelsPath = null;
 		if(modelsPath == null || modelsPath.isEmpty())
@@ -229,7 +241,7 @@ public class SadUIMAFactory {
 		Class key = StopWordAnnotator.class;
 		if(!cache.containsKey(key)) {
 			AnalysisEngineDescription aeDescription = 
-				AnalysisEngineFactory.createPrimitiveDescription(StopWordAnnotator.class, typeSystemDescription, typePriorities);
+				AnalysisEngineFactory.createPrimitiveDescription(StopWordAnnotator.class, typeSystemDescription, typePriorities, "language", getLanguage());
 			ExternalResourceFactory.bindResource(aeDescription, "monitor", monitorResourceDescription);
 			AnalysisEngine analysisEngine = AnalysisEngineFactory.createPrimitive(aeDescription);
 			cache.put(key, analysisEngine);
@@ -240,8 +252,24 @@ public class SadUIMAFactory {
 	public AnalysisEngine getNLPStemmerAA(TypeSystemDescription typeSystemDescription, TypePriorities typePriorities, ExternalResourceDescription monitorResourceDescription) throws ResourceInitializationException, InvalidXMLException {
 		Class key = StemmerAnnotator.class;
 		if(!cache.containsKey(key)) {
+			AnalysisEngineDescription aeDescription;
+			if(getLanguage().equals(Locale.ENGLISH.getLanguage())){
+				aeDescription = AnalysisEngineFactory.createPrimitiveDescription(EnglishStemmerAnnotator.class, typeSystemDescription, typePriorities); 
+			}else{
+				aeDescription = AnalysisEngineFactory.createPrimitiveDescription(SpanishStemmerAnnotator.class, typeSystemDescription, typePriorities);
+			}
+			ExternalResourceFactory.bindResource(aeDescription, "monitor", monitorResourceDescription);
+			AnalysisEngine analysisEngine = AnalysisEngineFactory.createPrimitive(aeDescription);
+			cache.put(key, analysisEngine);
+		}
+		return (AnalysisEngine) cache.get(key);
+	}
+	
+	public AnalysisEngine getNLPSpanishStemmerAA(TypeSystemDescription typeSystemDescription, TypePriorities typePriorities, ExternalResourceDescription monitorResourceDescription) throws ResourceInitializationException, InvalidXMLException {
+		Class key = StemmerAnnotator.class;
+		if(!cache.containsKey(key)) {
 			AnalysisEngineDescription aeDescription = 
-				AnalysisEngineFactory.createPrimitiveDescription(StemmerAnnotator.class, typeSystemDescription, typePriorities);
+				AnalysisEngineFactory.createPrimitiveDescription(SpanishStemmerAnnotator.class, typeSystemDescription, typePriorities);
 			ExternalResourceFactory.bindResource(aeDescription, "monitor", monitorResourceDescription);
 			AnalysisEngine analysisEngine = AnalysisEngineFactory.createPrimitive(aeDescription);
 			cache.put(key, analysisEngine);
@@ -278,16 +306,22 @@ public class SadUIMAFactory {
 	public AnalysisEngine getOpenNLPPOSAA(TypeSystemDescription typeSystemDescription, TypePriorities typePriorities, ExternalResourceDescription monitorResourceDescription) throws ResourceInitializationException, InvalidXMLException {
 		Class key = edu.isistan.uima.unified.analysisengines.opennlp.POSAnnotator.class;
 		if(!cache.containsKey(key)) {
+			String model = "";
+			if(getLanguage().equals(Locale.ENGLISH.getLanguage())){
+				model = "opennlp/models/en-pos-maxent.bin";
+			}else{
+				model = "opennlp/models/opennlp-es-maxent-pos-es.bin";
+			}
 			AnalysisEngineDescription aeDescription = 
 				AnalysisEngineFactory.createPrimitiveDescription(edu.isistan.uima.unified.analysisengines.opennlp.POSAnnotator.class, typeSystemDescription, typePriorities, 
-				"model", getModelsPath() + "opennlp/models/en-pos-maxent.bin");
+				"model", getModelsPath() + model);
 			ExternalResourceFactory.bindResource(aeDescription, "monitor", monitorResourceDescription);
 			AnalysisEngine analysisEngine = AnalysisEngineFactory.createPrimitive(aeDescription);
 			cache.put(key, analysisEngine);
 		}
 		return (AnalysisEngine) cache.get(key);
 	}
-	
+		
 	public AnalysisEngine getOpenNLPChunkAA(TypeSystemDescription typeSystemDescription, TypePriorities typePriorities, ExternalResourceDescription monitorResourceDescription) throws ResourceInitializationException, InvalidXMLException {
 		Class key = ChunkAnnotator.class;
 		if(!cache.containsKey(key)) {
@@ -470,9 +504,14 @@ public class SadUIMAFactory {
 	public AnalysisEngine getMateToolsLemmaAA(TypeSystemDescription typeSystemDescription, TypePriorities typePriorities, ExternalResourceDescription monitorResourceDescription) throws ResourceInitializationException, InvalidXMLException {
 		Class key = LemmaAnnotator.class;
 		if(!cache.containsKey(key)) {
-			AnalysisEngineDescription aeDescription = 
-				AnalysisEngineFactory.createPrimitiveDescription(LemmaAnnotator.class, typeSystemDescription, typePriorities, 
-				"model", getModelsPath() + "matetools/is2/model/lemma-eng.model");
+			String model="";
+			if(getLanguage().equals(Locale.ENGLISH.getLanguage())){
+				model = "matetools/is2/model/lemma-eng.model";
+			}else{
+				model = "matetools/is2/model/lemma-spa.model";
+			}
+			AnalysisEngineDescription aeDescription = AnalysisEngineFactory.createPrimitiveDescription(LemmaAnnotator.class, typeSystemDescription, typePriorities, 
+						"model", getModelsPath() + model);
 			ExternalResourceFactory.bindResource(aeDescription, "monitor", monitorResourceDescription);
 			AnalysisEngine analysisEngine = AnalysisEngineFactory.createPrimitive(aeDescription);
 			cache.put(key, analysisEngine);
@@ -480,12 +519,14 @@ public class SadUIMAFactory {
 		return (AnalysisEngine) cache.get(key);	
 	}
 	
+		
 	public AnalysisEngine getMateToolsPOSAA(TypeSystemDescription typeSystemDescription, TypePriorities typePriorities, ExternalResourceDescription monitorResourceDescription) throws ResourceInitializationException, InvalidXMLException {
 		Class key = edu.isistan.uima.unified.analysisengines.matetools.POSAnnotator.class;
 		if(!cache.containsKey(key)) {
 			AnalysisEngineDescription aeDescription = 
 				AnalysisEngineFactory.createPrimitiveDescription(edu.isistan.uima.unified.analysisengines.matetools.POSAnnotator.class, typeSystemDescription, typePriorities, 
 				"model", getModelsPath() + "matetools/is2/model/tag-eng.model");
+								
 			ExternalResourceFactory.bindResource(aeDescription, "monitor", monitorResourceDescription);
 			AnalysisEngine analysisEngine = AnalysisEngineFactory.createPrimitive(aeDescription);
 			cache.put(key, analysisEngine);

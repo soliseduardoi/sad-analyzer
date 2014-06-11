@@ -1,7 +1,12 @@
 package edu.isistan.uima.unified;
 
+import is2.data.SentenceData09;
+
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.StringTokenizer;
 
 import org.apache.uima.UIMAException;
 import org.apache.uima.analysis_engine.AnalysisEngine;
@@ -23,13 +28,14 @@ public class SadUIMAProcessor {
 	private static SadUIMAProcessor instance = null;
 	private SadUIMAFactory factory = null;
 	
-	private SadUIMAProcessor() {
+	private SadUIMAProcessor(String language) {
 		factory = SadUIMAFactory.getInstance();
+		factory.setLanguage(language);
 	}
 	
-	public static SadUIMAProcessor getInstance() {
+	public static SadUIMAProcessor getInstance(String language) {
 		if(instance == null)
-			instance = new SadUIMAProcessor();
+			instance = new SadUIMAProcessor(language);
 		return instance;
 	}
 	
@@ -54,16 +60,17 @@ public class SadUIMAProcessor {
 			// Sentence and Token Annotators
 			AnalysisEngine sentenceAE = factory.getOpenNLPSentenceAA(typeSystemDescription, typePriorities, monitorResource); total++;
 			AnalysisEngine tokenAE = factory.getOpenNLPTokenAA(typeSystemDescription, typePriorities, monitorResource); total++;
-
+			
+			
 			// Word Annotators
 			AnalysisEngine stopwordAE = factory.getNLPStopwordAA(typeSystemDescription, typePriorities, monitorResource); total++;
 			AnalysisEngine stemmerAE = factory.getNLPStemmerAA(typeSystemDescription, typePriorities, monitorResource); total++;
 			AnalysisEngine lemmaAE = factory.getMateToolsLemmaAA(typeSystemDescription, typePriorities, monitorResource); total++;
 
+			
 			// POS Annotators
-
-			AnalysisEngine posAE = factory.getStanfordPOSAA(typeSystemDescription, typePriorities, monitorResource); total++;
-
+			AnalysisEngine posAE = factory.getOpenNLPPOSAA(typeSystemDescription, typePriorities, monitorResource); total++;
+			
 			// Dependency Annotators
 //		    AnalysisEngine conlldependencyAE = factory.getMateToolsDependencyAA(typeSystemDescription, typePriorities, monitorResource); total++;
 
@@ -104,6 +111,7 @@ public class SadUIMAProcessor {
 			e.printStackTrace();
 		}
 	}
+	
 	
 	public List<List<String>> executeClustering(String inputFile, String linkageType, String distanceType, float minimumDistance, IProgressMonitor monitor) {
 		try {

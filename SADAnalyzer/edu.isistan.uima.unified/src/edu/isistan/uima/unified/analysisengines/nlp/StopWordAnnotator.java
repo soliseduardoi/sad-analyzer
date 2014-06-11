@@ -27,6 +27,9 @@ import edu.isistan.uima.unified.typesystems.nlp.Token;
 public class StopWordAnnotator extends JCasAnnotator_ImplBase {
 	@ConfigurationParameter(name="model")
 	private String modelName;
+	
+	@ConfigurationParameter(name="language")
+	private String language;
 	//
 	protected StopWord stopWord;
 	//
@@ -39,6 +42,7 @@ public class StopWordAnnotator extends JCasAnnotator_ImplBase {
 		super.initialize(aContext);
 		//modelName = (String) aContext.getConfigParameterValue("model");
 		stopWord = StopWord.getInstance();
+		stopWord.setWords(language);
 		if(modelName != null && !modelName.isEmpty()) {
 			InputStream in = null;
 			try {
