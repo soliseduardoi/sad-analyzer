@@ -187,6 +187,7 @@ public class SadWizard extends Wizard implements INewWizard{
 						sad = sadModelFactory.createSad();	
 						sad.setTitle(sadWizardSettingsPage.getUrl());						
 						sad.setTemplatePath(sadWizardSettingsPage.getDirectoryTemplateField().getText());
+						sad.setLocale(sadWizardSettingsPage.getLocale());
 						for(Section section : project.getSections()){
 							SadSection sadSection = sadModelFactory.createSadSection();
 							sadSection.setName(section.getName());

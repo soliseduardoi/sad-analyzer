@@ -46,6 +46,8 @@ public class SadWizardSettingsPage extends WizardPage {
 	protected Button sadFromArchiveRadio;
 	protected Button dokuWikiRadio;
 	protected Button sadFromURLRadio;
+	private Button checkButton;
+	private String locale = "spa";
 		
 	
 	/**
@@ -133,14 +135,30 @@ public class SadWizardSettingsPage extends WizardPage {
 		GridData directoryTemplatePathData = new GridData(GridData.HORIZONTAL_ALIGN_FILL | GridData.GRAB_HORIZONTAL);
 		directoryTemplateField.setLayoutData(directoryTemplatePathData);
 		directoryTemplateField.setEditable(false);
-		
+				
 		// browse button
 		browseTemplateDirectoriesButton = new Button(composite, SWT.PUSH);
 		browseTemplateDirectoriesButton
 				.setText(Messages.SadWizard_Settings_Browse);
 		setButtonLayoutData(browseTemplateDirectoriesButton);
 		
-						
+		checkButton = new Button(composite, SWT.CHECK);
+		checkButton.setText(Messages.Sad_OverviewDescription5);
+		checkButton.setSelection(true);
+		
+		checkButton.addSelectionListener(new SelectionAdapter() {
+			/*
+			 * (non-Javadoc)
+			 * 
+			 * @see
+			 * org.eclipse.swt.events.SelectionAdapter#widgetSelected(org.eclipse
+			 * .swt.events.SelectionEvent)
+			 */
+			public void widgetSelected(SelectionEvent e) {
+				modifyLocale();
+			}
+
+		});		
 		browseArchivesButton.addSelectionListener(new SelectionAdapter() {
 			/*
 			 * (non-Javadoc)
@@ -219,6 +237,14 @@ public class SadWizardSettingsPage extends WizardPage {
 		
 		setPageComplete(validatePage());
 		setControl(composite);
+	}
+	
+	private void modifyLocale(){
+		if(checkButton.getSelection()){
+			locale = "spa";
+		}else{
+			locale = "en";
+		}
 	}
 	
 	private void dokuWikiRadioSelected() {
@@ -420,6 +446,16 @@ public class SadWizardSettingsPage extends WizardPage {
 	public boolean isDokuWikiSelection() {
 		
 		return dokuWikiRadio.getSelection();
+	}
+
+
+	public String getLocale() {
+		return locale;
+	}
+
+
+	public void setLocale(String locale) {
+		this.locale = locale;
 	}
 
 }

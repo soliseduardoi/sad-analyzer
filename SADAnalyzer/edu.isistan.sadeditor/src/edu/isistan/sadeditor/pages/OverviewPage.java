@@ -18,6 +18,7 @@ import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ListViewer;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -60,6 +61,7 @@ public class OverviewPage extends FormPage {
 	private DataBindingContext bindingContext;	
 	private ListViewer listViewerSections;
 	private StyledText styledText;
+	private TreeViewer viewer;
 
 	/**
 	 * Create the form page.
@@ -202,7 +204,7 @@ public class OverviewPage extends FormPage {
 		outputFile= (String) outputFile.subSequence(0, outputFile.length()-3);
 		
 		outputFile+=UIMA_EXTENSION;
-		SadUIMAProcessor processor = SadUIMAProcessor.getInstance();
+		SadUIMAProcessor processor = SadUIMAProcessor.getInstance(modelRoot.getLocale());
 		processor.execute(inputFile, outputFile);
 		try {
 			file.getParent().refreshLocal(IResource.DEPTH_ONE, null);
