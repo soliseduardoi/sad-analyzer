@@ -232,14 +232,7 @@ public class ImpactImpl extends IdentifiableImpl implements Impact {
 	 * @generated
 	 */
 	public Sentence getSentence() {
-		if (sentence != null && sentence.eIsProxy()) {
-			InternalEObject oldSentence = (InternalEObject)sentence;
-			sentence = (Sentence)eResolveProxy(oldSentence);
-			if (sentence != oldSentence) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, SadAnalyzerModelPackage.IMPACT__SENTENCE, oldSentence, sentence));
-			}
-		}
+		
 		return sentence;
 	}
 
