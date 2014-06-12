@@ -12,21 +12,19 @@ import opennlp.tools.sentdetect.SentenceModel;
 import org.apache.uima.UimaContext;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
 import org.apache.uima.cas.text.AnnotationIndex;
+import org.apache.uima.fit.component.JCasAnnotator_ImplBase;
+import org.apache.uima.fit.descriptor.ConfigurationParameter;
+import org.apache.uima.fit.descriptor.ExternalResource;
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.jcas.tcas.Annotation;
 import org.apache.uima.resource.ResourceInitializationException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.SubProgressMonitor;
-import org.uimafit.component.JCasAnnotator_ImplBase;
-import org.uimafit.descriptor.ConfigurationParameter;
-import org.uimafit.descriptor.ExternalResource;
 
 import edu.isistan.uima.unified.analysisengines.AnnotationGenerator;
 import edu.isistan.uima.unified.sharedresources.ProgressMonitorResource;
 import edu.isistan.uima.unified.typesystems.sad.Sad;
 import edu.isistan.uima.unified.typesystems.sad.SadSection;
-import edu.isistan.uima.unified.typesystems.srs.Document;
-import edu.isistan.uima.unified.typesystems.srs.Section;
 
 public class SentenceAnnotator extends JCasAnnotator_ImplBase {
 	@ConfigurationParameter(name="model")

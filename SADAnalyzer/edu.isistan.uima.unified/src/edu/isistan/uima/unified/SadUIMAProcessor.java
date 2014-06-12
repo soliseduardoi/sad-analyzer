@@ -1,16 +1,12 @@
 package edu.isistan.uima.unified;
 
-import is2.data.SentenceData09;
-
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
-import java.util.StringTokenizer;
 
 import org.apache.uima.UIMAException;
 import org.apache.uima.analysis_engine.AnalysisEngine;
 import org.apache.uima.collection.CollectionReader;
+import org.apache.uima.fit.pipeline.SimplePipeline;
 import org.apache.uima.resource.ExternalResourceDescription;
 import org.apache.uima.resource.ResourceInitializationException;
 import org.apache.uima.resource.metadata.TypePriorities;
@@ -18,7 +14,6 @@ import org.apache.uima.resource.metadata.TypeSystemDescription;
 import org.apache.uima.util.InvalidXMLException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.uimafit.pipeline.SimplePipeline;
 
 import edu.isistan.uima.unified.sharedresources.ClustersResource;
 import edu.isistan.uima.unified.sharedresources.ProgressMonitorResource;
@@ -60,17 +55,16 @@ public class SadUIMAProcessor {
 			// Sentence and Token Annotators
 			AnalysisEngine sentenceAE = factory.getOpenNLPSentenceAA(typeSystemDescription, typePriorities, monitorResource); total++;
 			AnalysisEngine tokenAE = factory.getOpenNLPTokenAA(typeSystemDescription, typePriorities, monitorResource); total++;
-			
-			
+
 			// Word Annotators
 			AnalysisEngine stopwordAE = factory.getNLPStopwordAA(typeSystemDescription, typePriorities, monitorResource); total++;
 			AnalysisEngine stemmerAE = factory.getNLPStemmerAA(typeSystemDescription, typePriorities, monitorResource); total++;
 			AnalysisEngine lemmaAE = factory.getMateToolsLemmaAA(typeSystemDescription, typePriorities, monitorResource); total++;
 
-			
 			// POS Annotators
+
 			AnalysisEngine posAE = factory.getOpenNLPPOSAA(typeSystemDescription, typePriorities, monitorResource); total++;
-			
+
 			// Dependency Annotators
 //		    AnalysisEngine conlldependencyAE = factory.getMateToolsDependencyAA(typeSystemDescription, typePriorities, monitorResource); total++;
 
@@ -89,6 +83,7 @@ public class SadUIMAProcessor {
 			progressMonitorResource.setMonitor(monitor);
 			monitor.beginTask("UIMA pipeline execution", total);
 			//
+			
 			SimplePipeline.runPipeline(
 					collectionReader,
 					sentenceAE,
@@ -107,11 +102,10 @@ public class SadUIMAProcessor {
 			e.printStackTrace();
 		} catch (UIMAException e) {
 			e.printStackTrace();
-		} catch (IOException e) {
+		} catch (IOException e) {	
 			e.printStackTrace();
 		}
 	}
-	
 	
 	public List<List<String>> executeClustering(String inputFile, String linkageType, String distanceType, float minimumDistance, IProgressMonitor monitor) {
 		try {

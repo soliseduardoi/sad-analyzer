@@ -8,16 +8,16 @@ import org.apache.uima.analysis_engine.AnalysisEngine;
 import org.apache.uima.analysis_engine.AnalysisEngineDescription;
 import org.apache.uima.collection.CollectionReader;
 import org.apache.uima.collection.CollectionReaderDescription;
+import org.apache.uima.fit.factory.AnalysisEngineFactory;
+import org.apache.uima.fit.factory.CollectionReaderFactory;
+import org.apache.uima.fit.factory.ExternalResourceFactory;
+import org.apache.uima.fit.factory.TypePrioritiesFactory;
+import org.apache.uima.fit.factory.TypeSystemDescriptionFactory;
 import org.apache.uima.resource.ExternalResourceDescription;
 import org.apache.uima.resource.ResourceInitializationException;
 import org.apache.uima.resource.metadata.TypePriorities;
 import org.apache.uima.resource.metadata.TypeSystemDescription;
 import org.apache.uima.util.InvalidXMLException;
-import org.uimafit.factory.AnalysisEngineFactory;
-import org.uimafit.factory.CollectionReaderFactory;
-import org.uimafit.factory.ExternalResourceFactory;
-import org.uimafit.factory.TypePrioritiesFactory;
-import org.uimafit.factory.TypeSystemDescriptionFactory;
 
 import edu.isistan.uima.unified.analysisengines.domain.DomainActionAnnotator;
 import edu.isistan.uima.unified.analysisengines.domain.DomainActionCleaningAnnotator;
@@ -56,7 +56,7 @@ import edu.isistan.uima.unified.sharedresources.XMISharedDataResourceImpl;
 @SuppressWarnings({ "rawtypes" })
 public class SadUIMAFactory {
 	private static SadUIMAFactory instance = null;
-	private Map<Class, Object> cache;	
+	private Map<Class, Object> cache;
 	private String language;
 	
 	private SadUIMAFactory() {
@@ -72,11 +72,9 @@ public class SadUIMAFactory {
 	public String getLanguage() {
 		return language;
 	}
-
 	public void setLanguage(String language) {
 		this.language = language;
 	}
-
 	public String getModelsPath() {
 		String modelsPath = null;
 		if(modelsPath == null || modelsPath.isEmpty())
@@ -87,8 +85,8 @@ public class SadUIMAFactory {
 	}
 
 	public TypeSystemDescription getTypeSystemDescription() throws ResourceInitializationException {
-		System.setProperty("org.uimafit.type.import_pattern", "classpath*:desc/typesystems/**/*.xml");
-																	     
+//		System.setProperty("org.uimafit.type.import_pattern", "classpath*:desc/typesystems/**/*.xml");
+		System.setProperty("org.apache.uima.fit.type.import_pattern", "classpath*:desc/typesystems/**/*.xml");														     
 		return TypeSystemDescriptionFactory.createTypeSystemDescription();
 	}
 	
@@ -96,8 +94,8 @@ public class SadUIMAFactory {
 //		return null;
 		return TypePrioritiesFactory.createTypePriorities(
 				
-				"edu.isistan.uima.unified.typesystems.sad.SadSection",
-				"edu.isistan.uima.unified.typesystems.sad.Sad",
+			"edu.isistan.uima.unified.typesystems.sad.SadSection",
+			"edu.isistan.uima.unified.typesystems.sad.Sad",
 		
 			"edu.isistan.uima.unified.typesystems.nlp.Sentence",
 			"edu.isistan.uima.unified.typesystems.domain.DomainAction",
@@ -115,57 +113,57 @@ public class SadUIMAFactory {
 	
 	public CollectionReader getSRSCR(TypeSystemDescription typeSystemDescription, TypePriorities typePriorities, ExternalResourceDescription monitorResourceDescription, String inputFile) throws ResourceInitializationException, InvalidXMLException {
 		CollectionReaderDescription crDescription = 
-			CollectionReaderFactory.createDescription(SRSCollectionReader.class, typeSystemDescription, typePriorities, 
+			CollectionReaderFactory.createReaderDescription(SRSCollectionReader.class, typeSystemDescription, typePriorities, 
 			"input", inputFile);
 		ExternalResourceFactory.bindExternalResource(crDescription, "monitor", monitorResourceDescription);
-		return CollectionReaderFactory.createCollectionReader(crDescription);
+		return CollectionReaderFactory.createReader(crDescription);
 	}
 	
 	public CollectionReader getUCSCR(TypeSystemDescription typeSystemDescription, TypePriorities typePriorities, ExternalResourceDescription monitorResourceDescription, String inputFile) throws ResourceInitializationException, InvalidXMLException {
 		CollectionReaderDescription crDescription = 
-			CollectionReaderFactory.createDescription(UCSCollectionReader.class, typeSystemDescription, typePriorities, 
+			CollectionReaderFactory.createReaderDescription(UCSCollectionReader.class, typeSystemDescription, typePriorities, 
 			"input", inputFile);
 		ExternalResourceFactory.bindExternalResource(crDescription, "monitor", monitorResourceDescription);
-		return CollectionReaderFactory.createCollectionReader(crDescription);
+		return CollectionReaderFactory.createReader(crDescription);
 	}
 	
 	public CollectionReader getXMIReaderCR(TypeSystemDescription typeSystemDescription, TypePriorities typePriorities, ExternalResourceDescription monitorResourceDescription, String inputFile) throws ResourceInitializationException, InvalidXMLException {
 		CollectionReaderDescription crDescription = 
-			CollectionReaderFactory.createDescription(XMIReaderCollectionReader.class, typeSystemDescription, typePriorities, 
+			CollectionReaderFactory.createReaderDescription(XMIReaderCollectionReader.class, typeSystemDescription, typePriorities, 
 			"input", inputFile);
 		ExternalResourceFactory.bindExternalResource(crDescription, "monitor", monitorResourceDescription);
-		return CollectionReaderFactory.createCollectionReader(crDescription);
+		return CollectionReaderFactory.createReader(crDescription);
 	}
 	
 	public AnalysisEngine getXMIWriterCC(TypeSystemDescription typeSystemDescription, TypePriorities typePriorities, ExternalResourceDescription monitorResourceDescription, String outputFile) throws ResourceInitializationException, InvalidXMLException {
 		AnalysisEngineDescription aeDescription = 
-			AnalysisEngineFactory.createPrimitiveDescription(XMIWriterCasConsumer.class, typeSystemDescription, typePriorities, 
+			AnalysisEngineFactory.createEngineDescription(XMIWriterCasConsumer.class, typeSystemDescription, typePriorities, 
 			"output", outputFile);
 		ExternalResourceFactory.bindResource(aeDescription, "monitor", monitorResourceDescription);
-		return AnalysisEngineFactory.createPrimitive(aeDescription);
+		return AnalysisEngineFactory.createEngine(aeDescription);
 	}
 	
 	public CollectionReader getXMIReaderCR(TypeSystemDescription typeSystemDescription, TypePriorities typePriorities, ExternalResourceDescription monitorResourceDescription, ExternalResourceDescription shareDataDescription, String inputFile) throws ResourceInitializationException, InvalidXMLException {
 		CollectionReaderDescription crDescription = 
-			CollectionReaderFactory.createDescription(XMIReaderCollectionReader.class, typeSystemDescription, typePriorities, 
+			CollectionReaderFactory.createReaderDescription(XMIReaderCollectionReader.class, typeSystemDescription, typePriorities, 
 			"input", inputFile);
 		ExternalResourceFactory.bindExternalResource(crDescription, "monitor", monitorResourceDescription);
 		ExternalResourceFactory.bindExternalResource(crDescription, "sharedData", shareDataDescription);
-		return CollectionReaderFactory.createCollectionReader(crDescription);
+		return CollectionReaderFactory.createReader(crDescription);
 	}
 	
 	public AnalysisEngine getXMIWriterCC(TypeSystemDescription typeSystemDescription, TypePriorities typePriorities, ExternalResourceDescription monitorResourceDescription, ExternalResourceDescription shareDataDescription, String outputFile) throws ResourceInitializationException, InvalidXMLException {
 		AnalysisEngineDescription aeDescription = 
-			AnalysisEngineFactory.createPrimitiveDescription(XMIWriterCasConsumer.class, typeSystemDescription, typePriorities, 
+			AnalysisEngineFactory.createEngineDescription(XMIWriterCasConsumer.class, typeSystemDescription, typePriorities, 
 			"output", outputFile);
 		ExternalResourceFactory.bindResource(aeDescription, "monitor", monitorResourceDescription);
 		ExternalResourceFactory.bindResource(aeDescription, "sharedData", shareDataDescription);
-		return AnalysisEngineFactory.createPrimitive(aeDescription);
+		return AnalysisEngineFactory.createEngine(aeDescription);
 	}
 	
 	public AnalysisEngine getClustererCC(TypeSystemDescription typeSystemDescription, TypePriorities typePriorities, ExternalResourceDescription monitorResourceDescription, ExternalResourceDescription clusterResourceDescription, String linkageType, String distanceType, float minimumDistance) throws ResourceInitializationException, InvalidXMLException {
 		AnalysisEngineDescription aeDescription = 
-			AnalysisEngineFactory.createPrimitiveDescription(ClustererCasConsumer.class, typeSystemDescription, typePriorities, 
+			AnalysisEngineFactory.createEngineDescription(ClustererCasConsumer.class, typeSystemDescription, typePriorities, 
 			"jwnl", getModelsPath() + "jwnl/jwnl-properties.xml",
 			"wordnet", getModelsPath() + "wordnet/win/2.0/dict/",
 			"linkageType", linkageType,
@@ -173,25 +171,25 @@ public class SadUIMAFactory {
 			"minimumDistance", minimumDistance);
 		ExternalResourceFactory.bindResource(aeDescription, "monitor", monitorResourceDescription);
 		ExternalResourceFactory.bindResource(aeDescription, "clusters", clusterResourceDescription);
-		return AnalysisEngineFactory.createPrimitive(aeDescription);
+		return AnalysisEngineFactory.createEngine(aeDescription);
 	}
 	
 	public AnalysisEngine getDomainCSVExtractorCC(TypeSystemDescription typeSystemDescription, TypePriorities typePriorities, ExternalResourceDescription monitorResourceDescription, String outputFile) throws ResourceInitializationException, InvalidXMLException {
 		AnalysisEngineDescription aeDescription = 
-			AnalysisEngineFactory.createPrimitiveDescription(DomainCSVExtractorCasConsumer.class, typeSystemDescription, typePriorities, 
+			AnalysisEngineFactory.createEngineDescription(DomainCSVExtractorCasConsumer.class, typeSystemDescription, typePriorities, 
 			"output", outputFile);
 		ExternalResourceFactory.bindResource(aeDescription, "monitor", monitorResourceDescription);
-		return AnalysisEngineFactory.createPrimitive(aeDescription);
+		return AnalysisEngineFactory.createEngine(aeDescription);
 	}
 	
 	public AnalysisEngine getDomainNumberAA(TypeSystemDescription typeSystemDescription, TypePriorities typePriorities, ExternalResourceDescription monitorResourceDescription) throws ResourceInitializationException, InvalidXMLException {
 		Class key = DomainNumberAnnotator.class;
 		if(!cache.containsKey(key)) {
 			AnalysisEngineDescription aeDescription = 
-				AnalysisEngineFactory.createPrimitiveDescription(DomainNumberAnnotator.class, typeSystemDescription, typePriorities, 
+				AnalysisEngineFactory.createEngineDescription(DomainNumberAnnotator.class, typeSystemDescription, typePriorities, 
 				"model", getModelsPath() + "domain/domainnumber_regex.model");
 			ExternalResourceFactory.bindResource(aeDescription, "monitor", monitorResourceDescription);
-			AnalysisEngine analysisEngine = AnalysisEngineFactory.createPrimitive(aeDescription);
+			AnalysisEngine analysisEngine = AnalysisEngineFactory.createEngine(aeDescription);
 			cache.put(key, analysisEngine);
 		}
 		return (AnalysisEngine) cache.get(key);
@@ -201,9 +199,9 @@ public class SadUIMAFactory {
 		Class key = DomainNumberExclusionAnnotator.class;
 		if(!cache.containsKey(key)) {
 			AnalysisEngineDescription aeDescription = 
-				AnalysisEngineFactory.createPrimitiveDescription(DomainNumberExclusionAnnotator.class, typeSystemDescription, typePriorities);
+				AnalysisEngineFactory.createEngineDescription(DomainNumberExclusionAnnotator.class, typeSystemDescription, typePriorities);
 			ExternalResourceFactory.bindResource(aeDescription, "monitor", monitorResourceDescription);
-			AnalysisEngine analysisEngine = AnalysisEngineFactory.createPrimitive(aeDescription);
+			AnalysisEngine analysisEngine = AnalysisEngineFactory.createEngine(aeDescription);
 			cache.put(key, analysisEngine);
 		}
 		return (AnalysisEngine) cache.get(key);
@@ -213,13 +211,13 @@ public class SadUIMAFactory {
 		Class key = DomainActionAnnotator.class;
 		if(!cache.containsKey(key)) {
 			AnalysisEngineDescription aeDescription = 
-				AnalysisEngineFactory.createPrimitiveDescription(DomainActionAnnotator.class, typeSystemDescription, typePriorities,
+				AnalysisEngineFactory.createEngineDescription(DomainActionAnnotator.class, typeSystemDescription, typePriorities,
 				"model", getModelsPath() + "domain/domainaction.model",
 				"label", getModelsPath() + "domain/domainaction.labels",
 				"source", getModelsPath() + "domain/domainaction-original.source",
 				"filter", getModelsPath() + "domain/domainaction-filtered.source");
 			ExternalResourceFactory.bindResource(aeDescription, "monitor", monitorResourceDescription);
-			AnalysisEngine analysisEngine = AnalysisEngineFactory.createPrimitive(aeDescription);
+			AnalysisEngine analysisEngine = AnalysisEngineFactory.createEngine(aeDescription);
 			cache.put(key, analysisEngine);
 		}
 		return (AnalysisEngine) cache.get(key);
@@ -229,9 +227,9 @@ public class SadUIMAFactory {
 		Class key = DomainActionCleaningAnnotator.class;
 		if(!cache.containsKey(key)) {
 			AnalysisEngineDescription aeDescription = 
-				AnalysisEngineFactory.createPrimitiveDescription(DomainActionCleaningAnnotator.class, typeSystemDescription, typePriorities);
+				AnalysisEngineFactory.createEngineDescription(DomainActionCleaningAnnotator.class, typeSystemDescription, typePriorities);
 			ExternalResourceFactory.bindResource(aeDescription, "monitor", monitorResourceDescription);
-			AnalysisEngine analysisEngine = AnalysisEngineFactory.createPrimitive(aeDescription);
+			AnalysisEngine analysisEngine = AnalysisEngineFactory.createEngine(aeDescription);
 			cache.put(key, analysisEngine);
 		}
 		return (AnalysisEngine) cache.get(key);
@@ -241,9 +239,9 @@ public class SadUIMAFactory {
 		Class key = StopWordAnnotator.class;
 		if(!cache.containsKey(key)) {
 			AnalysisEngineDescription aeDescription = 
-				AnalysisEngineFactory.createPrimitiveDescription(StopWordAnnotator.class, typeSystemDescription, typePriorities, "language", getLanguage());
+				AnalysisEngineFactory.createEngineDescription(StopWordAnnotator.class, typeSystemDescription, typePriorities, "language", getLanguage());
 			ExternalResourceFactory.bindResource(aeDescription, "monitor", monitorResourceDescription);
-			AnalysisEngine analysisEngine = AnalysisEngineFactory.createPrimitive(aeDescription);
+			AnalysisEngine analysisEngine = AnalysisEngineFactory.createEngine(aeDescription);
 			cache.put(key, analysisEngine);
 		}
 		return (AnalysisEngine) cache.get(key);
@@ -252,39 +250,28 @@ public class SadUIMAFactory {
 	public AnalysisEngine getNLPStemmerAA(TypeSystemDescription typeSystemDescription, TypePriorities typePriorities, ExternalResourceDescription monitorResourceDescription) throws ResourceInitializationException, InvalidXMLException {
 		Class key = StemmerAnnotator.class;
 		if(!cache.containsKey(key)) {
-			AnalysisEngineDescription aeDescription;
+			AnalysisEngineDescription aeDescription=null;
 			if(getLanguage().equals(Locale.ENGLISH.getLanguage())){
-				aeDescription = AnalysisEngineFactory.createPrimitiveDescription(EnglishStemmerAnnotator.class, typeSystemDescription, typePriorities); 
+				aeDescription = AnalysisEngineFactory.createEngineDescription(EnglishStemmerAnnotator.class, typeSystemDescription, typePriorities); 
 			}else{
-				aeDescription = AnalysisEngineFactory.createPrimitiveDescription(SpanishStemmerAnnotator.class, typeSystemDescription, typePriorities);
+				aeDescription = AnalysisEngineFactory.createEngineDescription(SpanishStemmerAnnotator.class, typeSystemDescription, typePriorities);
 			}
 			ExternalResourceFactory.bindResource(aeDescription, "monitor", monitorResourceDescription);
-			AnalysisEngine analysisEngine = AnalysisEngineFactory.createPrimitive(aeDescription);
+			AnalysisEngine analysisEngine = AnalysisEngineFactory.createEngine(aeDescription);
 			cache.put(key, analysisEngine);
 		}
 		return (AnalysisEngine) cache.get(key);
 	}
-	
-	public AnalysisEngine getNLPSpanishStemmerAA(TypeSystemDescription typeSystemDescription, TypePriorities typePriorities, ExternalResourceDescription monitorResourceDescription) throws ResourceInitializationException, InvalidXMLException {
-		Class key = StemmerAnnotator.class;
-		if(!cache.containsKey(key)) {
-			AnalysisEngineDescription aeDescription = 
-				AnalysisEngineFactory.createPrimitiveDescription(SpanishStemmerAnnotator.class, typeSystemDescription, typePriorities);
-			ExternalResourceFactory.bindResource(aeDescription, "monitor", monitorResourceDescription);
-			AnalysisEngine analysisEngine = AnalysisEngineFactory.createPrimitive(aeDescription);
-			cache.put(key, analysisEngine);
-		}
-		return (AnalysisEngine) cache.get(key);
-	}
+
 	
 	public AnalysisEngine getOpenNLPSentenceAA(TypeSystemDescription typeSystemDescription, TypePriorities typePriorities, ExternalResourceDescription monitorResourceDescription) throws ResourceInitializationException, InvalidXMLException {
 		Class key = SentenceAnnotator.class;
 		if(!cache.containsKey(key)) {
 			AnalysisEngineDescription aeDescription = 
-				AnalysisEngineFactory.createPrimitiveDescription(SadSentenceAnnotator.class, typeSystemDescription, typePriorities, 
+				AnalysisEngineFactory.createEngineDescription(SadSentenceAnnotator.class, typeSystemDescription, typePriorities, 
 				"model", getModelsPath() + "opennlp/models/en-sent.bin");
 			ExternalResourceFactory.bindResource(aeDescription, "monitor", monitorResourceDescription);
-			AnalysisEngine analysisEngine = AnalysisEngineFactory.createPrimitive(aeDescription);
+			AnalysisEngine analysisEngine = AnalysisEngineFactory.createEngine(aeDescription);
 			cache.put(key, analysisEngine);
 		}
 		return (AnalysisEngine) cache.get(key);
@@ -294,10 +281,10 @@ public class SadUIMAFactory {
 		Class key = TokenAnnotator.class;
 		if(!cache.containsKey(key)) {
 			AnalysisEngineDescription aeDescription = 
-				AnalysisEngineFactory.createPrimitiveDescription(TokenAnnotator.class, typeSystemDescription, typePriorities, 
+				AnalysisEngineFactory.createEngineDescription(TokenAnnotator.class, typeSystemDescription, typePriorities, 
 				"model", getModelsPath() + "opennlp/models/en-token.bin");
 			ExternalResourceFactory.bindResource(aeDescription, "monitor", monitorResourceDescription);
-			AnalysisEngine analysisEngine = AnalysisEngineFactory.createPrimitive(aeDescription);
+			AnalysisEngine analysisEngine = AnalysisEngineFactory.createEngine(aeDescription);
 			cache.put(key, analysisEngine);
 		}
 		return (AnalysisEngine) cache.get(key);
@@ -316,20 +303,20 @@ public class SadUIMAFactory {
 				AnalysisEngineFactory.createPrimitiveDescription(edu.isistan.uima.unified.analysisengines.opennlp.POSAnnotator.class, typeSystemDescription, typePriorities, 
 				"model", getModelsPath() + model);
 			ExternalResourceFactory.bindResource(aeDescription, "monitor", monitorResourceDescription);
-			AnalysisEngine analysisEngine = AnalysisEngineFactory.createPrimitive(aeDescription);
+			AnalysisEngine analysisEngine = AnalysisEngineFactory.createEngine(aeDescription);
 			cache.put(key, analysisEngine);
 		}
 		return (AnalysisEngine) cache.get(key);
 	}
-		
+	
 	public AnalysisEngine getOpenNLPChunkAA(TypeSystemDescription typeSystemDescription, TypePriorities typePriorities, ExternalResourceDescription monitorResourceDescription) throws ResourceInitializationException, InvalidXMLException {
 		Class key = ChunkAnnotator.class;
 		if(!cache.containsKey(key)) {
 			AnalysisEngineDescription aeDescription = 
-				AnalysisEngineFactory.createPrimitiveDescription(ChunkAnnotator.class, typeSystemDescription, typePriorities, 
+				AnalysisEngineFactory.createEngineDescription(ChunkAnnotator.class, typeSystemDescription, typePriorities, 
 				"model", getModelsPath() + "opennlp/models/en-chunker.bin");
 			ExternalResourceFactory.bindResource(aeDescription, "monitor", monitorResourceDescription);
-			AnalysisEngine analysisEngine = AnalysisEngineFactory.createPrimitive(aeDescription);
+			AnalysisEngine analysisEngine = AnalysisEngineFactory.createEngine(aeDescription);
 			cache.put(key, analysisEngine);
 		}
 		return (AnalysisEngine) cache.get(key);
@@ -337,64 +324,64 @@ public class SadUIMAFactory {
 	
 	public AnalysisEngine getOpenNLPEntityDateAA(TypeSystemDescription typeSystemDescription, TypePriorities typePriorities, ExternalResourceDescription monitorResourceDescription) throws ResourceInitializationException, InvalidXMLException {
 		AnalysisEngineDescription aeDescription = 
-			AnalysisEngineFactory.createPrimitiveDescription(edu.isistan.uima.unified.analysisengines.opennlp.EntityAnnotator.class, typeSystemDescription, typePriorities, 
+			AnalysisEngineFactory.createEngineDescription(edu.isistan.uima.unified.analysisengines.opennlp.EntityAnnotator.class, typeSystemDescription, typePriorities, 
 			"model", getModelsPath() + "opennlp/models/en-ner-date.bin");
 		ExternalResourceFactory.bindResource(aeDescription, "monitor", monitorResourceDescription);
-		AnalysisEngine analysisEngine = AnalysisEngineFactory.createPrimitive(aeDescription);
+		AnalysisEngine analysisEngine = AnalysisEngineFactory.createEngine(aeDescription);
 		return analysisEngine;
 	}
 	
 	public AnalysisEngine getOpenNLPEntityLocationAA(TypeSystemDescription typeSystemDescription, TypePriorities typePriorities, ExternalResourceDescription monitorResourceDescription) throws ResourceInitializationException, InvalidXMLException {
 		AnalysisEngineDescription aeDescription = 
-			AnalysisEngineFactory.createPrimitiveDescription(edu.isistan.uima.unified.analysisengines.opennlp.EntityAnnotator.class, typeSystemDescription, typePriorities, 
+			AnalysisEngineFactory.createEngineDescription(edu.isistan.uima.unified.analysisengines.opennlp.EntityAnnotator.class, typeSystemDescription, typePriorities, 
 			"model", getModelsPath() + "opennlp/models/en-ner-location.bin");
 		ExternalResourceFactory.bindResource(aeDescription, "monitor", monitorResourceDescription);
-		AnalysisEngine analysisEngine = AnalysisEngineFactory.createPrimitive(aeDescription);
+		AnalysisEngine analysisEngine = AnalysisEngineFactory.createEngine(aeDescription);
 		return analysisEngine;
 	}
 	
 	public AnalysisEngine getOpenNLPEntityMoneyAA(TypeSystemDescription typeSystemDescription, TypePriorities typePriorities, ExternalResourceDescription monitorResourceDescription) throws ResourceInitializationException, InvalidXMLException {
 		AnalysisEngineDescription aeDescription = 
-			AnalysisEngineFactory.createPrimitiveDescription(edu.isistan.uima.unified.analysisengines.opennlp.EntityAnnotator.class, typeSystemDescription, typePriorities, 
+			AnalysisEngineFactory.createEngineDescription(edu.isistan.uima.unified.analysisengines.opennlp.EntityAnnotator.class, typeSystemDescription, typePriorities, 
 			"model", getModelsPath() + "opennlp/models/en-ner-money.bin");
 		ExternalResourceFactory.bindResource(aeDescription, "monitor", monitorResourceDescription);
-		AnalysisEngine analysisEngine = AnalysisEngineFactory.createPrimitive(aeDescription);
+		AnalysisEngine analysisEngine = AnalysisEngineFactory.createEngine(aeDescription);
 		return analysisEngine;
 	}
 	
 	public AnalysisEngine getOpenNLPEntityOrganizationAA(TypeSystemDescription typeSystemDescription, TypePriorities typePriorities, ExternalResourceDescription monitorResourceDescription) throws ResourceInitializationException, InvalidXMLException {
 		AnalysisEngineDescription aeDescription = 
-			AnalysisEngineFactory.createPrimitiveDescription(edu.isistan.uima.unified.analysisengines.opennlp.EntityAnnotator.class, typeSystemDescription, typePriorities, 
+			AnalysisEngineFactory.createEngineDescription(edu.isistan.uima.unified.analysisengines.opennlp.EntityAnnotator.class, typeSystemDescription, typePriorities, 
 			"model", getModelsPath() + "opennlp/models/en-ner-organization.bin");
 		ExternalResourceFactory.bindResource(aeDescription, "monitor", monitorResourceDescription);
-		AnalysisEngine analysisEngine = AnalysisEngineFactory.createPrimitive(aeDescription);
+		AnalysisEngine analysisEngine = AnalysisEngineFactory.createEngine(aeDescription);
 		return analysisEngine;
 	}
 	
 	public AnalysisEngine getOpenNLPEntityPercentageAA(TypeSystemDescription typeSystemDescription, TypePriorities typePriorities, ExternalResourceDescription monitorResourceDescription) throws ResourceInitializationException, InvalidXMLException {
 		AnalysisEngineDescription aeDescription = 
-			AnalysisEngineFactory.createPrimitiveDescription(edu.isistan.uima.unified.analysisengines.opennlp.EntityAnnotator.class, typeSystemDescription, typePriorities, 
+			AnalysisEngineFactory.createEngineDescription(edu.isistan.uima.unified.analysisengines.opennlp.EntityAnnotator.class, typeSystemDescription, typePriorities, 
 			"model", getModelsPath() + "opennlp/models/en-ner-percentage.bin");
 		ExternalResourceFactory.bindResource(aeDescription, "monitor", monitorResourceDescription);
-		AnalysisEngine analysisEngine = AnalysisEngineFactory.createPrimitive(aeDescription);
+		AnalysisEngine analysisEngine = AnalysisEngineFactory.createEngine(aeDescription);
 		return analysisEngine;
 	}
 	
 	public AnalysisEngine getOpenNLPEntityPersonAA(TypeSystemDescription typeSystemDescription, TypePriorities typePriorities, ExternalResourceDescription monitorResourceDescription) throws ResourceInitializationException, InvalidXMLException {
 		AnalysisEngineDescription aeDescription = 
-			AnalysisEngineFactory.createPrimitiveDescription(edu.isistan.uima.unified.analysisengines.opennlp.EntityAnnotator.class, typeSystemDescription, typePriorities, 
+			AnalysisEngineFactory.createEngineDescription(edu.isistan.uima.unified.analysisengines.opennlp.EntityAnnotator.class, typeSystemDescription, typePriorities, 
 			"model", getModelsPath() + "opennlp/models/en-ner-person.bin");
 		ExternalResourceFactory.bindResource(aeDescription, "monitor", monitorResourceDescription);
-		AnalysisEngine analysisEngine = AnalysisEngineFactory.createPrimitive(aeDescription);
+		AnalysisEngine analysisEngine = AnalysisEngineFactory.createEngine(aeDescription);
 		return analysisEngine;
 	}
 	
 	public AnalysisEngine getOpenNLPEntityTimeAA(TypeSystemDescription typeSystemDescription, TypePriorities typePriorities, ExternalResourceDescription monitorResourceDescription) throws ResourceInitializationException, InvalidXMLException {
 		AnalysisEngineDescription aeDescription = 
-			AnalysisEngineFactory.createPrimitiveDescription(edu.isistan.uima.unified.analysisengines.opennlp.EntityAnnotator.class, typeSystemDescription, typePriorities, 
+			AnalysisEngineFactory.createEngineDescription(edu.isistan.uima.unified.analysisengines.opennlp.EntityAnnotator.class, typeSystemDescription, typePriorities, 
 			"model", getModelsPath() + "opennlp/models/en-ner-time.bin");
 		ExternalResourceFactory.bindResource(aeDescription, "monitor", monitorResourceDescription);
-		AnalysisEngine analysisEngine = AnalysisEngineFactory.createPrimitive(aeDescription);
+		AnalysisEngine analysisEngine = AnalysisEngineFactory.createEngine(aeDescription);
 		return analysisEngine;
 	}
 	
@@ -402,10 +389,10 @@ public class SadUIMAFactory {
 		Class key = SentenceTokenAnnotator.class;
 		if(!cache.containsKey(key)) {
 			AnalysisEngineDescription aeDescription = 
-				AnalysisEngineFactory.createPrimitiveDescription(SentenceTokenAnnotator.class, typeSystemDescription, typePriorities, 
+				AnalysisEngineFactory.createEngineDescription(SentenceTokenAnnotator.class, typeSystemDescription, typePriorities, 
 				"model", getModelsPath() + "stanford-corenlp/edu/stanford/nlp/models/pos-tagger/wsj3t0-18-left3words/left3words-distsim-wsj-0-18.tagger");
 			ExternalResourceFactory.bindResource(aeDescription, "monitor", monitorResourceDescription);
-			AnalysisEngine analysisEngine = AnalysisEngineFactory.createPrimitive(aeDescription);
+			AnalysisEngine analysisEngine = AnalysisEngineFactory.createEngine(aeDescription);
 			cache.put(key, analysisEngine);
 		}
 		return (AnalysisEngine) cache.get(key);
@@ -415,10 +402,10 @@ public class SadUIMAFactory {
 		Class key = edu.isistan.uima.unified.analysisengines.stanfordnlp.POSAnnotator.class;
 		if(!cache.containsKey(key)) {
 			AnalysisEngineDescription aeDescription = 
-				AnalysisEngineFactory.createPrimitiveDescription(edu.isistan.uima.unified.analysisengines.stanfordnlp.POSAnnotator.class, typeSystemDescription, typePriorities, 
+				AnalysisEngineFactory.createEngineDescription(edu.isistan.uima.unified.analysisengines.stanfordnlp.POSAnnotator.class, typeSystemDescription, typePriorities, 
 				"model", getModelsPath() + "stanford-corenlp/edu/stanford/nlp/models/pos-tagger/wsj3t0-18-left3words/left3words-distsim-wsj-0-18.tagger");
 			ExternalResourceFactory.bindResource(aeDescription, "monitor", monitorResourceDescription);
-			AnalysisEngine analysisEngine = AnalysisEngineFactory.createPrimitive(aeDescription);
+			AnalysisEngine analysisEngine = AnalysisEngineFactory.createEngine(aeDescription);
 			cache.put(key, analysisEngine);
 		}
 		return (AnalysisEngine) cache.get(key);
@@ -428,10 +415,10 @@ public class SadUIMAFactory {
 		Class key = SDDependencyAnnotator.class;
 		if(!cache.containsKey(key)) {
 			AnalysisEngineDescription aeDescription = 
-				AnalysisEngineFactory.createPrimitiveDescription(SDDependencyAnnotator.class, typeSystemDescription, typePriorities, 
+				AnalysisEngineFactory.createEngineDescription(SDDependencyAnnotator.class, typeSystemDescription, typePriorities, 
 				"model", getModelsPath() + "stanford-corenlp/edu/stanford/nlp/models/lexparser/englishPCFG.ser.gz");
 			ExternalResourceFactory.bindResource(aeDescription, "monitor", monitorResourceDescription);
-			AnalysisEngine analysisEngine = AnalysisEngineFactory.createPrimitive(aeDescription);
+			AnalysisEngine analysisEngine = AnalysisEngineFactory.createEngine(aeDescription);
 			cache.put(key, analysisEngine);
 		}
 		return (AnalysisEngine) cache.get(key);
@@ -441,10 +428,10 @@ public class SadUIMAFactory {
 		Class key = edu.isistan.uima.unified.analysisengines.stanfordnlp.EntityAnnotator.class;
 		if(!cache.containsKey(key)) {
 			AnalysisEngineDescription aeDescription = 
-				AnalysisEngineFactory.createPrimitiveDescription(edu.isistan.uima.unified.analysisengines.stanfordnlp.EntityAnnotator.class, typeSystemDescription, typePriorities, 
+				AnalysisEngineFactory.createEngineDescription(edu.isistan.uima.unified.analysisengines.stanfordnlp.EntityAnnotator.class, typeSystemDescription, typePriorities, 
 				"model", getModelsPath() + "stanford-corenlp/edu/stanford/nlp/models/ner/all.3class.distsim.crf.ser.gz");
 			ExternalResourceFactory.bindResource(aeDescription, "monitor", monitorResourceDescription);
-			AnalysisEngine analysisEngine = AnalysisEngineFactory.createPrimitive(aeDescription);
+			AnalysisEngine analysisEngine = AnalysisEngineFactory.createEngine(aeDescription);
 			cache.put(key, analysisEngine);
 		}
 		return (AnalysisEngine) cache.get(key);
@@ -454,10 +441,10 @@ public class SadUIMAFactory {
 		Class key = JAWSWordNetAnnotator.class;
 		if(!cache.containsKey(key)) {
 			AnalysisEngineDescription aeDescription = 
-				AnalysisEngineFactory.createPrimitiveDescription(JAWSWordNetAnnotator.class, typeSystemDescription, typePriorities, 
+				AnalysisEngineFactory.createEngineDescription(JAWSWordNetAnnotator.class, typeSystemDescription, typePriorities, 
 				"wordnet", getModelsPath() + "wordnet/unix/2.0/dict");
 			ExternalResourceFactory.bindResource(aeDescription, "monitor", monitorResourceDescription);
-			AnalysisEngine analysisEngine = AnalysisEngineFactory.createPrimitive(aeDescription);
+			AnalysisEngine analysisEngine = AnalysisEngineFactory.createEngine(aeDescription);
 			cache.put(key, analysisEngine);
 		}
 		return (AnalysisEngine) cache.get(key);
@@ -467,10 +454,10 @@ public class SadUIMAFactory {
 		Class key = JWIWordNetAnnotator.class;
 		if(!cache.containsKey(key)) {
 			AnalysisEngineDescription aeDescription = 
-				AnalysisEngineFactory.createPrimitiveDescription(JWIWordNetAnnotator.class, typeSystemDescription, typePriorities, 
+				AnalysisEngineFactory.createEngineDescription(JWIWordNetAnnotator.class, typeSystemDescription, typePriorities, 
 				"wordnet", getModelsPath() + "wordnet/unix/2.0/dict");
 			ExternalResourceFactory.bindResource(aeDescription, "monitor", monitorResourceDescription);
-			AnalysisEngine analysisEngine = AnalysisEngineFactory.createPrimitive(aeDescription);
+			AnalysisEngine analysisEngine = AnalysisEngineFactory.createEngine(aeDescription);
 			cache.put(key, analysisEngine);
 		}
 		return (AnalysisEngine) cache.get(key);
@@ -480,11 +467,11 @@ public class SadUIMAFactory {
 		Class key = JWNLWordNetAnnotator.class;
 		if(!cache.containsKey(key)) {
 			AnalysisEngineDescription aeDescription = 
-				AnalysisEngineFactory.createPrimitiveDescription(JWNLWordNetAnnotator.class, typeSystemDescription, typePriorities, 
+				AnalysisEngineFactory.createEngineDescription(JWNLWordNetAnnotator.class, typeSystemDescription, typePriorities, 
 				"jwnl", getModelsPath() + "jwnl/jwnl-properties.xml",
 			"wordnet", getModelsPath() + "wordnet/win/2.0/dict/");
 			ExternalResourceFactory.bindResource(aeDescription, "monitor", monitorResourceDescription);
-			AnalysisEngine analysisEngine = AnalysisEngineFactory.createPrimitive(aeDescription);
+			AnalysisEngine analysisEngine = AnalysisEngineFactory.createEngine(aeDescription);
 			cache.put(key, analysisEngine);
 		}
 		return (AnalysisEngine) cache.get(key);	
@@ -492,12 +479,12 @@ public class SadUIMAFactory {
 	
 	public AnalysisEngine getBanerjeeWSDAA(TypeSystemDescription typeSystemDescription, TypePriorities typePriorities, ExternalResourceDescription monitorResourceDescription) throws ResourceInitializationException, InvalidXMLException {
 		AnalysisEngineDescription aeDescription =  
-			AnalysisEngineFactory.createPrimitiveDescription(BanerjeeWSDAnnotator.class, typeSystemDescription, typePriorities, 
+			AnalysisEngineFactory.createEngineDescription(BanerjeeWSDAnnotator.class, typeSystemDescription, typePriorities, 
 			"jwnl", getModelsPath() + "jwnl/jwnl-properties.xml",
 			"wordnet", getModelsPath() + "wordnet/win/2.0/dict/",
 			"similarity", "Lesk");
 		ExternalResourceFactory.bindResource(aeDescription, "monitor", monitorResourceDescription);
-		AnalysisEngine analysisEngine = AnalysisEngineFactory.createPrimitive(aeDescription);
+		AnalysisEngine analysisEngine = AnalysisEngineFactory.createEngine(aeDescription);
 		return analysisEngine;
 	}
 	
@@ -513,22 +500,20 @@ public class SadUIMAFactory {
 			AnalysisEngineDescription aeDescription = AnalysisEngineFactory.createPrimitiveDescription(LemmaAnnotator.class, typeSystemDescription, typePriorities, 
 						"model", getModelsPath() + model);
 			ExternalResourceFactory.bindResource(aeDescription, "monitor", monitorResourceDescription);
-			AnalysisEngine analysisEngine = AnalysisEngineFactory.createPrimitive(aeDescription);
+			AnalysisEngine analysisEngine = AnalysisEngineFactory.createEngine(aeDescription);
 			cache.put(key, analysisEngine);
 		}
 		return (AnalysisEngine) cache.get(key);	
 	}
 	
-		
 	public AnalysisEngine getMateToolsPOSAA(TypeSystemDescription typeSystemDescription, TypePriorities typePriorities, ExternalResourceDescription monitorResourceDescription) throws ResourceInitializationException, InvalidXMLException {
 		Class key = edu.isistan.uima.unified.analysisengines.matetools.POSAnnotator.class;
 		if(!cache.containsKey(key)) {
 			AnalysisEngineDescription aeDescription = 
-				AnalysisEngineFactory.createPrimitiveDescription(edu.isistan.uima.unified.analysisengines.matetools.POSAnnotator.class, typeSystemDescription, typePriorities, 
+				AnalysisEngineFactory.createEngineDescription(edu.isistan.uima.unified.analysisengines.matetools.POSAnnotator.class, typeSystemDescription, typePriorities, 
 				"model", getModelsPath() + "matetools/is2/model/tag-eng.model");
-								
 			ExternalResourceFactory.bindResource(aeDescription, "monitor", monitorResourceDescription);
-			AnalysisEngine analysisEngine = AnalysisEngineFactory.createPrimitive(aeDescription);
+			AnalysisEngine analysisEngine = AnalysisEngineFactory.createEngine(aeDescription);
 			cache.put(key, analysisEngine);
 		}
 		return (AnalysisEngine) cache.get(key);	
@@ -538,10 +523,10 @@ public class SadUIMAFactory {
 		Class key = MorphAnnotator.class;
 		if(!cache.containsKey(key)) {
 			AnalysisEngineDescription aeDescription = 
-				AnalysisEngineFactory.createPrimitiveDescription(MorphAnnotator.class, typeSystemDescription, typePriorities, 
+				AnalysisEngineFactory.createEngineDescription(MorphAnnotator.class, typeSystemDescription, typePriorities, 
 				"model", getModelsPath() + "matetools/is2/model/morph-eng.model");
 			ExternalResourceFactory.bindResource(aeDescription, "monitor", monitorResourceDescription);
-			AnalysisEngine analysisEngine = AnalysisEngineFactory.createPrimitive(aeDescription);
+			AnalysisEngine analysisEngine = AnalysisEngineFactory.createEngine(aeDescription);
 			cache.put(key, analysisEngine);
 		}
 		return (AnalysisEngine) cache.get(key);
@@ -551,10 +536,10 @@ public class SadUIMAFactory {
 		Class key = CoNLLDependencyAnnotator.class;
 		if(!cache.containsKey(key)) {
 			AnalysisEngineDescription aeDescription = 
-				AnalysisEngineFactory.createPrimitiveDescription(CoNLLDependencyAnnotator.class, typeSystemDescription, typePriorities, 
+				AnalysisEngineFactory.createEngineDescription(CoNLLDependencyAnnotator.class, typeSystemDescription, typePriorities, 
 				"model", getModelsPath() + "matetools/is2/model/prs-eng.model");
 			ExternalResourceFactory.bindResource(aeDescription, "monitor", monitorResourceDescription);
-			AnalysisEngine analysisEngine = AnalysisEngineFactory.createPrimitive(aeDescription);
+			AnalysisEngine analysisEngine = AnalysisEngineFactory.createEngine(aeDescription);
 			cache.put(key, analysisEngine);
 		}
 		return (AnalysisEngine) cache.get(key);
@@ -564,12 +549,12 @@ public class SadUIMAFactory {
 		Class key = CoNLLSRLAnnotator.class;
 		if(!cache.containsKey(key)) {
 			AnalysisEngineDescription aeDescription = 
-				AnalysisEngineFactory.createPrimitiveDescription(CoNLLSRLAnnotator.class, typeSystemDescription, typePriorities,
+				AnalysisEngineFactory.createEngineDescription(CoNLLSRLAnnotator.class, typeSystemDescription, typePriorities,
 				"model", getModelsPath() + "srl/se/lth/cs/srl/model/srl-eng.model",
 				"propbank", getModelsPath() + "srl/propbank/",
 				"nombank", getModelsPath() + "srl/nombank/");
 			ExternalResourceFactory.bindResource(aeDescription, "monitor", monitorResourceDescription);
-			AnalysisEngine analysisEngine = AnalysisEngineFactory.createPrimitive(aeDescription);
+			AnalysisEngine analysisEngine = AnalysisEngineFactory.createEngine(aeDescription);
 			cache.put(key, analysisEngine);
 		}
 		return (AnalysisEngine) cache.get(key);
@@ -579,9 +564,9 @@ public class SadUIMAFactory {
 		Class key = SDSRLAnnotator.class;
 		if(!cache.containsKey(key)) {
 			AnalysisEngineDescription aeDescription = 
-				AnalysisEngineFactory.createPrimitiveDescription(SDSRLAnnotator.class, typeSystemDescription, typePriorities);
+				AnalysisEngineFactory.createEngineDescription(SDSRLAnnotator.class, typeSystemDescription, typePriorities);
 			ExternalResourceFactory.bindResource(aeDescription, "monitor", monitorResourceDescription);
-			AnalysisEngine analysisEngine = AnalysisEngineFactory.createPrimitive(aeDescription);
+			AnalysisEngine analysisEngine = AnalysisEngineFactory.createEngine(aeDescription);
 			cache.put(key, analysisEngine);
 		}
 		return (AnalysisEngine) cache.get(key);
@@ -607,9 +592,9 @@ public class SadUIMAFactory {
 	
 	public CollectionReader getSADCR(TypeSystemDescription typeSystemDescription, TypePriorities typePriorities, ExternalResourceDescription monitorResourceDescription, String inputFile) throws ResourceInitializationException, InvalidXMLException {
 		CollectionReaderDescription crDescription = 
-			CollectionReaderFactory.createDescription(SADCollectionReader.class, typeSystemDescription, typePriorities, 
+			CollectionReaderFactory.createReaderDescription(SADCollectionReader.class, typeSystemDescription, typePriorities, 
 			"input", inputFile);
 		ExternalResourceFactory.bindExternalResource(crDescription, "monitor", monitorResourceDescription);
-		return CollectionReaderFactory.createCollectionReader(crDescription);
+		return CollectionReaderFactory.createReader(crDescription);
 	}
 }

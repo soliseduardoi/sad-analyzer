@@ -2,20 +2,65 @@ package edu.isistan.uima.unified.ruta;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.util.Collection;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.uima.fit.pipeline.JCasIterable;
 import org.apache.uima.jcas.JCas;
-
-import edu.isistan.uima.unified.typesystems.domain.CrosscuttingConcern;
 
 public class RutaScript {
 	
 	private String pathToScript;
 	private boolean enable;
 	private String scriptCode;
-	private Collection<CrosscuttingConcern> concerns;
+	
+	private CrosscuttingConcernAdapted concernsAdapted = new CrosscuttingConcernAdapted();
+	/**
+	 * @return the impact
+	 */
+
+
+
+	/**
+	 * @return the concernsAdapted
+	 */
+	public CrosscuttingConcernAdapted getConcernsAdapted() {
+		return concernsAdapted;
+	}
+
+
+	/**
+	 * @param concernsAdapted the concernsAdapted to set
+	 */
+	public void setConcernsAdapted(CrosscuttingConcernAdapted concernsAdapted) {
+		this.concernsAdapted = concernsAdapted;
+	}
+
+
+	/**
+	 * @param impact the impact to set
+	 */
+	public void addImpact(ImpactWrapper impact) {
+		this.concernsAdapted.getImpacts().add(impact);
+		
+	}
+
+
+	/**
+	 * @return the scriptName
+	 */
+	public String getScriptName() {
+		return scriptName;
+	}
+
+
+	/**
+	 * @param scriptName the scriptName to set
+	 */
+	public void setScriptName(String scriptName) {
+		this.scriptName = scriptName;
+	}
+
+
 	private JCas jCas;
 	private JCasIterable jCasIter;
 	private String scriptName;
@@ -33,21 +78,7 @@ public class RutaScript {
 	public JCas getjCas() {
 		return jCas;
 	}
-
-	/**
-	 * @return the concerns
-	 */
-	public Collection<CrosscuttingConcern> getConcerns() {
-		return concerns;
-	}
-
-
-	/**
-	 * @param concerns the concerns to set
-	 */
-	public void setConcerns(Collection<CrosscuttingConcern> concerns) {
-		this.concerns = concerns;
-	}
+	
 
 
 	public String getPathToScript() {
@@ -81,7 +112,7 @@ public class RutaScript {
 	public RutaScript(String pathToScript) {
 		super();
 		this.pathToScript = pathToScript;
-		this.enable = true;
+		this.enable = false;
 		this.scriptCode =readScript(pathToScript);
 	}
 
@@ -115,7 +146,7 @@ public class RutaScript {
 
 
 	public String getName() {
-		// TODO Auto-generated method stub
+		
 		return scriptName;
 	}
 

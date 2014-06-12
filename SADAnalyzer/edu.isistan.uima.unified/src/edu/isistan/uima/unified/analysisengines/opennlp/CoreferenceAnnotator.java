@@ -8,21 +8,20 @@ import opennlp.tools.coref.LinkerMode;
 import opennlp.tools.coref.mention.DefaultParse;
 import opennlp.tools.coref.mention.Mention;
 import opennlp.tools.lang.english.TreebankLinker;
-//import opennlp.tools.lang.english.TreebankParser;
 import opennlp.tools.parser.Parse;
 import opennlp.tools.parser.Parser;
 
 import org.apache.uima.UimaContext;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
 import org.apache.uima.cas.text.AnnotationIndex;
+import org.apache.uima.fit.component.JCasAnnotator_ImplBase;
+import org.apache.uima.fit.descriptor.ConfigurationParameter;
+import org.apache.uima.fit.descriptor.ExternalResource;
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.jcas.tcas.Annotation;
 import org.apache.uima.resource.ResourceInitializationException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.SubProgressMonitor;
-import org.uimafit.component.JCasAnnotator_ImplBase;
-import org.uimafit.descriptor.ConfigurationParameter;
-import org.uimafit.descriptor.ExternalResource;
 
 import edu.isistan.uima.unified.analysisengines.AnnotationGenerator;
 import edu.isistan.uima.unified.sharedresources.ProgressMonitorResource;
