@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ASCII"?>
+<edu.isistan.reassistant.ccdetector:CrosscuttingConcernRuleSet xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:edu.isistan.reassistant.ccdetector="http://www.users.exa.unicen.edu.ar/~arago/ccdetector" QueryPreference="OnlyImpact">
+  <Rules Metadata="Allows system data to be written in an storage media. This concerns affects functionality that involves the accessing of data, and the main idea is to decouple the way data is handled." CompositionGuidelines="This crosscutting concern is commonly composed as a Wrapping, in which some behavior is introduced before and(or) after the data-related behavior is executed." ID="cdcc0fed-9cf4-42dc-8be4-b99aa5877114" Name="Persistence" Enabled="true">
+    <DirectQuerySet>
+      <Queries Name="Persistence-related Keywords" Content="select S&#xD;&#xA;from&#xD;&#xA;[#Sentence#] as S,&#xD;&#xA;[#Token#] as T&#xD;&#xA;where for T(lemma = 'database' or lemma = 'storage' or stem = 'persistent' or lemma = 'rolled-back' or lemma='table' or lemma='populate')&#xD;&#xA;where T.begin > S.begin&#xD;&#xA;where T.end &lt; S.end" Include="true"/>
+    </DirectQuerySet>
+    <ImpactQuerySet>
+      <Queries Name="Data Actions" Content="select S&#xD;&#xA;from&#xD;&#xA;[#Sentence#] as S,&#xD;&#xA;[#DomainAction#] as DA&#xD;&#xA;where for DA(label = 'Data')&#xD;&#xA;where DA.begin > S.begin&#xD;&#xA;where DA.end &lt; S.end" Include="false"/>
+      <Queries Name="Input and Communication" Content="select S&#xD;&#xA;from&#xD;&#xA;[#Sentence#] as S,&#xD;&#xA;[#DomainAction#] as DA&#xD;&#xA;where for DA(label = 'Input' or label = 'Communication')&#xD;&#xA;where DA.begin > S.begin&#xD;&#xA;where DA.end &lt; S.end" Include="false"/>
+    </ImpactQuerySet>
+  </Rules>
+</edu.isistan.reassistant.ccdetector:CrosscuttingConcernRuleSet>
