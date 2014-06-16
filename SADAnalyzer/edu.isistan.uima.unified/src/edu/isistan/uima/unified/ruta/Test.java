@@ -107,7 +107,7 @@ public class Test {
 //		}
 		
 		System.setProperty("MODELS_PATH", "C:/REAssistant-models");
-		RutaEngine engine = new RutaEngine();
+		RutaEngine engine = new RutaEngine("en");
 		
 		engine.execute(inputFile, outputFile);
 		

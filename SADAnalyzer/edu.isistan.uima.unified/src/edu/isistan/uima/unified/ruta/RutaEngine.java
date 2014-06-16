@@ -33,10 +33,11 @@ public class RutaEngine {
 	private boolean rutaScriptProcessed= false;
 	TypeSystemDescription typeSystemDescription; 
 	TypePriorities typePriorities;
+	private String languaje;
 	
 			
 	private  String getRuleSetPath() {
-		return getModelsPath() + "/ruta/";
+		return getModelsPath() + "/ruta/"+languaje+"/";
 	}
 	
 	private  String getModelsPath() {
@@ -49,8 +50,9 @@ public class RutaEngine {
 	}
 
 	
-	public RutaEngine() {		
+	public RutaEngine(String languaje) {		
 		
+		this.languaje=languaje;
 		File rootDirectory = new File(getRuleSetPath());
 		
 		if(rootDirectory!=null){
