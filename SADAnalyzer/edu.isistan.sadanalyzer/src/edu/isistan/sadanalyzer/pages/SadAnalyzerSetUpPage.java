@@ -39,6 +39,8 @@ import org.eclipse.ui.forms.widgets.Section;
 import org.eclipse.ui.part.EditorPart;
 import org.eclipse.wb.swt.ResourceManager;
 
+import SadModel.Sad;
+
 import edu.isistan.reassistant.ccdetector.model.CrosscuttingConcernRuleSet;
 import edu.isistan.sadanalyzer.editor.Messages;
 import edu.isistan.sadanalyzer.editor.SadAnalyzerEditor;
@@ -78,6 +80,7 @@ public class SadAnalyzerSetUpPage extends FormPage {
 	private RutaEngine rutaEngine;
 	
 	private SadAnalyzerProject modelRoot;
+	private Sad sadModel;
 
 	
 	public SadAnalyzerSetUpPage(){
@@ -86,7 +89,7 @@ public class SadAnalyzerSetUpPage extends FormPage {
 	
 	private void createRutaModel() {
 		
-		rutaEngine = new RutaEngine();
+		rutaEngine = new RutaEngine(sadModel.getLocale());
 		
 	}
 	public SadAnalyzerSetUpPage(FormEditor editor) {
@@ -94,7 +97,7 @@ public class SadAnalyzerSetUpPage extends FormPage {
 
 		uimaRoot = ((SadAnalyzerEditor)getEditor()).getUimaRoot();
 		modelRoot = ((SadAnalyzerEditor)getEditor()).getSadProjectModel();
-		
+		sadModel=((SadAnalyzerEditor)getEditor()).getSadModel();
 	}
 	
 	/**

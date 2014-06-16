@@ -44,7 +44,7 @@ public class SadAnalyzerEditor extends FormEditor implements IEditingDomainProvi
 	protected ComposedAdapterFactory adapterFactory;
 	protected AdapterFactoryEditingDomain editingDomain;
 	
-	private CrosscuttingConcernRuleSet rulesModelRoot;	
+
 	private UIMASADQueryAdapter uimaRoot;
 	private SadAnalyzerProject modelRoot;
 	private Sad sadModelRoot;
@@ -172,12 +172,7 @@ public class SadAnalyzerEditor extends FormEditor implements IEditingDomainProvi
 		}
 		sadModelRoot = (Sad) resource.getContents().get(resource.getContents().size()-1);
 	}
-	
-	
-	public CrosscuttingConcernRuleSet getRulesModelRoot() {
-			
-			return rulesModelRoot;
-		}
+
 	
 	public UIMASADQueryAdapter getUimaRoot() {
 		
