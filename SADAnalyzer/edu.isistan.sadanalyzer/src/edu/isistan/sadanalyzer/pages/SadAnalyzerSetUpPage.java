@@ -172,13 +172,6 @@ public class SadAnalyzerSetUpPage extends FormPage {
 			}
 		});
 	}	
-
-
-
-
-	
-
-	
 	
 	
 	private void createQualityAttributes(IManagedForm managedForm, String title, String desc) {
@@ -240,6 +233,11 @@ public class SadAnalyzerSetUpPage extends FormPage {
 				for(int i = 0; listQualityAttributesSource.getList().getItems().length > 0; ){
 					RutaScript crossC = (RutaScript)listQualityAttributesSource.getElementAt(i);
 					crossC.setEnable(true);
+					if(!crossC.getList().isEmpty()){
+						for(RutaScript rs : crossC.getList()){
+							rs.setEnable(true);
+						}
+					}
 					listQualityAttributesSelected.add(crossC);
 					listQualityAttributesSource.remove(crossC);
 				}				
@@ -254,6 +252,11 @@ public class SadAnalyzerSetUpPage extends FormPage {
 				for(int i = 0; listQualityAttributesSelected.getList().getItems().length > 0; ){
 					RutaScript crossC = (RutaScript)listQualityAttributesSelected.getElementAt(i);
 					crossC.setEnable(false);
+					if(!crossC.getList().isEmpty()){
+						for(RutaScript rs : crossC.getList()){
+							rs.setEnable(false);
+						}
+					}
 					listQualityAttributesSource.add(crossC);
 					listQualityAttributesSelected.remove(crossC);
 				}				
@@ -478,7 +481,7 @@ public class SadAnalyzerSetUpPage extends FormPage {
 				
 				outputFile+="ruta";
 				
-			   rutaEngine.executeMultiplesPipeline(inputFile);
+			   rutaEngine.executePipelineSpecific(inputFile);
 			   Vector<CrosscuttingConcernAdapted> crosscuttingConcerns =  rutaEngine.getConcern();
 		
 			   if(crosscuttingConcerns != null){			
@@ -503,7 +506,7 @@ public class SadAnalyzerSetUpPage extends FormPage {
 				    SadAnalyzerEditor editor = (SadAnalyzerEditor)part;
 				    SadAnalyzerViewerPage pageView = (SadAnalyzerViewerPage) editor.findPage(SadAnalyzerViewerPage.ID);
 				    if(null == pageView){
-				    	FormPage sdAnalyzerViewerPage = new SadAnalyzerViewerPage(editor, listViewerSectionsSelected,  attributes);			    	
+				    	FormPage sdAnalyzerViewerPage = new SadAnalyzerViewerPage(editor, listViewerSectionsSelected,  attributes, rutaEngine);			    	
 						try {
 							editor.addPage(sdAnalyzerViewerPage);						
 						} catch (PartInitException p) {

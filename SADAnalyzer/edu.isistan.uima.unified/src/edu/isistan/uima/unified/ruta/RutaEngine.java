@@ -4,7 +4,10 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Vector;
+
+import javax.script.ScriptContext;
 
 import org.apache.uima.UIMAException;
 import org.apache.uima.analysis_engine.AnalysisEngineDescription;
@@ -29,7 +32,7 @@ import edu.isistan.uima.unified.typesystems.nlp.Token;
 public class RutaEngine {
 	
 	private static final String RUTA_EXT = "ruta";
-	private ArrayList<RutaScript> scripts = new ArrayList<RutaScript>();
+	private List<RutaScript> scripts = new ArrayList<RutaScript>();
 	private boolean rutaScriptProcessed= false;
 	TypeSystemDescription typeSystemDescription; 
 	TypePriorities typePriorities;
@@ -52,22 +55,28 @@ public class RutaEngine {
 	
 	public RutaEngine(String languaje) {		
 		
-		this.languaje=languaje;
-		File rootDirectory = new File(getRuleSetPath());
-		
-		if(rootDirectory!=null){
-			
-			for (File file : rootDirectory.listFiles()) {
-			
-				String name= file.getName();			
-			
-				if (RUTA_EXT.equals(name.substring(name.length()-4, name.length()))) {
+		this.languaje=languaje;			
+		scripts = getScriptRuta(getRuleSetPath());		
+	}
+	
+	public List<RutaScript> getScriptRuta(String path){
+		List<RutaScript> list = new ArrayList<RutaScript>();
+		if(path!=null){
+			File rootDirectory = new File(path);
+			if(rootDirectory.isDirectory()){
+				for (File file : rootDirectory.listFiles()) {
 				
-					RutaScript script = new RutaScript(file.getPath());
-					script.setName(name.substring(0, name.length()-5));
-					scripts.add(script);				
-				}
-		   }	
+					String name= file.getName();			
+				
+					if (RUTA_EXT.equals(name.substring(name.length()-4, name.length()))) {
+					
+						RutaScript script = new RutaScript(file.getPath());
+						script.setName(name.substring(0, name.length()-5));
+						script.setList(getScriptRuta(rootDirectory+"/"+script.getName()));
+						list.add(script);				
+					}
+			   }
+			}
 			
 	   }
 		try {
@@ -77,7 +86,7 @@ public class RutaEngine {
 		
 			e.printStackTrace();
 		}
-		
+		return list;
 	}
 	
 	public void execute(String inputFile, String outputFile) {
@@ -234,10 +243,60 @@ public void executeMultiplesPipeline(String inputFile) {
 	}
 
 
+public void executePipelineSpecific(String inputFile) {
+	
+	try{
+		boolean debug = true;
+		long startTime = System.currentTimeMillis();
+				
+		CollectionReaderDescription reader = getXMIReaderCR(typeSystemDescription, typePriorities, inputFile);
+		executeScript(reader,scripts);		
+		
+		long endTime = System.currentTimeMillis();
+		long time=  endTime - startTime;
+		
+		System.out.println("Tiempo pipeline multiple: "+ Long.toString(time/1000)+"seg.");
+		rutaScriptProcessed=true;		
+	
+	} catch (ResourceInitializationException e) {
+		e.printStackTrace();
+	} catch (UIMAException e) {
+		e.printStackTrace();
+	} 		
+}
+
+private void executeScript(CollectionReaderDescription reader, List<RutaScript> scriptsList) throws ResourceInitializationException, UIMAException{
+	for (int i = 0; i < scriptsList.size(); i++) {
+		
+		RutaScript sriptConcern = scriptsList.get(i);
+		
+		if(sriptConcern.isEnable()){
+			if(!sriptConcern.getList().isEmpty()){
+				executeScript(reader, sriptConcern.getList());
+			}
+			JCasIterable iterable = SimplePipeline.iteratePipeline(reader, 
+					getRutaAA(typeSystemDescription, typePriorities,sriptConcern.getScriptCode(), true));
+			
+			
+			for(JCas jCas : iterable) {
+				 for (CrosscuttingConcern concern: JCasUtil.select(jCas, CrosscuttingConcern.class)){
+					 int begin= concern.getSentence().getBegin();
+					 int end= concern.getSentence().getEnd();
+					 SentenceMark sentenceW= new SentenceMark(begin, end);
+					 ImpactWrapper impacto = new ImpactWrapper();
+					 impacto.setSentence(sentenceW);
+					 sriptConcern.addImpact(impacto);
+				 }			
+			}
+		}
+	
+	}
+}
+
 		/**
 		 * @return the scripts
 		 */
-		public ArrayList<RutaScript> getScripts() {
+		public List<RutaScript> getScripts() {
 			return scripts;
 		}
 

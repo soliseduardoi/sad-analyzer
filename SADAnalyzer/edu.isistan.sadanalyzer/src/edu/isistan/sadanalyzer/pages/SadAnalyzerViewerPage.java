@@ -1,6 +1,8 @@
 package edu.isistan.sadanalyzer.pages;
 
 
+import java.util.Iterator;
+
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -9,10 +11,13 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyleRange;
 import org.eclipse.swt.custom.StyledText;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
@@ -38,10 +43,13 @@ import org.eclipse.wb.swt.ResourceManager;
 import edu.isistan.sadanalyzer.editor.Messages;
 import edu.isistan.sadanalyzer.editor.SadAnalyzerEditor;
 import edu.isistan.sadanalyzer.providers.CrosscuttingConcernLabelProvider;
+import edu.isistan.sadanalyzer.providers.RutaScriptLabelProvider;
 import edu.isistan.sadanalyzer.providers.SadSectionLabelProvider;
 import edu.isistan.sadanalyzer.query.UIMASADQueryAdapter;
 import edu.isistan.uima.unified.ruta.CrosscuttingConcernAdapted;
 import edu.isistan.uima.unified.ruta.ImpactWrapper;
+import edu.isistan.uima.unified.ruta.RutaEngine;
+import edu.isistan.uima.unified.ruta.RutaScript;
 import edu.isistan.uima.unified.ruta.SentenceMark;
 import edu.isistan.uima.unified.typesystems.sad.SadSection;
 import edu.isistan.uima.unified.typesystems.sad.impl.SadSectionImpl;
@@ -55,8 +63,8 @@ public class SadAnalyzerViewerPage extends FormPage {
 	private ListViewer listViewerSectionsSelected;
 	private java.util.List listQualityAttributesSelected;
 	private List attributes;
-	private List sections;
-	private ListViewer listSections;
+	private List tactics;
+	private ListViewer listTactics;
 	private ListViewer listAttributes;
 	private SadSection sadSection;
 	private CrosscuttingConcernAdapted crossCutting;
@@ -65,6 +73,9 @@ public class SadAnalyzerViewerPage extends FormPage {
 	private Label labelOccurrences;
 	private Label labelImage;
 	private Composite compositeLabel;
+	private RutaEngine rutaEngine;
+	
+	Combo combo;
 	
 	private UIMASADQueryAdapter uimaRoot;
 	
@@ -76,10 +87,11 @@ public class SadAnalyzerViewerPage extends FormPage {
 		super(editor, ID, TITLE);
 	}
 	
-	public SadAnalyzerViewerPage(FormEditor editor, ListViewer listViewerSectionsSelected, java.util.List listQualityAttributesSelected) {
+	public SadAnalyzerViewerPage(FormEditor editor, ListViewer listViewerSectionsSelected, java.util.List listQualityAttributesSelected, RutaEngine rutaEngine) {
 		super(editor, ID, TITLE);
 		this.listViewerSectionsSelected = listViewerSectionsSelected;	
 		this.listQualityAttributesSelected=listQualityAttributesSelected;
+		this.rutaEngine = rutaEngine;
 		uimaRoot = ((SadAnalyzerEditor)getEditor()).getUimaRoot();	
 		occurrences = 0;
 	}
@@ -181,17 +193,28 @@ public class SadAnalyzerViewerPage extends FormPage {
 	private void viewTextDetail(IManagedForm managedForm, String title, String desc) {
 		Composite client = createSection(managedForm, title, desc, 3);
 		
-		listSections = new ListViewer(client, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);		
-		listSections.setLabelProvider(new SadSectionLabelProvider(uimaRoot));
+		GridData gd1 = new GridData();
+		gd1.widthHint = 250;
+			
+		combo = new Combo(client, SWT.DROP_DOWN | SWT.READ_ONLY);		
+		combo.setItems(listViewerSectionsSelected.getList().getItems());
+		combo.setLayoutData(gd1);
+		combo.select(0);		
+		sadSection = (SadSectionImpl)listViewerSectionsSelected.getElementAt(0);
+		
+		managedForm.getToolkit().createLabel(client, "");
+		managedForm.getToolkit().createLabel(client, "");
+
+		
+		managedForm.getToolkit().createLabel(client, Messages.SadAnalyzerEditor_ViewerAttributesTitle);
+		managedForm.getToolkit().createLabel(client, Messages.SadAnalyzerEditor_ViewerTacticsTitle);
+		managedForm.getToolkit().createLabel(client, "");
 				
-		setListViewer(listViewerSectionsSelected, listSections);
-				
-		GridData gd = new GridData();
+
+		GridData gd = new GridData();		
 		gd.widthHint = 250;
 		gd.heightHint = 400;
-		sections = listSections.getList();
-		sections.setLayoutData(gd);	
-		
+
 		listAttributes = new ListViewer(client, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);		
 		listAttributes.setLabelProvider(new CrosscuttingConcernLabelProvider());
 		
@@ -200,10 +223,18 @@ public class SadAnalyzerViewerPage extends FormPage {
 		attributes = listAttributes.getList();
 		attributes.setLayoutData(gd);
 		
+		listTactics = new ListViewer(client, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);		
+		listTactics.setLabelProvider(new RutaScriptLabelProvider());
+				
+//		setListViewer(listViewerSectionsSelected, listTactics);
+				
+		tactics = listTactics.getList();
+		tactics.setLayoutData(gd);	
+		
 		gd = new GridData(GridData.VERTICAL_ALIGN_BEGINNING);		
 		gd = new GridData();
 		gd.widthHint = 600;
-		gd.heightHint= 400;
+		gd.heightHint= 416;
 		styledText = new StyledText(client, SWT.BORDER | SWT.READ_ONLY | SWT.WRAP | SWT.V_SCROLL | SWT.H_SCROLL | SWT.MULTI);
 		styledText.setBlockSelection(true);
 		styledText.setLayoutData(gd);
@@ -211,11 +242,12 @@ public class SadAnalyzerViewerPage extends FormPage {
 		managedForm.getToolkit().paintBordersFor(styledText);
 		
 		
-		listSections.addSelectionChangedListener(new ISelectionChangedListener(){
+		listTactics.addSelectionChangedListener(new ISelectionChangedListener(){
 			public void selectionChanged(SelectionChangedEvent event) {
 				IStructuredSelection selection = (IStructuredSelection)event.getSelection();			
 				if(!selection.isEmpty()) {
-					sadSection = (SadSectionImpl)selection.getFirstElement();
+					RutaScript rScript = (RutaScript)selection.getFirstElement();
+					crossCutting = rScript.getConcernsAdapted();
 					viewQueryText();
 				}
 			}
@@ -227,11 +259,40 @@ public class SadAnalyzerViewerPage extends FormPage {
 				if(!selection.isEmpty()) {
 					crossCutting = (CrosscuttingConcernAdapted)selection.getFirstElement();
 					viewQueryText();
+					fillTactics();					
 				}
+			}
+		});
+		
+		combo.addSelectionListener(new SelectionAdapter()
+		{
+			@Override
+			public void widgetSelected(SelectionEvent e)
+			{
+				int i = combo.getSelectionIndex();
+				sadSection = (SadSectionImpl)listViewerSectionsSelected.getElementAt(i);
+				viewQueryText();
 			}
 		});
 	}
 	
+	private void fillTactics(){
+		for(int i=0; listTactics.getList().getItems().length > 0;){
+			RutaScript rs = (RutaScript) listTactics.getElementAt(i);
+			listTactics.remove(rs);
+		}
+		Iterator<RutaScript> scripts = rutaEngine.getScripts().iterator();
+		
+		for ( ;scripts.hasNext();) {
+			RutaScript script = scripts.next();
+			if(crossCutting.getName().equals(script.getName())){
+				for(RutaScript s : script.getList()){
+					listTactics.add(s);
+				}
+			}			
+		}	
+		tactics.update();
+	}
 		
 	private Composite createSection(IManagedForm mform, String title,
 			String desc, int numColumns) {
@@ -266,15 +327,15 @@ public class SadAnalyzerViewerPage extends FormPage {
 		super.setActive(active);
 	}
 	
-	private void setListViewer(ListViewer source, ListViewer list){
-		for(int i=0; list.getList().getItems().length > 0;){
-			Object o = list.getElementAt(i);
-			list.remove(o);
-		}
-		for(int i = 0; i < source.getList().getItems().length; i++){
-			list.add(source.getElementAt(i));
-		}
-	}
+//	private void setListViewer(ListViewer source, ListViewer list){
+//		for(int i=0; list.getList().getItems().length > 0;){
+//			Object o = list.getElementAt(i);
+//			list.remove(o);
+//		}
+//		for(int i = 0; i < source.getList().getItems().length; i++){
+//			list.add(source.getElementAt(i));
+//		}
+//	}
 	private void setListViewerAttribute(java.util.List source, ListViewer list){
 		for(int i=0; list.getList().getItems().length > 0;){
 			Object o = list.getElementAt(i);
@@ -287,12 +348,12 @@ public class SadAnalyzerViewerPage extends FormPage {
 	
 	public void refresh(ListViewer listViewerSectionsSelected, java.util.List listQualityAttributesSelected){
 		
-		setListViewer(listViewerSectionsSelected, listSections);
+//		setListViewer(listViewerSectionsSelected, listSections);
 		setListViewerAttribute(listQualityAttributesSelected, listAttributes);
 		styledText.setText("");
 		styledText.update();
 		attributes.update();
-		sections.update();
+		tactics.update();
 		
 		labelImage.setVisible(false);
 		labelOccurrences.setVisible(false);
@@ -307,7 +368,7 @@ public class SadAnalyzerViewerPage extends FormPage {
 			occurrences = 0;
 			styledText.setText(uimaRoot.getCoveredText(sadSection));
 			for(ImpactWrapper impact : crossCutting.getImpacts()) {
-				//Se rompe aca
+				
 				SentenceMark sentence = impact.getSentence();
 				Color color = new Color(Display.getDefault(),255, 255, 51);
 				StyleRange newStyleRange = createStyleRange(sentence, color);

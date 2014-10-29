@@ -39,6 +39,8 @@ public class Messages extends NLS {
 	public static String SadAnalyzerEditor_ViewerDetail;
 	public static String SadAnalyzerEditor_ViewerDetailDescription;
 	public static String SadAnalyzerEditor_ViewerOccurences;
+	public static String SadAnalyzerEditor_ViewerAttributesTitle;
+	public static String SadAnalyzerEditor_ViewerTacticsTitle;
 	public static String SadAnalyzerEditor_ConfigurationConcern;
 	public static String SadAnalyzerEditor_ConfigurationConcernDescription;
 	

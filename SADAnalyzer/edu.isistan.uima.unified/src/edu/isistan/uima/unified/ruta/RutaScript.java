@@ -2,6 +2,8 @@ package edu.isistan.uima.unified.ruta;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.uima.fit.pipeline.JCasIterable;
@@ -12,6 +14,7 @@ public class RutaScript {
 	private String pathToScript;
 	private boolean enable;
 	private String scriptCode;
+	private List<RutaScript> list;
 	
 	private CrosscuttingConcernAdapted concernsAdapted = new CrosscuttingConcernAdapted();
 	/**
@@ -114,6 +117,7 @@ public class RutaScript {
 		this.pathToScript = pathToScript;
 		this.enable = false;
 		this.scriptCode =readScript(pathToScript);
+		this.list=new ArrayList<RutaScript>();
 	}
 
 	
@@ -154,6 +158,16 @@ public class RutaScript {
 	public void setName(String name) {
 		this.scriptName=name;
 		
+	}
+
+
+	public List<RutaScript> getList() {
+		return list;
+	}
+
+
+	public void setList(List<RutaScript> list) {
+		this.list = list;
 	}
 
 
