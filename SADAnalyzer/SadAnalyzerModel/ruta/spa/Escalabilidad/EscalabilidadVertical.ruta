@@ -1,0 +1,20 @@
+
+TYPESYSTEM typesystems.ECoreTypeDescriptor;
+TYPESYSTEM uima.ruta.example.PersistanceConcernTypeSystem;
+SCRIPT uima.ruta.example.FaultDetectionConcern;
+DECLARE Token_Incorporar,Token_Cliente,Token_Recurso,Token_Procesar,Token_Servidor;
+
+
+Token{Token.lemma == "incorporar", REGEXP(Token.pos, "V(..?)")-> MARK(Token_Incorporar)};
+Token{Token.lemma == "agregar", REGEXP(Token.pos, "V(..?)")-> MARK(Token_Incorporar)};
+Token{Token.stem == "client", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Cliente)};
+Token{Token.stem == "servidor", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Servidor)};
+Token{Token.stem == "recurs", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Recurso)};
+Token{Token.lemma == "procesar", REGEXP(Token.pos, "V(..?)")-> MARK(Token_Procesar)};
+
+
+ Sentence{ -> CREATE(CrosscuttingConcern, "name" = "Escalabilidad Vertical","sentence"=Sentence)} <- {
+    Token_Incorporar{NEAR(Token_Cliente,0,7)};
+    Token_Incorporar{NEAR(Token_Servidor,0,7)};
+    (Token_Incorporar{NEAR(Token_Recurso,0,7)}){NEAR(Token_Procesar,0,30)};
+};
