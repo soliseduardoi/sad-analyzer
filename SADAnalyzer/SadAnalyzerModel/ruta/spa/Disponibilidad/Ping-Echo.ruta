@@ -1,0 +1,19 @@
+TYPESYSTEM typesystems.ECoreTypeDescriptor;
+TYPESYSTEM uima.ruta.example.PersistanceConcernTypeSystem;
+SCRIPT uima.ruta.example.FaultDetectionConcern;
+
+DECLARE Token_Ping_Echo,Token_Ping,Token_Echo;
+
+
+
+Token{Token.lemma =="ping-echo", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Ping_Echo)};
+Token{Token.lemma =="ping", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Ping)};
+Token{Token.lemma =="echo", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Echo)};
+
+
+ Sentence{ -> CREATE(CrosscuttingConcern, "name" = "Ping-Echo","sentence"=Sentence)} <- {
+    Token_Ping_Echo;
+    Token_Ping;
+    Token_Echo;
+    Token_Ping"/"Token_Echo;
+};
