@@ -16,7 +16,8 @@ import org.apache.commons.io.FileUtils;
 public class DokuWikiParser implements SadParser {
 	
 	private HashSet<String> filteredPages;	
-	public final static String DOKUWIKI_PATH="\\data\\pages\\";
+	public final static String DOKUWIKI_PATH="/data/pages/";
+	public final static String DOKUWIKI_PATHWIN="\\data\\pages\\";
 	public static final String[] FILTERED_PAGES = new String[] { "dokuwiki.txt", "syntax.txt", "template.txt", "start.txt", "index.txt", "navigation.txt", "site_notice.txt", "directorio.txt" };
 
 	public DokuWikiParser(){
@@ -29,9 +30,13 @@ public class DokuWikiParser implements SadParser {
 	 */
 	@Override
 	public Section getSad(String pathTemplate, String urlSad) {		
+		String dokiwikiPath=DOKUWIKI_PATHWIN;
+		if(!urlSad.contains(":"))
+			dokiwikiPath=DOKUWIKI_PATH;
+			
 		Section section = new CompositeSection();
 		if(null != urlSad && urlSad.length() > 0){			
-			urlSad = urlSad + DOKUWIKI_PATH;
+			urlSad = urlSad + dokiwikiPath;
 			File rootDirectoryDokuWiki = new File(urlSad);
 			section = parseDokuWiki(rootDirectoryDokuWiki);
 			return section;
@@ -44,6 +49,12 @@ public class DokuWikiParser implements SadParser {
 	}
 
 	private Section parseDokuWiki(File currentFile, File rootTreeDirectory) {
+		
+		String dash= "\\";
+		if (!currentFile.getAbsolutePath().contains(":"))
+			dash="/";
+			
+			
 		if (currentFile.isDirectory()) {
 			CompositeSection compositeSection = new CompositeSection();
 			if(!rootTreeDirectory.getName().equals(currentFile.getName())){
@@ -57,7 +68,7 @@ public class DokuWikiParser implements SadParser {
 			}
 			File compositeSectionLink=null;
 			try {
-				compositeSectionLink = new File(currentFile.getParentFile()+"/"+currentFile.getName()+".txt");
+				compositeSectionLink = new File(currentFile.getParentFile()+dash+currentFile.getName()+".txt");
 				if(!compositeSectionLink.isDirectory()){				
 					compositeSection.setText(FileUtils.readFileToString(compositeSectionLink, "utf8"));
 				}
@@ -69,7 +80,7 @@ public class DokuWikiParser implements SadParser {
 			if (filteredPages.contains(currentFile.getName()))
 				return null;
 			try {
-				File directory = new File(currentFile.getParentFile()+"\\"+currentFile.getName().split("\\.")[0]);
+				File directory = new File(currentFile.getParentFile()+dash+currentFile.getName().split("\\.")[0]);
 				if(!directory.isDirectory()){			
 					Item item = new Item();
 					item.setName(currentFile.getName().split("\\.")[0]);
