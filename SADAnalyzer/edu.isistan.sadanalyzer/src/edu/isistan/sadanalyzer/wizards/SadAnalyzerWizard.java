@@ -132,9 +132,9 @@ public class SadAnalyzerWizard extends Wizard implements INewWizard {
 	public boolean performFinish() {
 		try {
 			// SAD File
-			final String sadURI = sadAnalyzerSettingsPage.getTextSadPath().getText();
+			final String sadURI = !sadAnalyzerSettingsPage.getTextSadPath().getText().contains(":")? "/"+sadAnalyzerSettingsPage.getTextSadPath().getText():sadAnalyzerSettingsPage.getTextSadPath().getText();
 			//UimaSad File
-			final String uimaSadURI = sadAnalyzerSettingsPage.getTextUimaSadPath().getText();
+			final String uimaSadURI = !sadAnalyzerSettingsPage.getTextUimaSadPath().getText().contains(":")?"/"+sadAnalyzerSettingsPage.getTextUimaSadPath().getText():sadAnalyzerSettingsPage.getTextUimaSadPath().getText();
 					
 			// SADA
 			final IFile sadaFile = sadAnalyzerNewFilePage.getModelFile();
