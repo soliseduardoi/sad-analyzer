@@ -1,0 +1,17 @@
+TYPESYSTEM typesystems.ECoreTypeDescriptor;
+TYPESYSTEM uima.ruta.example.PersistanceConcernTypeSystem;
+SCRIPT uima.ruta.example.FaultDetectionConcern;
+
+DECLARE Token_Timestamp,Token_Secuencia,Token_De,Token_Numero;
+
+
+Token{Token.lemma == "de", REGEXP(Token.pos, "SP")-> MARK(Token_De)};
+Token{Token.lemma =="timestamp", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Timestamp)};
+Token{Token.lemma =="secuencia", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Secuencia)};
+Token{Token.stem =="numer", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Numero)};
+
+
+ Sentence{ -> CREATE(CrosscuttingConcern, "name" = "Timestamp","sentence"=Sentence)} <- {
+    Token_Timestamp;
+    Token_Numero Token_De Token_Secuencia;
+};

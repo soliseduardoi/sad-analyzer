@@ -1,0 +1,16 @@
+TYPESYSTEM typesystems.ECoreTypeDescriptor;
+TYPESYSTEM uima.ruta.example.PersistanceConcernTypeSystem;
+SCRIPT uima.ruta.example.FaultDetectionConcern;
+
+DECLARE Token_Redundancia,Token_Activa,Token_pasiva;
+
+Token{Token.lemma == "redundancia", REGEXP(Token.pos, "V(..?)")-> MARK(Token_Redundancia)};
+Token{Token.lemma =="redundancy"-> MARK(Token_Redundancia)};
+Token{Token.lemma =="activa", REGEXP(Token.pos, "AQ")-> MARK(Token_Activa)};
+Token{Token.lemma =="pasiva", REGEXP(Token.pos, "AQ")-> MARK(Token_pasiva)};
+
+
+ Sentence{ -> CREATE(CrosscuttingConcern, "name" = "Rollback","sentence"=Sentence)} <- {
+    Token_Redundancia Token_Activa;
+    Token_Redundancia Token_pasiva;
+};

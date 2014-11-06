@@ -1,0 +1,33 @@
+TYPESYSTEM typesystems.ECoreTypeDescriptor;
+TYPESYSTEM uima.ruta.example.PersistanceConcernTypeSystem;
+SCRIPT uima.ruta.example.FaultDetectionConcern;
+
+DECLARE Token_Retornar,Token_Ultimo,Token_Estado,Token_Seguro,Token_Log,Token_Mantener,Token_Operacion,Token_Registro,Token_Transaccion,Token_Suceso,Token_Hecho,Token_Reconstruir,Token_Sistema;
+
+
+Token{Token.stem == "retorn", REGEXP(Token.pos, "V(..?)")-> MARK(Token_Retornar)};
+Token{Token.stem == "ultim", REGEXP(Token.pos, "A(.?)")-> MARK(Token_Ultimo)};
+Token{Token.stem == "estad", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Estado)};
+Token{Token.stem == "segur", REGEXP(Token.pos, "AQ")-> MARK(Token_Seguro)};
+Token{Token.stem == "logs", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Log)};
+Token{Token.lemma == "mantener", REGEXP(Token.pos, "V(..?)")-> MARK(Token_Mantener)};
+Token{Token.stem == "oper", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Operacion)};
+Token{Token.lemma == "registro", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Registro)};
+Token{Token.stem == "transaccion", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Transaccion)};
+Token{Token.lemma == "suceso", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Suceso)};
+Token{Token.stem == "hech", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Hecho)};
+Token{Token.stem == "reconstru", REGEXP(Token.pos, "V(..?)")-> MARK(Token_Reconstruir)};
+Token{Token.stem == "sistem", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Sistema)};
+
+
+ Sentence{ -> CREATE(CrosscuttingConcern, "name" = "Modificabilidad","sentence"=Sentence)} <- {
+    Token_Ultimo Token_Estado Token_Seguro;
+    Token_Mantener Token_Log;
+    Token_Log{NEAR(Token_Operacion,0,7)};
+    Token_Log{NEAR(Token_Transaccion,0,7)};
+    Token_Registro{NEAR(Token_Operacion,0,7)};
+    Token_Registro{NEAR(Token_Suceso,0,7)};
+    Token_Reconstruir Token_Hecho;
+    Token_Reconstruir{NEAR(Token_Sistema,0,7)};
+    Token_Log{NEAR(Token_Sistema,0,7)};
+};
