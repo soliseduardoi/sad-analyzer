@@ -1,0 +1,35 @@
+TYPESYSTEM typesystems.ECoreTypeDescriptor;
+TYPESYSTEM uima.ruta.example.PersistanceConcernTypeSystem;
+SCRIPT uima.ruta.example.FaultDetectionConcern;
+DECLARE Token_Seguridad,Token_Permitir,Token_Transmitir,Token_Seguro,Token_Confidencial,Token_Dato,Token_Garantizar,Token_Informacion,Token_Integridad,
+Token_Autenticidad,Token_Debe,Token_Sistema,Token_Transferencia,Token_Almacenamiento;
+
+
+Token{Token.lemma == "seguridad", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Seguridad)};
+Token{Token.stem == "permit", REGEXP(Token.pos, "V(..?)")-> MARK(Token_Permitir)};
+Token{Token.lemma == "transmitir", REGEXP(Token.pos, "V(..?)")-> MARK(Token_Transmitir)};
+Token{Token.stem == "segur", REGEXP(Token.pos, "AQ")-> MARK(Token_Seguro)};
+Token{Token.stem == "confidencial", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Confidencial)};
+Token{Token.stem == "dat", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Dato)};
+Token{Token.lemma == "garantizar", REGEXP(Token.pos, "V(..?)")-> MARK(Token_Garantizar)};
+Token{Token.stem == "informacion", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Informacion)};
+Token{Token.stem == "inform", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Informacion)};
+Token{Token.stem == "integr", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Integridad)};
+Token{Token.stem == "autent", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Autenticidad)};
+Token{Token.stem == "Deb", REGEXP(Token.pos, "V(..?)")-> MARK(Token_Debe)};
+Token{Token.stem == "deb", REGEXP(Token.pos, "V(..?)")-> MARK(Token_Debe)};
+Token{Token.stem == "sistem", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Sistema)};
+Token{Token.lemma == "transferencia", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Transferencia)};
+Token{Token.lemma == "almacenamiento", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Almacenamiento)};
+
+
+ Sentence{ -> CREATE(CrosscuttingConcern, "name" = "Seguridad","sentence"=Sentence)} <- {
+    Token_Seguridad;
+    Token_Confidencial{NEAR(Token_Dato,0,7)};
+    (Token_Permitir{NEAR(Token_Transmitir,0,10)}) {NEAR(Token_Seguro,0,7)} ;
+    ((Token_Informacion{NEAR(Token_Transmitir,0,15)}){NEAR(Token_Garantizar,0,15)}){NEAR(Token_Integridad,0,30)};
+    ((Token_Informacion{NEAR(Token_Transmitir,0,15)}){NEAR(Token_Garantizar,0,15)}){NEAR(Token_Autenticidad,0,30)};
+    ((Token_Sistema{NEAR(Token_Debe,0,7)}){NEAR(Token_Transferencia,0,30)}){NEAR(Token_Seguro,0,30)};
+    ((Token_Sistema{NEAR(Token_Debe,0,7)}){NEAR(Token_Almacenamiento,0,30)}){NEAR(Token_Seguro,0,30)};
+   
+};

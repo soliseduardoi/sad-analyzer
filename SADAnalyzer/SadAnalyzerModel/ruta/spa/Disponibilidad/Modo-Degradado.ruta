@@ -1,0 +1,13 @@
+TYPESYSTEM typesystems.ECoreTypeDescriptor;
+TYPESYSTEM uima.ruta.example.PersistanceConcernTypeSystem;
+SCRIPT uima.ruta.example.FaultDetectionConcern;
+
+DECLARE Token_Modo,Token_Degradado;
+
+
+Token{Token.lemma == "modo", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Modo)};
+Token{Token.stem == "degrad", REGEXP(Token.pos, "AQ")-> MARK(Token_Degradado)};
+
+ Sentence{ -> CREATE(CrosscuttingConcern, "name" = "Modo Degradado","sentence"=Sentence)} <- {
+    Token_Modo Token_Degradado;    
+};

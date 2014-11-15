@@ -1,0 +1,12 @@
+TYPESYSTEM typesystems.ECoreTypeDescriptor;
+DECLARE Token_Acceso,Token_Limitar,Token_Firewall,Token_Entrada,Token_Autorizar;
+
+
+Token{Token.stem == "acces", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Acceso)};
+Token{Token.stem == "firewall", REGEXP(Token.pos, "AQ")-> MARK(Token_Firewall)};
+Token{Token.stem == "autoriz", REGEXP(Token.pos, "AQ")-> MARK(Token_Autorizar)};
+
+ Sentence{ -> CREATE(CrosscuttingConcern, "name" = "Identificar Actores","sentence"=Sentence)} <- {
+    Token_Acceso{NEAR(Token_Autorizar,0,7)};   
+    Token_Firewall;
+};

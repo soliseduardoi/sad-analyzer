@@ -1,0 +1,19 @@
+TYPESYSTEM typesystems.ECoreTypeDescriptor;
+DECLARE Token_Control,Token_De,Token_Sesion,Token_Encargado,Token_Identificacion,Token_Administrador,Token_Inicio;
+
+
+Token{Token.stem == "control", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Control)};
+Token{Token.lemma == "de", REGEXP(Token.pos, "SP")-> MARK(Token_De)};
+Token{Token.stem == "sesion", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Sesion)};
+Token{Token.stem == "Sesion", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Sesion)};
+Token{Token.stem == "encarg", REGEXP(Token.pos, "AQ")-> MARK(Token_Encargado)};
+Token{Token.stem == "identif", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Identificacion)};
+Token{Token.stem == "administr", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Administrador)};
+Token{Token.stem == "inici", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Inicio)};
+
+ Sentence{ -> CREATE(CrosscuttingConcern, "name" = "Identificar Actores","sentence"=Sentence)} <- {
+    Token_Control Token_De Token_Sesion;
+    (Token_Encargado{NEAR(Token_Control,0,7)}){NEAR(Token_Identificacion,0,15)};
+    Token_Administrador{NEAR(Token_Sesion,0,7)};
+    Token_Inicio{NEAR(Token_Sesion,0,7)};
+};
