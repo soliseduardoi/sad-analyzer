@@ -1,7 +1,4 @@
 TYPESYSTEM typesystems.ECoreTypeDescriptor;
-TYPESYSTEM uima.ruta.example.PersistanceConcernTypeSystem;
-SCRIPT uima.ruta.example.FaultDetectionConcern;
-
 DECLARE Token_Chequear,Token_Salida,Token_Componente,Token_Operacion;
 
 Token{Token.lemma == "chequear", REGEXP(Token.pos, "V(..?)")-> MARK(Token_Chequear)};

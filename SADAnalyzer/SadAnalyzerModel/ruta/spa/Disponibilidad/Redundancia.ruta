@@ -1,7 +1,4 @@
 TYPESYSTEM typesystems.ECoreTypeDescriptor;
-TYPESYSTEM uima.ruta.example.PersistanceConcernTypeSystem;
-SCRIPT uima.ruta.example.FaultDetectionConcern;
-
 DECLARE Token_Redundancia,Token_Activa,Token_pasiva;
 
 Token{Token.lemma == "redundancia", REGEXP(Token.pos, "V(..?)")-> MARK(Token_Redundancia)};

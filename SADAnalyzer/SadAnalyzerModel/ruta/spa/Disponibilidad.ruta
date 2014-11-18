@@ -1,7 +1,4 @@
 TYPESYSTEM typesystems.ECoreTypeDescriptor;
-TYPESYSTEM uima.ruta.example.PersistanceConcernTypeSystem;
-SCRIPT uima.ruta.example.FaultDetectionConcern;
-
 DECLARE Token_Alta,Token_Disponibilidad,Token_Baja,Token_Falla,Token_Detectar,Token_Prevenir,Token_Tolerar,Token_Capacidad,Token_Recuperar;
 
 

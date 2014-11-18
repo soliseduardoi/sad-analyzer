@@ -1,6 +1,4 @@
 TYPESYSTEM typesystems.ECoreTypeDescriptor;
-TYPESYSTEM uima.ruta.example.PersistanceConcernTypeSystem;
-SCRIPT uima.ruta.example.FaultDetectionConcern;
 DECLARE Token_Modificabilidad,Token_Mantenibilidad,Token_Sistema,Token_Flexible,Token_Modificacion,Token_Transpatente,Token_Codigo,Token_Debe,
 Token_Capacidad,Token_Solucion,Token_Modulo;
 
