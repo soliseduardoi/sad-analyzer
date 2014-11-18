@@ -1,0 +1,14 @@
+TYPESYSTEM typesystems.ECoreTypeDescriptor;
+DECLARE Token_Solicitar,Token_Retransmision,Token_Considerar;
+
+
+Token{Token.stem == "solicit", REGEXP(Token.pos, "V(..?)")-> MARK(Token_Solicitar)};
+Token{Token.stem == "retransmision", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Retransmision)};
+Token{Token.stem == "consider", REGEXP(Token.pos, "V(..?)")-> MARK(Token_Considerar)};
+
+ Sentence{ -> CREATE(CrosscuttingConcern, "name" = "Recuperación","sentence"=Sentence)} <- {
+    
+    Token_Solicitar{NEAR(Token_Retransmision,0,10)};
+    Token_Considerar{NEAR(Token_Retransmision,0,10)};
+    
+};

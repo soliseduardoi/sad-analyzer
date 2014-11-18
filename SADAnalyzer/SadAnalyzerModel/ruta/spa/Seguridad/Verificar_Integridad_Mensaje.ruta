@@ -1,0 +1,25 @@
+TYPESYSTEM typesystems.ECoreTypeDescriptor;
+DECLARE Token_Checksum,Token_Deteccion,Token_Error,Token_Chequear,Token_Agregar,Token_Informacion,Token_Corrupto,Token_Dato,Token_Suma,Token_Verificacion,Token_De;
+
+
+Token{Token.stem == "checksum", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Checksum)};
+Token{Token.stem == "deteccion", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Deteccion)};
+Token{Token.stem == "error", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Error)};
+Token{Token.stem == "cheque"-> MARK(Token_Chequear)};
+Token{Token.stem == "inform", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Informacion)};
+Token{Token.stem == "informacion", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Informacion)};
+Token{Token.stem == "agreg", REGEXP(Token.pos, "V(..?)")-> MARK(Token_Agregar)};
+Token{Token.stem == "corrupt", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Corrupto)};
+Token{Token.stem == "dat", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Dato)};
+Token{Token.stem == "sum", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Suma)};
+Token{Token.lemma == "verificación", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Verificacion)};
+Token{Token.lemma == "de", REGEXP(Token.pos, "SP")-> MARK(Token_De)};
+
+ Sentence{ -> CREATE(CrosscuttingConcern, "name" = "Verificar Integridad del Mensaje","sentence"=Sentence)} <- {
+    Token_Checksum;
+    Token_Deteccion Token_De Token_Error;
+    Token_Chequear Token_De Token_Error;
+    Token_Dato{NEAR(Token_Corrupto,0,10)};
+    (Token_Suma{NEAR(Token_Verificacion,0,7)}){NEAR(Token_Dato,0,15)};
+    
+};
