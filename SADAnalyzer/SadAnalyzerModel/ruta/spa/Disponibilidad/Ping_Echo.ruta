@@ -9,6 +9,6 @@ Token{Token.lemma =="echo", REGEXP(Token.pos, "N(.?)")-> MARK(Ping_Echo.Token_Ec
  Sentence{ -> CREATE(CrosscuttingConcern, "name" = "Ping-Echo","sentence"=Sentence)} <- {
     Ping_Echo.Token_Ping_Echo;
     Ping_Echo.Token_Ping;
-    Ping_EchoToken_Echo;
+    Ping_Echo.Token_Echo;
     Ping_Echo.Token_Ping"/"Ping_Echo.Token_Echo;
 };
