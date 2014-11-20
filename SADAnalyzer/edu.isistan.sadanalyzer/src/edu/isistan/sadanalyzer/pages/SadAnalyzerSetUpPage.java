@@ -271,6 +271,11 @@ public class SadAnalyzerSetUpPage extends FormPage {
 				if(!selection.isEmpty()) {
 					RutaScript crossCutting = (RutaScript)selection.getFirstElement();
 					crossCutting.setEnable(true);
+					if(!crossCutting.getList().isEmpty()){
+						for(RutaScript rs : crossCutting.getList()){
+							rs.setEnable(true);
+						}
+					}
 					listQualityAttributesSource.remove(crossCutting);
 					listQualityAttributesSelected.add(crossCutting);
 					refreshList();
