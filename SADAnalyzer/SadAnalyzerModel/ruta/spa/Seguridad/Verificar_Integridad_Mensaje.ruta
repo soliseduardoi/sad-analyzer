@@ -1,3 +1,6 @@
+TYPESYSTEM typesystems.ECoreTypeDescriptor;
+DECLARE Token_Checksum,Token_Deteccion,Token_Error,Token_Chequear,Token_Agregar,Token_Informacion,Token_Corrupto,Token_Dato,Token_Suma,Token_Verificacion,Token_De;
+
 
 Token{Token.stem == "checksum", REGEXP(Token.pos, "N(.?)")-> MARK(Verificar_Integridad_Mensaje.Token_Checksum)};
 Token{Token.stem == "deteccion", REGEXP(Token.pos, "N(.?)")-> MARK(Verificar_Integridad_Mensaje.Token_Deteccion)};

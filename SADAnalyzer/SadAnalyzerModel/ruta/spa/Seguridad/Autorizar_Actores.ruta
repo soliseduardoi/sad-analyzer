@@ -1,3 +1,6 @@
+TYPESYSTEM typesystems.ECoreTypeDescriptor;
+DECLARE Token_Permite,Token_Acceder,Token_Funcionalidad,Token_Usuario,Token_Identificacion,Token_Administrador,Token_Inicio;
+
 
 Token{Token.lemma == "permite", REGEXP(Token.pos, "N(.?)")-> MARK(Autorizar_Actores.Token_Permite)};
 Token{Token.stem == "acced", REGEXP(Token.pos, "V(..?)")-> MARK(Autorizar_Actores.Token_Acceder)};

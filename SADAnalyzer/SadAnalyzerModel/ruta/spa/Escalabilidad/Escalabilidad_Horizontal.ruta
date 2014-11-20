@@ -1,3 +1,6 @@
+TYPESYSTEM typesystems.ECoreTypeDescriptor;
+DECLARE Token_Replicacion,Token_Hardware,Token_Replicar,Token_Agregar,Token_Nuevo,Token_Servidor;
+
 
 Token{Token.lemma == "replicacion", REGEXP(Token.pos, "N(.?)")-> MARK(Escalabilidad_Horizontal.Token_Replicacion)};
 Token{Token.lemma == "replicaciÑn", REGEXP(Token.pos, "N(.?)")-> MARK(Escalabilidad_Horizontal.Token_Replicacion)};

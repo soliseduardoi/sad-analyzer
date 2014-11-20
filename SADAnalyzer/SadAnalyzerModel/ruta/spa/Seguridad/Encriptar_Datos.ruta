@@ -1,3 +1,7 @@
+TYPESYSTEM typesystems.ECoreTypeDescriptor;
+DECLARE Token_Encriptar,Token_Cod_Dec,Token_Desencriptar,Token_Algoritmo,Token_Envio,Token_Informacion,Token_Dato,
+Token_Encargado,Token_Tarea,Token_Comunicacion;
+
 
 Token{Token.stem == "encript", REGEXP(Token.pos, "V(..?)")-> MARK(Encriptar_Datos.Token_Encriptar)};
 Token{Token.stem == "encript", REGEXP(Token.pos, "N(.?)")-> MARK(Encriptar_Datos.Token_Encriptar)};

@@ -1,3 +1,6 @@
+TYPESYSTEM typesystems.ECoreTypeDescriptor;
+DECLARE Token_Acceso,Token_Limitar,Token_Firewall,Token_Entrada,Token_Autorizar;
+
 
 Token{Token.stem == "acces", REGEXP(Token.pos, "N(.?)")-> MARK(Acceso_Limitado.Token_Acceso)};
 Token{Token.stem == "firewall", REGEXP(Token.pos, "AQ")-> MARK(Acceso_Limitado.Token_Firewall)};

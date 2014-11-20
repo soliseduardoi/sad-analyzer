@@ -1,3 +1,5 @@
+TYPESYSTEM typesystems.ECoreTypeDescriptor;
+DECLARE Token_Solicitar,Token_Retransmision,Token_Considerar;
 
 
 Token{Token.stem == "solicit", REGEXP(Token.pos, "V(..?)")-> MARK(Recuperacion.Token_Solicitar)};
