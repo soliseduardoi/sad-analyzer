@@ -1,6 +1,3 @@
-TYPESYSTEM typesystems.ECoreTypeDescriptor;
-DECLARE Escalabilidad_Horizontal.Token_Replicacion,Escalabilidad_Horizontal.Token_Hardware,Escalabilidad_Horizontal.Token_Replicar,Escalabilidad_Horizontal.Token_Agregar,Escalabilidad_Horizontal.Token_Nuevo,Escalabilidad_Horizontal.Token_Servidor;
-
 
 Token{Token.lemma == "replicacion", REGEXP(Token.pos, "N(.?)")-> MARK(Escalabilidad_Horizontal.Token_Replicacion)};
 Token{Token.lemma == "replicaciÑn", REGEXP(Token.pos, "N(.?)")-> MARK(Escalabilidad_Horizontal.Token_Replicacion)};

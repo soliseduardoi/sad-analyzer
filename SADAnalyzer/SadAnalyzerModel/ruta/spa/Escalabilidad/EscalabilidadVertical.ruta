@@ -1,7 +1,3 @@
-TYPESYSTEM typesystems.ECoreTypeDescriptor;
-DECLARE EscalabilidadVertical.Token_Incorporar,EscalabilidadVertical.Token_Cliente,EscalabilidadVertical.Token_Recurso,EscalabilidadVertical.Token_Procesar,EscalabilidadVertical.Token_Servidor;
-
-
 Token{Token.lemma == "incorporar", REGEXP(Token.pos, "V(..?)")-> MARK(EscalabilidadVertical.Token_Incorporar)};
 Token{Token.lemma == "agregar", REGEXP(Token.pos, "V(..?)")-> MARK(EscalabilidadVertical.Token_Incorporar)};
 Token{Token.stem == "client", REGEXP(Token.pos, "N(.?)")-> MARK(EscalabilidadVertical.Token_Cliente)};

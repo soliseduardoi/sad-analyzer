@@ -1,5 +1,3 @@
-TYPESYSTEM typesystems.ECoreTypeDescriptor;
-DECLARE Identificar_Actores.Token_Control,Identificar_Actores.Token_De,Identificar_Actores.Token_Sesion,Identificar_Actores.Token_Encargado,Identificar_Actores.Token_Identificacion,Identificar_Actores.Token_Administrador,Identificar_Actores.Token_Inicio;
 
 
 Token{Token.stem == "control", REGEXP(Token.pos, "N(.?)")-> MARK(Identificar_Actores.Token_Control)};
