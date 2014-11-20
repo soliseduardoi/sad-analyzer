@@ -1,29 +1,29 @@
 TYPESYSTEM typesystems.ECoreTypeDescriptor;
-DECLARE Token_Encriptar,Token_Cod_Dec,Token_Desencriptar,Token_Algoritmo,Token_Envio,Token_Informacion,Token_Dato,
-Token_Encargado,Token_Tarea,Token_Comunicacion;
+DECLARE Encriptar_Datos.Token_Encriptar,Encriptar_Datos.Token_Cod_Dec,Encriptar_Datos.Token_Desencriptar,Encriptar_Datos.Token_Algoritmo,Encriptar_Datos.Token_Envio,Encriptar_Datos.Token_Informacion,Encriptar_Datos.Token_Dato,
+Encriptar_Datos.Token_Encargado,Encriptar_Datos.Token_Tarea,Encriptar_Datos.Token_Comunicacion;
 
 
-Token{Token.stem == "encript", REGEXP(Token.pos, "V(..?)")-> MARK(Token_Encriptar)};
-Token{Token.stem == "encript", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Encriptar)};
-Token{Token.stem == "encript", REGEXP(Token.pos, "SP")-> MARK(Token_Encriptar)};
-Token{Token.stem == "encript", REGEXP(Token.pos, "AQ")-> MARK(Token_Encriptar)};
-Token{Token.stem == "dat", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Dato)};
-Token{Token.stem == "desencript", REGEXP(Token.pos, "V(..?)")-> MARK(Token_Desencriptar)};
-Token{Token.lemma == "codificar/decodificar", REGEXP(Token.pos, "V(..?)")-> MARK(Token_Cod_Dec)};
-Token{Token.stem == "algoritm", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Algoritmo)};
-Token{Token.stem == "inform", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Informacion)};
-Token{Token.stem == "informacion", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Informacion)};
-Token{Token.stem == "envi", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Envio)};
-Token{Token.lemma == "encargado", REGEXP(Token.pos, "AQ")-> MARK(Token_Encargado)};
-Token{Token.stem == "tar", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Tarea)};
+Token{Token.stem == "encript", REGEXP(Token.pos, "V(..?)")-> MARK(Encriptar_Datos.Token_Encriptar)};
+Token{Token.stem == "encript", REGEXP(Token.pos, "N(.?)")-> MARK(Encriptar_Datos.Token_Encriptar)};
+Token{Token.stem == "encript", REGEXP(Token.pos, "SP")-> MARK(Encriptar_Datos.Token_Encriptar)};
+Token{Token.stem == "encript", REGEXP(Token.pos, "AQ")-> MARK(Encriptar_Datos.Token_Encriptar)};
+Token{Token.stem == "dat", REGEXP(Token.pos, "N(.?)")-> MARK(Encriptar_Datos.Token_Dato)};
+Token{Token.stem == "desencript", REGEXP(Token.pos, "V(..?)")-> MARK(Encriptar_Datos.Token_Desencriptar)};
+Token{Token.lemma == "codificar/decodificar", REGEXP(Token.pos, "V(..?)")-> MARK(Encriptar_Datos.Token_Cod_Dec)};
+Token{Token.stem == "algoritm", REGEXP(Token.pos, "N(.?)")-> MARK(Encriptar_Datos.Token_Algoritmo)};
+Token{Token.stem == "inform", REGEXP(Token.pos, "N(.?)")-> MARK(Encriptar_Datos.Token_Informacion)};
+Token{Token.stem == "informacion", REGEXP(Token.pos, "N(.?)")-> MARK(Encriptar_Datos.Token_Informacion)};
+Token{Token.stem == "envi", REGEXP(Token.pos, "N(.?)")-> MARK(Encriptar_Datos.Token_Envio)};
+Token{Token.lemma == "encargado", REGEXP(Token.pos, "AQ")-> MARK(Encriptar_Datos.Token_Encargado)};
+Token{Token.stem == "tar", REGEXP(Token.pos, "N(.?)")-> MARK(Encriptar_Datos.Token_Tarea)};
 Token{Token.stem == "comun", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Comunicacion)};
 
  Sentence{ -> CREATE(CrosscuttingConcern, "name" = "Encriptar Datos","sentence"=Sentence)} <- {
-    Token_Encriptar{NEAR(Token_Dato,0,7)};
-    Token_Desencriptar{NEAR(Token_Dato,0,7)};
-    Token_Cod_Dec{NEAR(Token_Dato,0,7)};
-    Token_Algoritmo{NEAR(Token_Encriptar,0,7)};
-    (Token_Envio{NEAR(Token_Informacion,0,7)}){NEAR(Token_Encriptar,0,15)};
-    ((Token_Encargado{NEAR(Token_Tarea,0,15)}){NEAR(Token_Comunicacion,0,15)}){NEAR(Token_Encriptar,0,30)};
-    (Token_Encargado{NEAR(Token_Tarea,0,7)}){NEAR(Token_Encriptar,0,30)};
+    Encriptar_Datos.Token_Encriptar{NEAR(Encriptar_Datos.Token_Dato,0,7)};
+    Encriptar_Datos.Token_Desencriptar{NEAR(Encriptar_Datos.Token_Dato,0,7)};
+    Encriptar_Datos.Token_Cod_Dec{NEAR(Encriptar_Datos.Token_Dato,0,7)};
+    Encriptar_Datos.Token_Algoritmo{NEAR(Encriptar_Datos.Token_Encriptar,0,7)};
+    (Encriptar_Datos.Token_Envio{NEAR(Encriptar_Datos.Token_Informacion,0,7)}){NEAR(Encriptar_Datos.Token_Encriptar,0,15)};
+    ((Encriptar_Datos.Token_Encargado{NEAR(Encriptar_Datos.Token_Tarea,0,15)}){NEAR(Encriptar_Datos.Token_Comunicacion,0,15)}){NEAR(Encriptar_Datos.Token_Encriptar,0,30)};
+    (Encriptar_Datos.Token_Encargado{NEAR(Encriptar_Datos.Token_Tarea,0,7)}){NEAR(Encriptar_Datos.Token_Encriptar,0,30)};
 };

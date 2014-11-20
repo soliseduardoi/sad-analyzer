@@ -1,17 +1,17 @@
 TYPESYSTEM typesystems.ECoreTypeDescriptor;
-DECLARE Token_Incorporar,Token_Cliente,Token_Recurso,Token_Procesar,Token_Servidor;
+DECLARE EscalabilidadVertical.Token_Incorporar,EscalabilidadVertical.Token_Cliente,EscalabilidadVertical.Token_Recurso,EscalabilidadVertical.Token_Procesar,EscalabilidadVertical.Token_Servidor;
 
 
-Token{Token.lemma == "incorporar", REGEXP(Token.pos, "V(..?)")-> MARK(Token_Incorporar)};
-Token{Token.lemma == "agregar", REGEXP(Token.pos, "V(..?)")-> MARK(Token_Incorporar)};
-Token{Token.stem == "client", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Cliente)};
-Token{Token.stem == "servidor", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Servidor)};
-Token{Token.stem == "recurs", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Recurso)};
-Token{Token.lemma == "procesar", REGEXP(Token.pos, "V(..?)")-> MARK(Token_Procesar)};
+Token{Token.lemma == "incorporar", REGEXP(Token.pos, "V(..?)")-> MARK(EscalabilidadVertical.Token_Incorporar)};
+Token{Token.lemma == "agregar", REGEXP(Token.pos, "V(..?)")-> MARK(EscalabilidadVertical.Token_Incorporar)};
+Token{Token.stem == "client", REGEXP(Token.pos, "N(.?)")-> MARK(EscalabilidadVertical.Token_Cliente)};
+Token{Token.stem == "servidor", REGEXP(Token.pos, "N(.?)")-> MARK(EscalabilidadVertical.Token_Servidor)};
+Token{Token.stem == "recurs", REGEXP(Token.pos, "N(.?)")-> MARK(EscalabilidadVertical.Token_Recurso)};
+Token{Token.lemma == "procesar", REGEXP(Token.pos, "V(..?)")-> MARK(EscalabilidadVertical.Token_Procesar)};
 
 
  Sentence{ -> CREATE(CrosscuttingConcern, "name" = "Escalabilidad Vertical","sentence"=Sentence)} <- {
-    Token_Incorporar{NEAR(Token_Cliente,0,7)};
-    Token_Incorporar{NEAR(Token_Servidor,0,7)};
-    (Token_Incorporar{NEAR(Token_Recurso,0,7)}){NEAR(Token_Procesar,0,30)};
+    EscalabilidadVertical.Token_Incorporar{NEAR(EscalabilidadVertical.Token_Cliente,0,7)};
+    EscalabilidadVertical.Token_Incorporar{NEAR(EscalabilidadVertical.Token_Servidor,0,7)};
+    (EscalabilidadVertical.Token_Incorporar{NEAR(EscalabilidadVertical.Token_Recurso,0,7)}){NEAR(EscalabilidadVertical.Token_Procesar,0,30)};
 };

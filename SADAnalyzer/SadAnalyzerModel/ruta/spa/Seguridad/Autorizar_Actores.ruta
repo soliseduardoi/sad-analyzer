@@ -1,14 +1,14 @@
 TYPESYSTEM typesystems.ECoreTypeDescriptor;
-DECLARE Token_Permite,Token_Acceder,Token_Funcionalidad,Token_Usuario,Token_Identificacion,Token_Administrador,Token_Inicio;
+DECLARE Autorizar_Actores.Token_Permite,Autorizar_Actores.Token_Acceder,Autorizar_Actores.Token_Funcionalidad,Autorizar_Actores.Token_Usuario,Autorizar_Actores.Token_Identificacion,Autorizar_Actores.Token_Administrador,Autorizar_Actores.Token_Inicio;
 
 
-Token{Token.lemma == "permite", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Permite)};
-Token{Token.stem == "acced", REGEXP(Token.pos, "V(..?)")-> MARK(Token_Acceder)};
-Token{Token.stem == "funcional", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Funcionalidad)};
-Token{Token.stem == "administr", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Administrador)};
-Token{Token.stem == "usuari", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Usuario)};
+Token{Token.lemma == "permite", REGEXP(Token.pos, "N(.?)")-> MARK(Autorizar_Actores.Token_Permite)};
+Token{Token.stem == "acced", REGEXP(Token.pos, "V(..?)")-> MARK(Autorizar_Actores.Token_Acceder)};
+Token{Token.stem == "funcional", REGEXP(Token.pos, "N(.?)")-> MARK(Autorizar_Actores.Token_Funcionalidad)};
+Token{Token.stem == "administr", REGEXP(Token.pos, "N(.?)")-> MARK(Autorizar_Actores.Token_Administrador)};
+Token{Token.stem == "usuari", REGEXP(Token.pos, "N(.?)")-> MARK(Autorizar_Actores.Token_Usuario)};
 
  Sentence{ -> CREATE(CrosscuttingConcern, "name" = "Autorizar Actores","sentence"=Sentence)} <- {
-    Token_Usuario Token_Administrador;
-    (Token_Permite{NEAR(Token_Acceder,0,7)}){NEAR(Token_Funcionalidad,0,15)};
+    Autorizar_Actores.Token_Usuario Autorizar_Actores.Token_Administrador;
+    (Autorizar_Actores.Token_Permite{NEAR(Autorizar_Actores.Token_Acceder,0,7)}){NEAR(Autorizar_Actores.Token_Funcionalidad,0,15)};
 };

@@ -1,21 +1,21 @@
 TYPESYSTEM typesystems.ECoreTypeDescriptor;
-DECLARE Token_Replicacion,Token_Hardware,Token_Replicar,Token_Agregar,Token_Nuevo,Token_Servidor;
+DECLARE Escalabilidad_Horizontal.Token_Replicacion,Escalabilidad_Horizontal.Token_Hardware,Escalabilidad_Horizontal.Token_Replicar,Escalabilidad_Horizontal.Token_Agregar,Escalabilidad_Horizontal.Token_Nuevo,Escalabilidad_Horizontal.Token_Servidor;
 
 
-Token{Token.lemma == "replicacion", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Replicacion)};
-Token{Token.lemma == "replicaci—n", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Replicacion)};
-Token{Token.lemma == "replicar", REGEXP(Token.pos, "V(..?)")-> MARK(Token_Replicar)};
-Token{Token.lemma == "hardware", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Hardware)};
-Token{Token.lemma == "agregar", REGEXP(Token.pos, "V(..?)")-> MARK(Token_Agregar)};
-Token{Token.lemma == "nuevo", REGEXP(Token.pos, "AQ")-> MARK(Token_Nuevo)};
-Token{Token.lemma == "servidor", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Servidor)};
+Token{Token.lemma == "replicacion", REGEXP(Token.pos, "N(.?)")-> MARK(Escalabilidad_Horizontal.Token_Replicacion)};
+Token{Token.lemma == "replicaciÑn", REGEXP(Token.pos, "N(.?)")-> MARK(Escalabilidad_Horizontal.Token_Replicacion)};
+Token{Token.lemma == "replicar", REGEXP(Token.pos, "V(..?)")-> MARK(Escalabilidad_Horizontal.Token_Replicar)};
+Token{Token.lemma == "hardware", REGEXP(Token.pos, "N(.?)")-> MARK(Escalabilidad_Horizontal.Token_Hardware)};
+Token{Token.lemma == "agregar", REGEXP(Token.pos, "V(..?)")-> MARK(Escalabilidad_Horizontal.Token_Agregar)};
+Token{Token.lemma == "nuevo", REGEXP(Token.pos, "AQ")-> MARK(Escalabilidad_Horizontal.Token_Nuevo)};
+Token{Token.lemma == "servidor", REGEXP(Token.pos, "N(.?)")-> MARK(Escalabilidad_Horizontal.Token_Servidor)};
 
 Sentence{ -> CREATE(CrosscuttingConcern, "name" = "Escalabilidad_Horizontal", "kind" = "Tactics/Strategy", "sentence"=Sentence)} <- {
 
-(Token_Agregar{NEAR(Token_Nuevo,0,7)}){NEAR(Token_Replicacion,0,10)};
+(Escalabilidad_Horizontal.Token_Agregar{NEAR(Escalabilidad_Horizontal.Token_Nuevo,0,7)}){NEAR(Escalabilidad_Horizontal.Token_Replicacion,0,10)};
 
-Token_Replicacion{NEAR(Token_Hardware,0,10)};
-Token_Replicar{NEAR(Token_Hardware,0,10)};
+Escalabilidad_Horizontal.Token_Replicacion{NEAR(Escalabilidad_Horizontal.Token_Hardware,0,10)};
+Escalabilidad_Horizontal.Token_Replicar{NEAR(Escalabilidad_Horizontal.Token_Hardware,0,10)};
 
 
 
