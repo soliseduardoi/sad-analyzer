@@ -3,23 +3,23 @@ DECLARE Token_Alta,Token_Disponibilidad,Token_Baja,Token_Falla,Token_Detectar,To
 
 
 
-Token{Token.stem == "alta", REGEXP(Token.pos, "AQ")-> MARK(Token_Alta)};
-Token{Token.lemma == "disponibilidad", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Disponibilidad)};
-Token{Token.lemma == "baja", REGEXP(Token.pos, "AQ")-> MARK(Token_Baja)};
-Token{Token.stem == "fall", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Falla)};
-Token{Token.lemma == "detectar", REGEXP(Token.pos, "V(..?)")-> MARK(Token_Detectar)};
-Token{Token.lemma == "prevenir", REGEXP(Token.pos, "V(..?)")-> MARK(Token_Prevenir)};
-Token{Token.lemma == "tolerar", REGEXP(Token.pos, "V(..?)")-> MARK(Token_Tolerar)};
-Token{Token.stem == "recuper", REGEXP(Token.pos, "V(..?)")-> MARK(Token_Recuperar)};
-Token{Token.lemma == "capacidad", REGEXP(Token.pos, "N(.?)"),NEAR(Token_Detectar,0,12)-> MARK(Token_Capacidad)};
-Token{Token.lemma == "capacidad", REGEXP(Token.pos, "N(.?)"),NEAR(Token_Prevenir,0,12)-> MARK(Token_Capacidad)};
-Token{Token.lemma == "capacidad", REGEXP(Token.pos, "N(.?)"),NEAR(Token_Tolerar,0,12)-> MARK(Token_Capacidad)};
-Token{Token.lemma == "capacidad", REGEXP(Token.pos, "N(.?)"),NEAR(Token_Recuperar,0,12)-> MARK(Token_Capacidad)};
+Token{Token.stem == "alta", REGEXP(Token.pos, "AQ")-> MARK(Disponibilidad.Token_Alta)};
+Token{Token.lemma == "disponibilidad", REGEXP(Token.pos, "N(.?)")-> MARK(Disponibilidad.Token_Disponibilidad)};
+Token{Token.lemma == "baja", REGEXP(Token.pos, "AQ")-> MARK(Disponibilidad.Token_Baja)};
+Token{Token.stem == "fall", REGEXP(Token.pos, "N(.?)")-> MARK(Disponibilidad.Token_Falla)};
+Token{Token.lemma == "detectar", REGEXP(Token.pos, "V(..?)")-> MARK(Disponibilidad.Token_Detectar)};
+Token{Token.lemma == "prevenir", REGEXP(Token.pos, "V(..?)")-> MARK(Disponibilidad.Token_Prevenir)};
+Token{Token.lemma == "tolerar", REGEXP(Token.pos, "V(..?)")-> MARK(Disponibilidad.Token_Tolerar)};
+Token{Token.stem == "recuper", REGEXP(Token.pos, "V(..?)")-> MARK(Disponibilidad.Token_Recuperar)};
+Token{Token.lemma == "capacidad", REGEXP(Token.pos, "N(.?)"),NEAR(Disponibilidad.Token_Detectar,0,12)-> MARK(Disponibilidad.Token_Capacidad)};
+Token{Token.lemma == "capacidad", REGEXP(Token.pos, "N(.?)"),NEAR(Disponibilidad.Token_Prevenir,0,12)-> MARK(Disponibilidad.Token_Capacidad)};
+Token{Token.lemma == "capacidad", REGEXP(Token.pos, "N(.?)"),NEAR(Disponibilidad.Token_Tolerar,0,12)-> MARK(Disponibilidad.Token_Capacidad)};
+Token{Token.lemma == "capacidad", REGEXP(Token.pos, "N(.?)"),NEAR(Disponibilidad.Token_Recuperar,0,12)-> MARK(Disponibilidad.Token_Capacidad)};
 
 
  Sentence{ -> CREATE(CrosscuttingConcern, "name" = "Disponibilidad","sentence"=Sentence)} <- {
-    Token_Disponibilidad;
-    Token_Alta Token_Disponibilidad;
-    Token_Baja{NEAR(Token_Disponibilidad,0,7)};
-    Token_Capacidad{NEAR(Token_Falla,0,20)};
+    Disponibilidad.Token_Disponibilidad;
+    Disponibilidad.Token_Alta Disponibilidad.Token_Disponibilidad;
+    Disponibilidad.Token_Baja{NEAR(Disponibilidad.Token_Disponibilidad,0,7)};
+    Disponibilidad.Token_Capacidad{NEAR(Disponibilidad.Token_Falla,0,20)};
 };

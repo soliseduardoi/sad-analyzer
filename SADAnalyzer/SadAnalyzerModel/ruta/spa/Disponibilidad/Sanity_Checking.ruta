@@ -1,13 +1,13 @@
 TYPESYSTEM typesystems.ECoreTypeDescriptor;
 DECLARE Token_Chequear,Token_Salida,Token_Componente,Token_Operacion;
 
-Token{Token.lemma == "chequear", REGEXP(Token.pos, "V(..?)")-> MARK(Token_Chequear)};
-Token{Token.lemma =="salida", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Salida)};
-Token{Token.stem =="component", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Componente)};
-Token{Token.stem =="oper", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Operacion)};
+Token{Token.lemma == "chequear", REGEXP(Token.pos, "V(..?)")-> MARK(Sanity_Checking.Token_Chequear)};
+Token{Token.lemma =="salida", REGEXP(Token.pos, "N(.?)")-> MARK(Sanity_Checking.Token_Salida)};
+Token{Token.stem =="component", REGEXP(Token.pos, "N(.?)")-> MARK(Sanity_Checking.Token_Componente)};
+Token{Token.stem =="oper", REGEXP(Token.pos, "N(.?)")-> MARK(Sanity_Checking.Token_Operacion)};
 
 
  Sentence{ -> CREATE(CrosscuttingConcern, "name" = "Sanity Checking","sentence"=Sentence)} <- {
-    (Token_Chequear{NEAR(Token_Salida,0,7)}){NEAR(Token_Componente,0,30)};
-    (Token_Chequear{NEAR(Token_Salida,0,7)}){NEAR(Token_Operacion,0,30)} ;
+    (Sanity_Checking.Token_Chequear{NEAR(Sanity_Checking.Token_Salida,0,7)}){NEAR(Sanity_Checking.Token_Componente,0,30)};
+    (Sanity_Checking.Token_Chequear{NEAR(Sanity_Checking.Token_Salida,0,7)}){NEAR(Sanity_Checking.Token_Operacion,0,30)} ;
 };

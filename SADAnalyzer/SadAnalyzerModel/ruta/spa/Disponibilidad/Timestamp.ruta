@@ -2,13 +2,13 @@ TYPESYSTEM typesystems.ECoreTypeDescriptor;
 DECLARE Token_Timestamp,Token_Secuencia,Token_De,Token_Numero;
 
 
-Token{Token.lemma == "de", REGEXP(Token.pos, "SP")-> MARK(Token_De)};
-Token{Token.lemma =="timestamp", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Timestamp)};
-Token{Token.lemma =="secuencia", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Secuencia)};
-Token{Token.stem =="numer", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Numero)};
+Token{Token.lemma == "de", REGEXP(Token.pos, "SP")-> MARK(Timestamp.Token_De)};
+Token{Token.lemma =="timestamp", REGEXP(Token.pos, "N(.?)")-> MARK(Timestamp.Token_Timestamp)};
+Token{Token.lemma =="secuencia", REGEXP(Token.pos, "N(.?)")-> MARK(Timestamp.Token_Secuencia)};
+Token{Token.stem =="numer", REGEXP(Token.pos, "N(.?)")-> MARK(Timestamp.Token_Numero)};
 
 
  Sentence{ -> CREATE(CrosscuttingConcern, "name" = "Timestamp","sentence"=Sentence)} <- {
-    Token_Timestamp;
-    Token_Numero Token_De Token_Secuencia;
+    Timestamp.Token_Timestamp;
+    Timestamp.Token_Numero Timestamp.Token_De Timestamp.Token_Secuencia;
 };

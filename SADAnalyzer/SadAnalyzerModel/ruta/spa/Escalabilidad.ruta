@@ -4,22 +4,23 @@ DECLARE Token_Escalabilidad,Token_Scalability,Token_Facilitar,Token_Sistema,Toke
 
 
 
-Token{Token.lemma == "scalability", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Scalability)};
-Token{Token.lemma == "escalabilidad", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Escalabilidad)};
-Token{Token.lemma == "facilitar", REGEXP(Token.pos, "V(..?)")-> MARK(Token_Facilitar)};
-Token{Token.lemma == "sistema", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Sistema)};
-Token{Token.lemma == "debe", REGEXP(Token.pos, "V(..?)")-> MARK(Token_Debe)};
-Token{Token.lemma == "deber", REGEXP(Token.pos, "V(..?)")-> MARK(Token_Deber)};
-Token{Token.lemma == "escalado", REGEXP(Token.pos, "N(.?)")-> MARK(Token_Escalado)};
-Token{Token.lemma == "escalar", REGEXP(Token.pos, "V(..?)")-> MARK(Token_Escalar)};
+Token{Token.lemma == "scalability", REGEXP(Token.pos, "N(.?)")-> MARK(Escalabilidad.Token_Scalability)};
+Token{Token.lemma == "escalabilidad", REGEXP(Token.pos, "N(.?)")-> MARK(Escalabilidad.Token_Escalabilidad)};
+Token{Token.lemma == "facilitar", REGEXP(Token.pos, "V(..?)")-> MARK(Escalabilidad.Token_Facilitar)};
+Token{Token.lemma == "sistema", REGEXP(Token.pos, "N(.?)")-> MARK(Escalabilidad.Token_Sistema)};
+Token{Token.lemma == "debe", REGEXP(Token.pos, "V(..?)")-> MARK(Escalabilidad.Token_Debe)};
+Token{Token.lemma == "deber", REGEXP(Token.pos, "V(..?)")-> MARK(Escalabilidad.Token_Deber)};
+Token{Token.lemma == "escalado", REGEXP(Token.pos, "N(.?)")-> MARK(Escalabilidad.Token_Escalado)};
+Token{Token.lemma == "escalar", REGEXP(Token.pos, "V(..?)")-> MARK(Escalabilidad.Token_Escalar)};
+
 Sentence{ -> CREATE(CrosscuttingConcern, "name" = "Escalabilidad", "kind" = "QualityAttribute", "sentence"=Sentence)} <- {
-Token_Escalabilidad;
-Token_Scalability;
-((Token_Sistema{NEAR(Token_Deber,0,7)}){NEAR(Token_Facilitar,0,10)}){NEAR(Token_Escalabilidad,0,10)} ;
-((Token_Sistema{NEAR(Token_Deber,0,7)}){NEAR(Token_Facilitar,0,10)}){NEAR(Token_Escalado,0,10)} ;
-Token_Sistema{NEAR(Token_Escalabilidad,0,10,false)} ;
-Token_Sistema{NEAR(Token_Escalado,0,10,false)} ;
-Token_Facilitar{NEAR(Token_Escalabilidad,0,10)};
-Token_Facilitar{NEAR(Token_Escalado,0,10)};
-Token_Escalar{NEAR(Token_Sistema,0,10)};
+	Escalabilidad.Token_Escalabilidad;
+	Escalabilidad.Token_Scalability;
+	((Escalabilidad.Token_Sistema{NEAR(Escalabilidad.Token_Deber,0,7)}){NEAR(Escalabilidad.Token_Facilitar,0,10)}){NEAR(Escalabilidad.Token_Escalabilidad,0,10)} ;
+	((Escalabilidad.Token_Sistema{NEAR(Escalabilidad.Token_Deber,0,7)}){NEAR(Escalabilidad.Token_Facilitar,0,10)}){NEAR(Escalabilidad.Token_Escalado,0,10)} ;
+	Escalabilidad.Token_Sistema{NEAR(Escalabilidad.Token_Escalabilidad,0,10,false)} ;
+	Escalabilidad.Token_Sistema{NEAR(Escalabilidad.Token_Escalado,0,10,false)} ;
+	Escalabilidad.Token_Facilitar{NEAR(Escalabilidad.Token_Escalabilidad,0,10)};
+	Escalabilidad.Token_Facilitar{NEAR(Escalabilidad.Token_Escalado,0,10)};
+	Escalabilidad.Token_Escalar{NEAR(Escalabilidad.Token_Sistema,0,10)};
 };
