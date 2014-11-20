@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
+    <name>edu.isistan.sadanalyzer.ruta.concerns.EscalabilidadTypeSystem</name>
+    <imports>
+        <import location="../../../../../typesystems/BasicTypeSystem.xml"/>
+       <import location="../../../../../typesystems/ECoreTypeDescriptor.xml"/>
+    </imports>
+        <types>
+        <typeDescription>
+            <name>Escalabilidad.Token_Escalabilidad</name>
+            <description>Type defined in null.Escalabilidad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Escalabilidad.Token_Scalability</name>
+            <description>Type defined in null.Escalabilidad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Escalabilidad.Token_Facilitar</name>
+            <description>Type defined in null.Escalabilidad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Escalabilidad.Token_Sistema</name>
+            <description>Type defined in null.Escalabilidad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Escalabilidad.Token_Debe</name>
+            <description>Type defined in null.Escalabilidad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Escalabilidad.Token_Escalado</name>
+            <description>Type defined in null.Escalabilidad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Escalabilidad.Token_Deber</name>
+            <description>Type defined in null.Escalabilidad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Escalabilidad.Token_Escalar</name>
+            <description>Type defined in null.Escalabilidad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Escalabilidad.Token_Escalabilidad</name>
+            <description>Type defined in null.Escalabilidad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Escalabilidad.Token_Scalability</name>
+            <description>Type defined in null.Escalabilidad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Escalabilidad.Token_Facilitar</name>
+            <description>Type defined in null.Escalabilidad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Escalabilidad.Token_Sistema</name>
+            <description>Type defined in null.Escalabilidad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Escalabilidad.Token_Debe</name>
+            <description>Type defined in null.Escalabilidad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Escalabilidad.Token_Escalado</name>
+            <description>Type defined in null.Escalabilidad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Escalabilidad.Token_Deber</name>
+            <description>Type defined in null.Escalabilidad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Escalabilidad.Token_Escalar</name>
+            <description>Type defined in null.Escalabilidad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+    </types>
+    </typeSystemDescription>

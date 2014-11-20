@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
+    <name>uima.ruta.example.Identificar_ActoresTypeSystem</name>
+    <imports>
+        <import location="../../../../../typesystems/BasicTypeSystem.xml"/>
+        <import location="../../../../../typesystems/ECoreTypeDescriptor.xml"/>
+    </imports>
+    <types>
+        <typeDescription>
+            <name>Identificar_Actores.Token_Control</name>
+            <description>Type defined in null.Identificar_Actores</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Identificar_Actores.Token_De</name>
+            <description>Type defined in null.Identificar_Actores</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Identificar_Actores.Token_Sesion</name>
+            <description>Type defined in null.Identificar_Actores</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Identificar_Actores.Token_Encargado</name>
+            <description>Type defined in null.Identificar_Actores</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Identificar_Actores.Token_Identificacion</name>
+            <description>Type defined in null.Identificar_Actores</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Identificar_Actores.Token_Administrador</name>
+            <description>Type defined in null.Identificar_Actores</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Identificar_Actores.Token_Inicio</name>
+            <description>Type defined in null.Identificar_Actores</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Identificar_Actores.Token_Control</name>
+            <description>Type defined in null.Identificar_Actores</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Identificar_Actores.Token_De</name>
+            <description>Type defined in null.Identificar_Actores</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Identificar_Actores.Token_Sesion</name>
+            <description>Type defined in null.Identificar_Actores</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Identificar_Actores.Token_Encargado</name>
+            <description>Type defined in null.Identificar_Actores</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Identificar_Actores.Token_Identificacion</name>
+            <description>Type defined in null.Identificar_Actores</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Identificar_Actores.Token_Administrador</name>
+            <description>Type defined in null.Identificar_Actores</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Identificar_Actores.Token_Inicio</name>
+            <description>Type defined in null.Identificar_Actores</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+    </types>
+</typeSystemDescription>

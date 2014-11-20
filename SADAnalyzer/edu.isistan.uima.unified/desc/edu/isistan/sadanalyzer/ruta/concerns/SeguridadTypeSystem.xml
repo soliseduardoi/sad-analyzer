@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
+    <name>uima.ruta.example.SeguridadTypeSystem</name>
+    <imports>
+        <import location="../../../../../typesystems/BasicTypeSystem.xml"/>
+        <import location="../../../../../typesystems/ECoreTypeDescriptor.xml"/>
+    </imports>
+    <types>
+        <typeDescription>
+            <name>Seguridad.Token_Seguridad</name>
+            <description>Type defined in null.Seguridad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Seguridad.Token_Permitir</name>
+            <description>Type defined in null.Seguridad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Seguridad.Token_Transmitir</name>
+            <description>Type defined in null.Seguridad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Seguridad.Token_Seguro</name>
+            <description>Type defined in null.Seguridad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Seguridad.Token_Confidencial</name>
+            <description>Type defined in null.Seguridad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Seguridad.Token_Dato</name>
+            <description>Type defined in null.Seguridad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Seguridad.Token_Garantizar</name>
+            <description>Type defined in null.Seguridad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Seguridad.Token_Informacion</name>
+            <description>Type defined in null.Seguridad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Seguridad.Token_Integridad</name>
+            <description>Type defined in null.Seguridad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Seguridad.Token_Autenticidad</name>
+            <description>Type defined in null.Seguridad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Seguridad.Token_Debe</name>
+            <description>Type defined in null.Seguridad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Seguridad.Token_Sistema</name>
+            <description>Type defined in null.Seguridad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Seguridad.Token_Transferencia</name>
+            <description>Type defined in null.Seguridad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Seguridad.Token_Almacenamiento</name>
+            <description>Type defined in null.Seguridad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Seguridad.Token_Seguridad</name>
+            <description>Type defined in null.Seguridad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Seguridad.Token_Permitir</name>
+            <description>Type defined in null.Seguridad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Seguridad.Token_Transmitir</name>
+            <description>Type defined in null.Seguridad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Seguridad.Token_Seguro</name>
+            <description>Type defined in null.Seguridad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Seguridad.Token_Confidencial</name>
+            <description>Type defined in null.Seguridad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Seguridad.Token_Dato</name>
+            <description>Type defined in null.Seguridad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Seguridad.Token_Garantizar</name>
+            <description>Type defined in null.Seguridad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Seguridad.Token_Informacion</name>
+            <description>Type defined in null.Seguridad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Seguridad.Token_Integridad</name>
+            <description>Type defined in null.Seguridad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Seguridad.Token_Autenticidad</name>
+            <description>Type defined in null.Seguridad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Seguridad.Token_Debe</name>
+            <description>Type defined in null.Seguridad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Seguridad.Token_Sistema</name>
+            <description>Type defined in null.Seguridad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Seguridad.Token_Transferencia</name>
+            <description>Type defined in null.Seguridad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Seguridad.Token_Almacenamiento</name>
+            <description>Type defined in null.Seguridad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+    </types>
+</typeSystemDescription>

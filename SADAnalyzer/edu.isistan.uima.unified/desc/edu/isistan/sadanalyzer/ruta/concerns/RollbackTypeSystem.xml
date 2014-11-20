@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
+    <name>uima.ruta.example.RollbackTypeSystem</name>
+    <imports>
+        <import location="../../../../../typesystems/BasicTypeSystem.xml"/>
+        <import location="../../../../../typesystems/ECoreTypeDescriptor.xml"/>
+    </imports>
+    <types>
+        <typeDescription>
+            <name>Rollback.Token_Retornar</name>
+            <description>Type defined in null.Rollback</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Rollback.Token_Ultimo</name>
+            <description>Type defined in null.Rollback</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Rollback.Token_Estado</name>
+            <description>Type defined in null.Rollback</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Rollback.Token_Seguro</name>
+            <description>Type defined in null.Rollback</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Rollback.Token_Log</name>
+            <description>Type defined in null.Rollback</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Rollback.Token_Mantener</name>
+            <description>Type defined in null.Rollback</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Rollback.Token_Operacion</name>
+            <description>Type defined in null.Rollback</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Rollback.Token_Registro</name>
+            <description>Type defined in null.Rollback</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Rollback.Token_Transaccion</name>
+            <description>Type defined in null.Rollback</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Rollback.Token_Suceso</name>
+            <description>Type defined in null.Rollback</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Rollback.Token_Hecho</name>
+            <description>Type defined in null.Rollback</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Rollback.Token_Reconstruir</name>
+            <description>Type defined in null.Rollback</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Rollback.Token_Sistema</name>
+            <description>Type defined in null.Rollback</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Rollback.Token_Retornar</name>
+            <description>Type defined in null.Rollback</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Rollback.Token_Ultimo</name>
+            <description>Type defined in null.Rollback</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Rollback.Token_Estado</name>
+            <description>Type defined in null.Rollback</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Rollback.Token_Seguro</name>
+            <description>Type defined in null.Rollback</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Rollback.Token_Log</name>
+            <description>Type defined in null.Rollback</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Rollback.Token_Mantener</name>
+            <description>Type defined in null.Rollback</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Rollback.Token_Operacion</name>
+            <description>Type defined in null.Rollback</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Rollback.Token_Registro</name>
+            <description>Type defined in null.Rollback</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Rollback.Token_Transaccion</name>
+            <description>Type defined in null.Rollback</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Rollback.Token_Suceso</name>
+            <description>Type defined in null.Rollback</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Rollback.Token_Hecho</name>
+            <description>Type defined in null.Rollback</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Rollback.Token_Reconstruir</name>
+            <description>Type defined in null.Rollback</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Rollback.Token_Sistema</name>
+            <description>Type defined in null.Rollback</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+    </types>
+</typeSystemDescription>

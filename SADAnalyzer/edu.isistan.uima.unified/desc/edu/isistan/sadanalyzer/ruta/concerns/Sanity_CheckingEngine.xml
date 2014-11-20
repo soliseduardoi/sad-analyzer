@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <analysisEngineDescription xmlns="http://uima.apache.org/resourceSpecifier">
     <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
     <primitive>true</primitive>
@@ -115,13 +116,13 @@
                 <name>dynamicAnchoring</name>
                 <description>Activates dynamic achoring (possible speed up).</description>
                 <type>Boolean</type>
-                <multiValued>true</multiValued>
+                <multiValued>false</multiValued>
                 <mandatory>false</mandatory>
             </configurationParameter>
             <configurationParameter>
                 <name>lowMemoryProfile</name>
                 <type>Boolean</type>
-                <multiValued>true</multiValued>
+                <multiValued>false</multiValued>
                 <mandatory>false</mandatory>
             </configurationParameter>
             <configurationParameter>
@@ -196,14 +197,14 @@
             <nameValuePair>
                 <name>mainScript</name>
                 <value>
-                    <string>edu.isistan.sadanalyzer.ruta.concerns.Persistence</string>
+                    <string>uima.ruta.example.Sanity_Checking</string>
                 </value>
             </nameValuePair>
             <nameValuePair>
                 <name>scriptPaths</name>
                 <value>
                     <array>
-                        <string>file:///G:/wsEntregaFinal/edu.isistan.sadanalyzer.ruta/script</string>
+                        <string>/Users/Piky/git/uima-ruta/example-projects/ExampleProject/script</string>
                     </array>
                 </value>
             </nameValuePair>
@@ -211,8 +212,7 @@
                 <name>descriptorPaths</name>
                 <value>
                     <array>
-                        <string>file:///G:/wsEntregaFinal/edu.isistan.sadanalyzer.ruta/bin</string>
-                        <string>file:///G:/wsEntregaFinal/edu.isistan.sadanalyzer.ruta/descriptor</string>
+                        <string>/Users/Piky/git/uima-ruta/example-projects/ExampleProject/descriptor</string>
                     </array>
                 </value>
             </nameValuePair>
@@ -220,7 +220,7 @@
                 <name>resourcePaths</name>
                 <value>
                     <array>
-                        <string>file:///G:/wsEntregaFinal/edu.isistan.sadanalyzer.ruta/resources</string>
+                        <string>/Users/Piky/git/uima-ruta/example-projects/ExampleProject/resources</string>
                     </array>
                 </value>
             </nameValuePair>
@@ -256,11 +256,53 @@
             </nameValuePair>
         </configurationParameterSettings>
         <typeSystemDescription>
-            <name>edu.isistan.sadanalyzer.ruta.concerns.PersistenceTypeSystem</name>
+            <name>uima.ruta.example.Sanity_CheckingTypeSystem</name>
             <imports>
                 <import location="../../../../../typesystems/BasicTypeSystem.xml"/>
-               <import location="../../../../../typesystems/ECoreTypeDescriptor.xml"/>
+                <import location="../../../../../typesystems/ECoreTypeDescriptor.xml"/>
             </imports>
+            <types>
+                <typeDescription>
+                    <name>Sanity_Checking.Token_Chequear</name>
+                    <description>Type defined in null.Sanity_Checking</description>
+                    <supertypeName>uima.tcas.Annotation</supertypeName>
+                </typeDescription>
+                <typeDescription>
+                    <name>Sanity_Checking.Token_Salida</name>
+                    <description>Type defined in null.Sanity_Checking</description>
+                    <supertypeName>uima.tcas.Annotation</supertypeName>
+                </typeDescription>
+                <typeDescription>
+                    <name>Sanity_Checking.Token_Componente</name>
+                    <description>Type defined in null.Sanity_Checking</description>
+                    <supertypeName>uima.tcas.Annotation</supertypeName>
+                </typeDescription>
+                <typeDescription>
+                    <name>Sanity_Checking.Token_Operacion</name>
+                    <description>Type defined in null.Sanity_Checking</description>
+                    <supertypeName>uima.tcas.Annotation</supertypeName>
+                </typeDescription>
+                <typeDescription>
+                    <name>Sanity_Checking.Token_Chequear</name>
+                    <description>Type defined in null.Sanity_Checking</description>
+                    <supertypeName>uima.tcas.Annotation</supertypeName>
+                </typeDescription>
+                <typeDescription>
+                    <name>Sanity_Checking.Token_Salida</name>
+                    <description>Type defined in null.Sanity_Checking</description>
+                    <supertypeName>uima.tcas.Annotation</supertypeName>
+                </typeDescription>
+                <typeDescription>
+                    <name>Sanity_Checking.Token_Componente</name>
+                    <description>Type defined in null.Sanity_Checking</description>
+                    <supertypeName>uima.tcas.Annotation</supertypeName>
+                </typeDescription>
+                <typeDescription>
+                    <name>Sanity_Checking.Token_Operacion</name>
+                    <description>Type defined in null.Sanity_Checking</description>
+                    <supertypeName>uima.tcas.Annotation</supertypeName>
+                </typeDescription>
+            </types>
         </typeSystemDescription>
         <typePriorities>
             <priorityList>
@@ -274,6 +316,21 @@
             <capability>
                 <inputs/>
                 <outputs/>
+                <languagesSupported/>
+            </capability>
+            <capability>
+                <inputs>
+                    <type>Sanity_Checking.Token_Chequear</type>
+                    <type>Sanity_Checking.Token_Salida</type>
+                    <type>Sanity_Checking.Token_Componente</type>
+                    <type>Sanity_Checking.Token_Operacion</type>
+                </inputs>
+                <outputs>
+                    <type>Sanity_Checking.Token_Chequear</type>
+                    <type>Sanity_Checking.Token_Salida</type>
+                    <type>Sanity_Checking.Token_Componente</type>
+                    <type>Sanity_Checking.Token_Operacion</type>
+                </outputs>
                 <languagesSupported/>
             </capability>
         </capabilities>

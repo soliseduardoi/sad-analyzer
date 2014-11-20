@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
+    <name>uima.ruta.example.EscalabilidadVerticalTypeSystem</name>
+    <imports>
+        <import location="../../../../../typesystems/BasicTypeSystem.xml"/>
+        <import location="../../../../../typesystems/ECoreTypeDescriptor.xml"/>
+    </imports>
+    <types>
+        <typeDescription>
+            <name>EscalabilidadVertical.Token_Incorporar</name>
+            <description>Type defined in null.EscalabilidadVertical</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>EscalabilidadVertical.Token_Cliente</name>
+            <description>Type defined in null.EscalabilidadVertical</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>EscalabilidadVertical.Token_Recurso</name>
+            <description>Type defined in null.EscalabilidadVertical</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>EscalabilidadVertical.Token_Procesar</name>
+            <description>Type defined in null.EscalabilidadVertical</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>EscalabilidadVertical.Token_Servidor</name>
+            <description>Type defined in null.EscalabilidadVertical</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>EscalabilidadVertical.Token_Incorporar</name>
+            <description>Type defined in null.EscalabilidadVertical</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>EscalabilidadVertical.Token_Cliente</name>
+            <description>Type defined in null.EscalabilidadVertical</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>EscalabilidadVertical.Token_Recurso</name>
+            <description>Type defined in null.EscalabilidadVertical</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>EscalabilidadVertical.Token_Procesar</name>
+            <description>Type defined in null.EscalabilidadVertical</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>EscalabilidadVertical.Token_Servidor</name>
+            <description>Type defined in null.EscalabilidadVertical</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+    </types>
+</typeSystemDescription>

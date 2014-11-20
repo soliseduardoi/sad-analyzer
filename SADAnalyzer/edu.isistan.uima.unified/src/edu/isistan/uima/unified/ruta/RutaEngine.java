@@ -133,29 +133,29 @@ public class RutaEngine {
 	
 	
 	private TypeSystemDescription getTypeSystemDescription() throws ResourceInitializationException {
-		System.setProperty("org.apache.uima.fit.type.import_pattern", "classpath*:desc/typesystems/**/*.xml");
+		System.setProperty("org.apache.uima.fit.type.import_pattern", "classpath*:desc/**/*.xml");
 //		System.setProperty("org.uimafit.type.import_pattern", "classpath*:desc/typesystems/**/*.xml");
 		                         
 		return TypeSystemDescriptionFactory.createTypeSystemDescription();
 	}
 	
 	private TypePriorities getTypePriorities() throws ResourceInitializationException {
-		return TypePrioritiesFactory.createTypePriorities(
-		"edu.isistan.uima.unified.typesystems.sad.SadSection",
-		"edu.isistan.uima.unified.typesystems.sad.Sad",
-		"edu.isistan.uima.unified.typesystems.nlp.Sentence",
-		"edu.isistan.uima.unified.typesystems.domain.CrosscuttingConcern",
-		"edu.isistan.uima.unified.typesystems.srl.Predicate",
-		"edu.isistan.uima.unified.typesystems.srl.Structure",
-		"edu.isistan.uima.unified.typesystems.srl.Argument",
-		"edu.isistan.uima.unified.typesystems.nlp.SDDependency",
-		"edu.isistan.uima.unified.typesystems.nlp.Chunk",
-		"edu.isistan.uima.unified.typesystems.nlp.Entity",
-		"edu.isistan.uima.unified.typesystems.srl.Role",
-		"edu.isistan.uima.unified.typesystems.domain.DomainNumber",
-		"edu.isistan.uima.unified.typesystems.nlp.Token",
-		"edu.isistan.uima.unified.typesystems.wordnet.Sense");
-//		return null;
+//		return TypePrioritiesFactory.createTypePriorities(
+//		"edu.isistan.uima.unified.typesystems.sad.SadSection",
+//		"edu.isistan.uima.unified.typesystems.sad.Sad",
+//		"edu.isistan.uima.unified.typesystems.nlp.Sentence",
+//		"edu.isistan.uima.unified.typesystems.domain.CrosscuttingConcern",
+//		"edu.isistan.uima.unified.typesystems.srl.Predicate",
+//		"edu.isistan.uima.unified.typesystems.srl.Structure",
+//		"edu.isistan.uima.unified.typesystems.srl.Argument",
+//		"edu.isistan.uima.unified.typesystems.nlp.SDDependency",
+//		"edu.isistan.uima.unified.typesystems.nlp.Chunk",
+//		"edu.isistan.uima.unified.typesystems.nlp.Entity",
+//		"edu.isistan.uima.unified.typesystems.srl.Role",
+//		"edu.isistan.uima.unified.typesystems.domain.DomainNumber",
+//		"edu.isistan.uima.unified.typesystems.nlp.Token",
+//		"edu.isistan.uima.unified.typesystems.wordnet.Sense");
+		return null;
 	}
 	
 	private CollectionReaderDescription getXMIReaderCR(TypeSystemDescription typeSystemDescription, TypePriorities typePriorities, String inputFile) throws ResourceInitializationException, InvalidXMLException {
@@ -277,7 +277,7 @@ private void executeScript(CollectionReaderDescription reader, List<RutaScript> 
 			JCasIterable iterable = SimplePipeline.iteratePipeline(reader, 
 					getRutaAA(typeSystemDescription, typePriorities,sriptConcern.getScriptCode(), true));
 			
-			
+			///seguir probando con las otras librerias de dependencia
 			for(JCas jCas : iterable) {
 				 for (CrosscuttingConcern concern: JCasUtil.select(jCas, CrosscuttingConcern.class)){
 					 int begin= concern.getSentence().getBegin();

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <analysisEngineDescription xmlns="http://uima.apache.org/resourceSpecifier">
     <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
     <primitive>true</primitive>
@@ -121,7 +122,7 @@
             <configurationParameter>
                 <name>lowMemoryProfile</name>
                 <type>Boolean</type>
-                <multiValued>true</multiValued>
+                <multiValued>false</multiValued>
                 <mandatory>false</mandatory>
             </configurationParameter>
             <configurationParameter>
@@ -196,14 +197,14 @@
             <nameValuePair>
                 <name>mainScript</name>
                 <value>
-                    <string>edu.isistan.sadanalyzer.ruta.concerns.ErrorManagement</string>
+                    <string>uima.ruta.example.Acceso_Limitado</string>
                 </value>
             </nameValuePair>
             <nameValuePair>
                 <name>scriptPaths</name>
                 <value>
                     <array>
-                        <string>file:///G:/wsEntregaFinal/edu.isistan.sadanalyzer.ruta/script</string>
+                        <string>/Users/Piky/git/uima-ruta/example-projects/ExampleProject/script</string>
                     </array>
                 </value>
             </nameValuePair>
@@ -211,8 +212,7 @@
                 <name>descriptorPaths</name>
                 <value>
                     <array>
-                        <string>file:///G:/wsEntregaFinal/edu.isistan.sadanalyzer.ruta/bin</string>
-                        <string>file:///G:/wsEntregaFinal/edu.isistan.sadanalyzer.ruta/descriptor</string>
+                        <string>/Users/Piky/git/uima-ruta/example-projects/ExampleProject/descriptor</string>
                     </array>
                 </value>
             </nameValuePair>
@@ -220,7 +220,7 @@
                 <name>resourcePaths</name>
                 <value>
                     <array>
-                        <string>file:///G:/wsEntregaFinal/edu.isistan.sadanalyzer.ruta/resources</string>
+                        <string>/Users/Piky/git/uima-ruta/example-projects/ExampleProject/resources</string>
                     </array>
                 </value>
             </nameValuePair>
@@ -256,11 +256,63 @@
             </nameValuePair>
         </configurationParameterSettings>
         <typeSystemDescription>
-            <name>edu.isistan.sadanalyzer.ruta.concerns.ErrorManagementTypeSystem</name>
+            <name>uima.ruta.example.Acceso_LimitadoTypeSystem</name>
             <imports>
                 <import location="../../../../../typesystems/BasicTypeSystem.xml"/>
-               <import location="../../../../../typesystems/ECoreTypeDescriptor.xml"/>
+                <import location="../../../../../typesystems/ECoreTypeDescriptor.xml"/>
             </imports>
+            <types>
+                <typeDescription>
+                    <name>Acceso_Limitado.Token_Acceso</name>
+                    <description>Type defined in null.Acceso_Limitado</description>
+                    <supertypeName>uima.tcas.Annotation</supertypeName>
+                </typeDescription>
+                <typeDescription>
+                    <name>Acceso_Limitado.Token_Limitar</name>
+                    <description>Type defined in null.Acceso_Limitado</description>
+                    <supertypeName>uima.tcas.Annotation</supertypeName>
+                </typeDescription>
+                <typeDescription>
+                    <name>Acceso_Limitado.Token_Firewall</name>
+                    <description>Type defined in null.Acceso_Limitado</description>
+                    <supertypeName>uima.tcas.Annotation</supertypeName>
+                </typeDescription>
+                <typeDescription>
+                    <name>Acceso_Limitado.Token_Entrada</name>
+                    <description>Type defined in null.Acceso_Limitado</description>
+                    <supertypeName>uima.tcas.Annotation</supertypeName>
+                </typeDescription>
+                <typeDescription>
+                    <name>Acceso_Limitado.Token_Autorizar</name>
+                    <description>Type defined in null.Acceso_Limitado</description>
+                    <supertypeName>uima.tcas.Annotation</supertypeName>
+                </typeDescription>
+                <typeDescription>
+                    <name>Acceso_Limitado.Token_Acceso</name>
+                    <description>Type defined in null.Acceso_Limitado</description>
+                    <supertypeName>uima.tcas.Annotation</supertypeName>
+                </typeDescription>
+                <typeDescription>
+                    <name>Acceso_Limitado.Token_Limitar</name>
+                    <description>Type defined in null.Acceso_Limitado</description>
+                    <supertypeName>uima.tcas.Annotation</supertypeName>
+                </typeDescription>
+                <typeDescription>
+                    <name>Acceso_Limitado.Token_Firewall</name>
+                    <description>Type defined in null.Acceso_Limitado</description>
+                    <supertypeName>uima.tcas.Annotation</supertypeName>
+                </typeDescription>
+                <typeDescription>
+                    <name>Acceso_Limitado.Token_Entrada</name>
+                    <description>Type defined in null.Acceso_Limitado</description>
+                    <supertypeName>uima.tcas.Annotation</supertypeName>
+                </typeDescription>
+                <typeDescription>
+                    <name>Acceso_Limitado.Token_Autorizar</name>
+                    <description>Type defined in null.Acceso_Limitado</description>
+                    <supertypeName>uima.tcas.Annotation</supertypeName>
+                </typeDescription>
+            </types>
         </typeSystemDescription>
         <typePriorities>
             <priorityList>
@@ -274,6 +326,23 @@
             <capability>
                 <inputs/>
                 <outputs/>
+                <languagesSupported/>
+            </capability>
+            <capability>
+                <inputs>
+                    <type>Acceso_Limitado.Token_Acceso</type>
+                    <type>Acceso_Limitado.Token_Limitar</type>
+                    <type>Acceso_Limitado.Token_Firewall</type>
+                    <type>Acceso_Limitado.Token_Entrada</type>
+                    <type>Acceso_Limitado.Token_Autorizar</type>
+                </inputs>
+                <outputs>
+                    <type>Acceso_Limitado.Token_Acceso</type>
+                    <type>Acceso_Limitado.Token_Limitar</type>
+                    <type>Acceso_Limitado.Token_Firewall</type>
+                    <type>Acceso_Limitado.Token_Entrada</type>
+                    <type>Acceso_Limitado.Token_Autorizar</type>
+                </outputs>
                 <languagesSupported/>
             </capability>
         </capabilities>

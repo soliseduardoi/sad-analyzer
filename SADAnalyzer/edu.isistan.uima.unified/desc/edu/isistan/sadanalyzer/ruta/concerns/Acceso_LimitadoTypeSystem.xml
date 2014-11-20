@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
+    <name>uima.ruta.example.Acceso_LimitadoTypeSystem</name>
+    <imports>
+        <import location="../../../../../typesystems/BasicTypeSystem.xml"/>
+        <import location="../../../../../typesystems/ECoreTypeDescriptor.xml"/>
+    </imports>
+    <types>
+        <typeDescription>
+            <name>Acceso_Limitado.Token_Acceso</name>
+            <description>Type defined in null.Acceso_Limitado</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Acceso_Limitado.Token_Limitar</name>
+            <description>Type defined in null.Acceso_Limitado</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Acceso_Limitado.Token_Firewall</name>
+            <description>Type defined in null.Acceso_Limitado</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Acceso_Limitado.Token_Entrada</name>
+            <description>Type defined in null.Acceso_Limitado</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Acceso_Limitado.Token_Autorizar</name>
+            <description>Type defined in null.Acceso_Limitado</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Acceso_Limitado.Token_Acceso</name>
+            <description>Type defined in null.Acceso_Limitado</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Acceso_Limitado.Token_Limitar</name>
+            <description>Type defined in null.Acceso_Limitado</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Acceso_Limitado.Token_Firewall</name>
+            <description>Type defined in null.Acceso_Limitado</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Acceso_Limitado.Token_Entrada</name>
+            <description>Type defined in null.Acceso_Limitado</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Acceso_Limitado.Token_Autorizar</name>
+            <description>Type defined in null.Acceso_Limitado</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+    </types>
+</typeSystemDescription>

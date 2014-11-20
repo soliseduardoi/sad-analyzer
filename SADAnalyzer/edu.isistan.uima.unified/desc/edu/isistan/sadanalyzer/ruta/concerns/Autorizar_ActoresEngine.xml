@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <analysisEngineDescription xmlns="http://uima.apache.org/resourceSpecifier">
     <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
     <primitive>true</primitive>
@@ -121,7 +122,7 @@
             <configurationParameter>
                 <name>lowMemoryProfile</name>
                 <type>Boolean</type>
-                <multiValued>true</multiValued>
+                <multiValued>false</multiValued>
                 <mandatory>false</mandatory>
             </configurationParameter>
             <configurationParameter>
@@ -196,14 +197,14 @@
             <nameValuePair>
                 <name>mainScript</name>
                 <value>
-                    <string>edu.isistan.sadanalyzer.ruta.concerns.ConcernContext</string>
+                    <string>uima.ruta.example.Autorizar_Actores</string>
                 </value>
             </nameValuePair>
             <nameValuePair>
                 <name>scriptPaths</name>
                 <value>
                     <array>
-                        <string>file:///G:/wsEntregaFinal/edu.isistan.sadanalyzer.ruta/script</string>
+                        <string>/Users/Piky/git/uima-ruta/example-projects/ExampleProject/script</string>
                     </array>
                 </value>
             </nameValuePair>
@@ -211,8 +212,7 @@
                 <name>descriptorPaths</name>
                 <value>
                     <array>
-                        <string>file:///G:/wsEntregaFinal/edu.isistan.sadanalyzer.ruta/bin</string>
-                        <string>file:///G:/wsEntregaFinal/edu.isistan.sadanalyzer.ruta/descriptor</string>
+                        <string>/Users/Piky/git/uima-ruta/example-projects/ExampleProject/descriptor</string>
                     </array>
                 </value>
             </nameValuePair>
@@ -220,7 +220,7 @@
                 <name>resourcePaths</name>
                 <value>
                     <array>
-                        <string>file:///G:/wsEntregaFinal/edu.isistan.sadanalyzer.ruta/resources</string>
+                        <string>/Users/Piky/git/uima-ruta/example-projects/ExampleProject/resources</string>
                     </array>
                 </value>
             </nameValuePair>
@@ -256,11 +256,83 @@
             </nameValuePair>
         </configurationParameterSettings>
         <typeSystemDescription>
-            <name>edu.isistan.sadanalyzer.ruta.concerns.ConcernContextTypeSystem</name>
+            <name>uima.ruta.example.Autorizar_ActoresTypeSystem</name>
             <imports>
                 <import location="../../../../../typesystems/BasicTypeSystem.xml"/>
-               <import location="../../../../../typesystems/ECoreTypeDescriptor.xml"/>
+                <import location="../../../../../typesystems/ECoreTypeDescriptor.xml"/>
             </imports>
+            <types>
+                <typeDescription>
+                    <name>Autorizar_Actores.Token_Permite</name>
+                    <description>Type defined in null.Autorizar_Actores</description>
+                    <supertypeName>uima.tcas.Annotation</supertypeName>
+                </typeDescription>
+                <typeDescription>
+                    <name>Autorizar_Actores.Token_Acceder</name>
+                    <description>Type defined in null.Autorizar_Actores</description>
+                    <supertypeName>uima.tcas.Annotation</supertypeName>
+                </typeDescription>
+                <typeDescription>
+                    <name>Autorizar_Actores.Token_Funcionalidad</name>
+                    <description>Type defined in null.Autorizar_Actores</description>
+                    <supertypeName>uima.tcas.Annotation</supertypeName>
+                </typeDescription>
+                <typeDescription>
+                    <name>Autorizar_Actores.Token_Usuario</name>
+                    <description>Type defined in null.Autorizar_Actores</description>
+                    <supertypeName>uima.tcas.Annotation</supertypeName>
+                </typeDescription>
+                <typeDescription>
+                    <name>Autorizar_Actores.Token_Identificacion</name>
+                    <description>Type defined in null.Autorizar_Actores</description>
+                    <supertypeName>uima.tcas.Annotation</supertypeName>
+                </typeDescription>
+                <typeDescription>
+                    <name>Autorizar_Actores.Token_Administrador</name>
+                    <description>Type defined in null.Autorizar_Actores</description>
+                    <supertypeName>uima.tcas.Annotation</supertypeName>
+                </typeDescription>
+                <typeDescription>
+                    <name>Autorizar_Actores.Token_Inicio</name>
+                    <description>Type defined in null.Autorizar_Actores</description>
+                    <supertypeName>uima.tcas.Annotation</supertypeName>
+                </typeDescription>
+                <typeDescription>
+                    <name>Autorizar_Actores.Token_Permite</name>
+                    <description>Type defined in null.Autorizar_Actores</description>
+                    <supertypeName>uima.tcas.Annotation</supertypeName>
+                </typeDescription>
+                <typeDescription>
+                    <name>Autorizar_Actores.Token_Acceder</name>
+                    <description>Type defined in null.Autorizar_Actores</description>
+                    <supertypeName>uima.tcas.Annotation</supertypeName>
+                </typeDescription>
+                <typeDescription>
+                    <name>Autorizar_Actores.Token_Funcionalidad</name>
+                    <description>Type defined in null.Autorizar_Actores</description>
+                    <supertypeName>uima.tcas.Annotation</supertypeName>
+                </typeDescription>
+                <typeDescription>
+                    <name>Autorizar_Actores.Token_Usuario</name>
+                    <description>Type defined in null.Autorizar_Actores</description>
+                    <supertypeName>uima.tcas.Annotation</supertypeName>
+                </typeDescription>
+                <typeDescription>
+                    <name>Autorizar_Actores.Token_Identificacion</name>
+                    <description>Type defined in null.Autorizar_Actores</description>
+                    <supertypeName>uima.tcas.Annotation</supertypeName>
+                </typeDescription>
+                <typeDescription>
+                    <name>Autorizar_Actores.Token_Administrador</name>
+                    <description>Type defined in null.Autorizar_Actores</description>
+                    <supertypeName>uima.tcas.Annotation</supertypeName>
+                </typeDescription>
+                <typeDescription>
+                    <name>Autorizar_Actores.Token_Inicio</name>
+                    <description>Type defined in null.Autorizar_Actores</description>
+                    <supertypeName>uima.tcas.Annotation</supertypeName>
+                </typeDescription>
+            </types>
         </typeSystemDescription>
         <typePriorities>
             <priorityList>
@@ -274,6 +346,27 @@
             <capability>
                 <inputs/>
                 <outputs/>
+                <languagesSupported/>
+            </capability>
+            <capability>
+                <inputs>
+                    <type>Autorizar_Actores.Token_Permite</type>
+                    <type>Autorizar_Actores.Token_Acceder</type>
+                    <type>Autorizar_Actores.Token_Funcionalidad</type>
+                    <type>Autorizar_Actores.Token_Usuario</type>
+                    <type>Autorizar_Actores.Token_Identificacion</type>
+                    <type>Autorizar_Actores.Token_Administrador</type>
+                    <type>Autorizar_Actores.Token_Inicio</type>
+                </inputs>
+                <outputs>
+                    <type>Autorizar_Actores.Token_Permite</type>
+                    <type>Autorizar_Actores.Token_Acceder</type>
+                    <type>Autorizar_Actores.Token_Funcionalidad</type>
+                    <type>Autorizar_Actores.Token_Usuario</type>
+                    <type>Autorizar_Actores.Token_Identificacion</type>
+                    <type>Autorizar_Actores.Token_Administrador</type>
+                    <type>Autorizar_Actores.Token_Inicio</type>
+                </outputs>
                 <languagesSupported/>
             </capability>
         </capabilities>

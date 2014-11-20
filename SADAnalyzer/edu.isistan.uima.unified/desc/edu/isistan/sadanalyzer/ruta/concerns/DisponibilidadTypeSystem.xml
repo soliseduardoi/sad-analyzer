@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
+    <name>uima.ruta.example.DisponibilidadTypeSystem</name>
+    <imports>
+        <import location="../../../../../typesystems/BasicTypeSystem.xml"/>
+        <import location="../../../../../typesystems/ECoreTypeDescriptor.xml"/>
+    </imports>
+    <types>
+        <typeDescription>
+            <name>Disponibilidad.Token_Alta</name>
+            <description>Type defined in null.Disponibilidad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Disponibilidad.Token_Disponibilidad</name>
+            <description>Type defined in null.Disponibilidad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Disponibilidad.Token_Baja</name>
+            <description>Type defined in null.Disponibilidad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Disponibilidad.Token_Falla</name>
+            <description>Type defined in null.Disponibilidad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Disponibilidad.Token_Detectar</name>
+            <description>Type defined in null.Disponibilidad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Disponibilidad.Token_Prevenir</name>
+            <description>Type defined in null.Disponibilidad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Disponibilidad.Token_Tolerar</name>
+            <description>Type defined in null.Disponibilidad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Disponibilidad.Token_Capacidad</name>
+            <description>Type defined in null.Disponibilidad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Disponibilidad.Token_Recuperar</name>
+            <description>Type defined in null.Disponibilidad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Disponibilidad.Token_Alta</name>
+            <description>Type defined in null.Disponibilidad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Disponibilidad.Token_Disponibilidad</name>
+            <description>Type defined in null.Disponibilidad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Disponibilidad.Token_Baja</name>
+            <description>Type defined in null.Disponibilidad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Disponibilidad.Token_Falla</name>
+            <description>Type defined in null.Disponibilidad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Disponibilidad.Token_Detectar</name>
+            <description>Type defined in null.Disponibilidad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Disponibilidad.Token_Prevenir</name>
+            <description>Type defined in null.Disponibilidad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Disponibilidad.Token_Tolerar</name>
+            <description>Type defined in null.Disponibilidad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Disponibilidad.Token_Capacidad</name>
+            <description>Type defined in null.Disponibilidad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Disponibilidad.Token_Recuperar</name>
+            <description>Type defined in null.Disponibilidad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+    </types>
+</typeSystemDescription>

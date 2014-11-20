@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <analysisEngineDescription xmlns="http://uima.apache.org/resourceSpecifier">
     <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
     <primitive>true</primitive>
@@ -121,7 +122,7 @@
             <configurationParameter>
                 <name>lowMemoryProfile</name>
                 <type>Boolean</type>
-                <multiValued>true</multiValued>
+                <multiValued>false</multiValued>
                 <mandatory>false</mandatory>
             </configurationParameter>
             <configurationParameter>
@@ -196,14 +197,14 @@
             <nameValuePair>
                 <name>mainScript</name>
                 <value>
-                    <string>edu.isistan.sadanalyzer.ruta.concerns.Accuracy</string>
+                    <string>uima.ruta.example.Escalabilidad</string>
                 </value>
             </nameValuePair>
             <nameValuePair>
                 <name>scriptPaths</name>
                 <value>
                     <array>
-                        <string>file:///G:/wsEntregaFinal/edu.isistan.sadanalyzer.ruta/script</string>
+                        <string>/Users/Piky/git/uima-ruta/example-projects/ExampleProject/script</string>
                     </array>
                 </value>
             </nameValuePair>
@@ -211,8 +212,7 @@
                 <name>descriptorPaths</name>
                 <value>
                     <array>
-                        <string>file:///G:/wsEntregaFinal/edu.isistan.sadanalyzer.ruta/bin/</string>
-                        <string>file:///G:/wsEntregaFinal/edu.isistan.sadanalyzer.ruta/descriptor</string>
+                        <string>/Users/Piky/git/uima-ruta/example-projects/ExampleProject/descriptor</string>
                     </array>
                 </value>
             </nameValuePair>
@@ -220,14 +220,16 @@
                 <name>resourcePaths</name>
                 <value>
                     <array>
-                        <string>file:///G:/wsEntregaFinal/edu.isistan.sadanalyzer.ruta/resources</string>
+                        <string>/Users/Piky/git/uima-ruta/example-projects/ExampleProject/resources</string>
                     </array>
                 </value>
             </nameValuePair>
             <nameValuePair>
                 <name>additionalScripts</name>
                 <value>
-                    <array/>
+                    <array>
+                        <string>uima.ruta.example.Main</string>
+                    </array>
                 </value>
             </nameValuePair>
             <nameValuePair>
@@ -256,12 +258,93 @@
             </nameValuePair>
         </configurationParameterSettings>
         <typeSystemDescription>
-            <name>edu.isistan.sadanalyzer.ruta.concerns.AccuracyTypeSystem</name>
-            <imports>
+            <name>EscalabilidadTypeSystem</name>
+          <imports>
                 <import location="../../../../../typesystems/BasicTypeSystem.xml"/>
                <import location="../../../../../typesystems/ECoreTypeDescriptor.xml"/>
-                         
             </imports>
+            <types>
+                <typeDescription>
+                    <name>Escalabilidad.Token_Escalabilidad</name>
+                    <description>Type defined in null.Escalabilidad</description>
+                    <supertypeName>uima.tcas.Annotation</supertypeName>
+                </typeDescription>
+                <typeDescription>
+                    <name>Escalabilidad.Token_Scalability</name>
+                    <description>Type defined in null.Escalabilidad</description>
+                    <supertypeName>uima.tcas.Annotation</supertypeName>
+                </typeDescription>
+                <typeDescription>
+                    <name>Escalabilidad.Token_Facilitar</name>
+                    <description>Type defined in null.Escalabilidad</description>
+                    <supertypeName>uima.tcas.Annotation</supertypeName>
+                </typeDescription>
+                <typeDescription>
+                    <name>Escalabilidad.Token_Sistema</name>
+                    <description>Type defined in null.Escalabilidad</description>
+                    <supertypeName>uima.tcas.Annotation</supertypeName>
+                </typeDescription>
+                <typeDescription>
+                    <name>Escalabilidad.Token_Debe</name>
+                    <description>Type defined in null.Escalabilidad</description>
+                    <supertypeName>uima.tcas.Annotation</supertypeName>
+                </typeDescription>
+                <typeDescription>
+                    <name>Escalabilidad.Token_Escalado</name>
+                    <description>Type defined in null.Escalabilidad</description>
+                    <supertypeName>uima.tcas.Annotation</supertypeName>
+                </typeDescription>
+                <typeDescription>
+                    <name>Escalabilidad.Token_Deber</name>
+                    <description>Type defined in null.Escalabilidad</description>
+                    <supertypeName>uima.tcas.Annotation</supertypeName>
+                </typeDescription>
+                <typeDescription>
+                    <name>Escalabilidad.Token_Escalar</name>
+                    <description>Type defined in null.Escalabilidad</description>
+                    <supertypeName>uima.tcas.Annotation</supertypeName>
+                </typeDescription>
+                <typeDescription>
+                    <name>Escalabilidad.Token_Escalabilidad</name>
+                    <description>Type defined in null.Escalabilidad</description>
+                    <supertypeName>uima.tcas.Annotation</supertypeName>
+                </typeDescription>
+                <typeDescription>
+                    <name>Escalabilidad.Token_Scalability</name>
+                    <description>Type defined in null.Escalabilidad</description>
+                    <supertypeName>uima.tcas.Annotation</supertypeName>
+                </typeDescription>
+                <typeDescription>
+                    <name>Escalabilidad.Token_Facilitar</name>
+                    <description>Type defined in null.Escalabilidad</description>
+                    <supertypeName>uima.tcas.Annotation</supertypeName>
+                </typeDescription>
+                <typeDescription>
+                    <name>Escalabilidad.Token_Sistema</name>
+                    <description>Type defined in null.Escalabilidad</description>
+                    <supertypeName>uima.tcas.Annotation</supertypeName>
+                </typeDescription>
+                <typeDescription>
+                    <name>Escalabilidad.Token_Debe</name>
+                    <description>Type defined in null.Escalabilidad</description>
+                    <supertypeName>uima.tcas.Annotation</supertypeName>
+                </typeDescription>
+                <typeDescription>
+                    <name>Escalabilidad.Token_Escalado</name>
+                    <description>Type defined in null.Escalabilidad</description>
+                    <supertypeName>uima.tcas.Annotation</supertypeName>
+                </typeDescription>
+                <typeDescription>
+                    <name>Escalabilidad.Token_Deber</name>
+                    <description>Type defined in null.Escalabilidad</description>
+                    <supertypeName>uima.tcas.Annotation</supertypeName>
+                </typeDescription>
+                <typeDescription>
+                    <name>Escalabilidad.Token_Escalar</name>
+                    <description>Type defined in null.Escalabilidad</description>
+                    <supertypeName>uima.tcas.Annotation</supertypeName>
+                </typeDescription>
+            </types>
         </typeSystemDescription>
         <typePriorities>
             <priorityList>
@@ -275,6 +358,29 @@
             <capability>
                 <inputs/>
                 <outputs/>
+                <languagesSupported/>
+            </capability>
+            <capability>
+                <inputs>
+                    <type>Escalabilidad.Token_Escalabilidad</type>
+                    <type>Escalabilidad.Token_Scalability</type>
+                    <type>Escalabilidad.Token_Facilitar</type>
+                    <type>Escalabilidad.Token_Sistema</type>
+                    <type>Escalabilidad.Token_Debe</type>
+                    <type>Escalabilidad.Token_Escalado</type>
+                    <type>Escalabilidad.Token_Deber</type>
+                    <type>Escalabilidad.Token_Escalar</type>
+                </inputs>
+                <outputs>
+                    <type>Escalabilidad.Token_Escalabilidad</type>
+                    <type>Escalabilidad.Token_Scalability</type>
+                    <type>Escalabilidad.Token_Facilitar</type>
+                    <type>Escalabilidad.Token_Sistema</type>
+                    <type>Escalabilidad.Token_Debe</type>
+                    <type>Escalabilidad.Token_Escalado</type>
+                    <type>Escalabilidad.Token_Deber</type>
+                    <type>Escalabilidad.Token_Escalar</type>
+                </outputs>
                 <languagesSupported/>
             </capability>
         </capabilities>
