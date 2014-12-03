@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
+    <name>uima.ruta.example.Ping_EchoTypeSystem</name>
+    <imports>
+        <import location="../../../../../typesystems/BasicTypeSystem.xml"/>
+        <import location="../../../../../typesystems/ECoreTypeDescriptor.xml"/>
+    </imports>
+    <types>
+        <typeDescription>
+            <name>Ping_Echo.Token_Ping_Echo</name>
+            <description>Type defined in null.Ping_Echo</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Ping_Echo.Token_Ping</name>
+            <description>Type defined in null.Ping_Echo</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Ping_Echo.Token_Echo</name>
+            <description>Type defined in null.Ping_Echo</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Ping_Echo.Token_Ping_Echo</name>
+            <description>Type defined in null.Ping_Echo</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Ping_Echo.Token_Ping</name>
+            <description>Type defined in null.Ping_Echo</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Ping_Echo.Token_Echo</name>
+            <description>Type defined in null.Ping_Echo</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+    </types>
+</typeSystemDescription>

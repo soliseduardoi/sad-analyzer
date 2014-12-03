@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
+    <name>uima.ruta.example.Verificar_Integridad_MensajeTypeSystem</name>
+    <imports>
+        <import location="../../../../../typesystems/BasicTypeSystem.xml"/>
+        <import location="../../../../../typesystems/ECoreTypeDescriptor.xml"/>
+    </imports>
+    <types>
+        <typeDescription>
+            <name>Verificar_Integridad_Mensaje.Token_Checksum</name>
+            <description>Type defined in null.Verificar_Integridad_Mensaje</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Verificar_Integridad_Mensaje.Token_Deteccion</name>
+            <description>Type defined in null.Verificar_Integridad_Mensaje</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Verificar_Integridad_Mensaje.Token_Error</name>
+            <description>Type defined in null.Verificar_Integridad_Mensaje</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Verificar_Integridad_Mensaje.Token_Chequear</name>
+            <description>Type defined in null.Verificar_Integridad_Mensaje</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Verificar_Integridad_Mensaje.Token_Agregar</name>
+            <description>Type defined in null.Verificar_Integridad_Mensaje</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Verificar_Integridad_Mensaje.Token_Informacion</name>
+            <description>Type defined in null.Verificar_Integridad_Mensaje</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Verificar_Integridad_Mensaje.Token_Corrupto</name>
+            <description>Type defined in null.Verificar_Integridad_Mensaje</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Verificar_Integridad_Mensaje.Token_Dato</name>
+            <description>Type defined in null.Verificar_Integridad_Mensaje</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Verificar_Integridad_Mensaje.Token_Suma</name>
+            <description>Type defined in null.Verificar_Integridad_Mensaje</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Verificar_Integridad_Mensaje.Token_Verificacion</name>
+            <description>Type defined in null.Verificar_Integridad_Mensaje</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Verificar_Integridad_Mensaje.Token_De</name>
+            <description>Type defined in null.Verificar_Integridad_Mensaje</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Verificar_Integridad_Mensaje.Token_Checksum</name>
+            <description>Type defined in null.Verificar_Integridad_Mensaje</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Verificar_Integridad_Mensaje.Token_Deteccion</name>
+            <description>Type defined in null.Verificar_Integridad_Mensaje</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Verificar_Integridad_Mensaje.Token_Error</name>
+            <description>Type defined in null.Verificar_Integridad_Mensaje</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Verificar_Integridad_Mensaje.Token_Chequear</name>
+            <description>Type defined in null.Verificar_Integridad_Mensaje</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Verificar_Integridad_Mensaje.Token_Agregar</name>
+            <description>Type defined in null.Verificar_Integridad_Mensaje</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Verificar_Integridad_Mensaje.Token_Informacion</name>
+            <description>Type defined in null.Verificar_Integridad_Mensaje</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Verificar_Integridad_Mensaje.Token_Corrupto</name>
+            <description>Type defined in null.Verificar_Integridad_Mensaje</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Verificar_Integridad_Mensaje.Token_Dato</name>
+            <description>Type defined in null.Verificar_Integridad_Mensaje</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Verificar_Integridad_Mensaje.Token_Suma</name>
+            <description>Type defined in null.Verificar_Integridad_Mensaje</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Verificar_Integridad_Mensaje.Token_Verificacion</name>
+            <description>Type defined in null.Verificar_Integridad_Mensaje</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Verificar_Integridad_Mensaje.Token_De</name>
+            <description>Type defined in null.Verificar_Integridad_Mensaje</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+    </types>
+</typeSystemDescription>

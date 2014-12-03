@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
+    <name>uima.ruta.example.Escalabilidad_HorizontalTypeSystem</name>
+    <imports>
+        <import location="../../../../../typesystems/BasicTypeSystem.xml"/>
+       <import location="../../../../../typesystems/ECoreTypeDescriptor.xml"/>
+    </imports>
+    <types>
+        <typeDescription>
+            <name>Escalabilidad_Horizontal.Token_Replicacion</name>
+            <description>Type defined in null.Escalabilidad_Horizontal</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Escalabilidad_Horizontal.Token_Hardware</name>
+            <description>Type defined in null.Escalabilidad_Horizontal</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Escalabilidad_Horizontal.Token_Replicar</name>
+            <description>Type defined in null.Escalabilidad_Horizontal</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Escalabilidad_Horizontal.Token_Agregar</name>
+            <description>Type defined in null.Escalabilidad_Horizontal</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Escalabilidad_Horizontal.Token_Nuevo</name>
+            <description>Type defined in null.Escalabilidad_Horizontal</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Escalabilidad_Horizontal.Token_Servidor</name>
+            <description>Type defined in null.Escalabilidad_Horizontal</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Escalabilidad_Horizontal.Token_Replicacion</name>
+            <description>Type defined in null.Escalabilidad_Horizontal</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Escalabilidad_Horizontal.Token_Hardware</name>
+            <description>Type defined in null.Escalabilidad_Horizontal</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Escalabilidad_Horizontal.Token_Replicar</name>
+            <description>Type defined in null.Escalabilidad_Horizontal</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Escalabilidad_Horizontal.Token_Agregar</name>
+            <description>Type defined in null.Escalabilidad_Horizontal</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Escalabilidad_Horizontal.Token_Nuevo</name>
+            <description>Type defined in null.Escalabilidad_Horizontal</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Escalabilidad_Horizontal.Token_Servidor</name>
+            <description>Type defined in null.Escalabilidad_Horizontal</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+    </types>
+</typeSystemDescription>

@@ -1,9 +1,0 @@
-TYPESYSTEM typesystems.ECoreTypeDescriptor;
-DECLARE Token_Modo,Token_Degradado;
-
-Token{Token.lemma == "modo", REGEXP(Token.pos, "N(.?)")-> MARK(Modo_Degradado.Token_Modo)};
-Token{Token.stem == "degrad", REGEXP(Token.pos, "AQ")-> MARK(Modo_Degradado.Token_Degradado)};
-
- Sentence{ -> CREATE(CrosscuttingConcern, "name" = "Modo Degradado","sentence"=Sentence)} <- {
-    Modo_Degradado.Token_Modo Modo_Degradado.Token_Degradado;    
-};

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
+    <name>uima.ruta.example.ModificabilidadTypeSystem</name>
+    <imports>
+        <import location="../../../../../typesystems/BasicTypeSystem.xml"/>
+        <import location="../../../../../typesystems/ECoreTypeDescriptor.xml"/>
+    </imports>
+    <types>
+        <typeDescription>
+            <name>Modificabilidad.Token_Modificabilidad</name>
+            <description>Type defined in null.Modificabilidad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Modificabilidad.Token_Mantenibilidad</name>
+            <description>Type defined in null.Modificabilidad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Modificabilidad.Token_Sistema</name>
+            <description>Type defined in null.Modificabilidad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Modificabilidad.Token_Flexible</name>
+            <description>Type defined in null.Modificabilidad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Modificabilidad.Token_Modificacion</name>
+            <description>Type defined in null.Modificabilidad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Modificabilidad.Token_Transpatente</name>
+            <description>Type defined in null.Modificabilidad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Modificabilidad.Token_Codigo</name>
+            <description>Type defined in null.Modificabilidad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Modificabilidad.Token_Debe</name>
+            <description>Type defined in null.Modificabilidad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Modificabilidad.Token_Capacidad</name>
+            <description>Type defined in null.Modificabilidad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Modificabilidad.Token_Solucion</name>
+            <description>Type defined in null.Modificabilidad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Modificabilidad.Token_Modulo</name>
+            <description>Type defined in null.Modificabilidad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Modificabilidad.Token_Modificabilidad</name>
+            <description>Type defined in null.Modificabilidad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Modificabilidad.Token_Mantenibilidad</name>
+            <description>Type defined in null.Modificabilidad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Modificabilidad.Token_Sistema</name>
+            <description>Type defined in null.Modificabilidad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Modificabilidad.Token_Flexible</name>
+            <description>Type defined in null.Modificabilidad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Modificabilidad.Token_Modificacion</name>
+            <description>Type defined in null.Modificabilidad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Modificabilidad.Token_Transpatente</name>
+            <description>Type defined in null.Modificabilidad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Modificabilidad.Token_Codigo</name>
+            <description>Type defined in null.Modificabilidad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Modificabilidad.Token_Debe</name>
+            <description>Type defined in null.Modificabilidad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Modificabilidad.Token_Capacidad</name>
+            <description>Type defined in null.Modificabilidad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Modificabilidad.Token_Solucion</name>
+            <description>Type defined in null.Modificabilidad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Modificabilidad.Token_Modulo</name>
+            <description>Type defined in null.Modificabilidad</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+    </types>
+</typeSystemDescription>

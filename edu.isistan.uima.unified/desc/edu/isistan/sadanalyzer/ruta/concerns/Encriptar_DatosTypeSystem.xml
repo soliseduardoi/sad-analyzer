@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
+    <name>uima.ruta.example.Encriptar_DatosTypeSystem</name>
+    <imports>
+        <import location="../../../../../typesystems/BasicTypeSystem.xml"/>
+        <import location="../../../../../typesystems/ECoreTypeDescriptor.xml"/>
+    </imports>
+    <types>
+        <typeDescription>
+            <name>Encriptar_Datos.Token_Encriptar</name>
+            <description>Type defined in null.Encriptar_Datos</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Encriptar_Datos.Token_Cod_Dec</name>
+            <description>Type defined in null.Encriptar_Datos</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Encriptar_Datos.Token_Desencriptar</name>
+            <description>Type defined in null.Encriptar_Datos</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Encriptar_Datos.Token_Algoritmo</name>
+            <description>Type defined in null.Encriptar_Datos</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Encriptar_Datos.Token_Envio</name>
+            <description>Type defined in null.Encriptar_Datos</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Encriptar_Datos.Token_Informacion</name>
+            <description>Type defined in null.Encriptar_Datos</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Encriptar_Datos.Token_Dato</name>
+            <description>Type defined in null.Encriptar_Datos</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Encriptar_Datos.Token_Encargado</name>
+            <description>Type defined in null.Encriptar_Datos</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Encriptar_Datos.Token_Tarea</name>
+            <description>Type defined in null.Encriptar_Datos</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Encriptar_Datos.Token_Comunicacion</name>
+            <description>Type defined in null.Encriptar_Datos</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Encriptar_Datos.Token_Encriptar</name>
+            <description>Type defined in null.Encriptar_Datos</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Encriptar_Datos.Token_Cod_Dec</name>
+            <description>Type defined in null.Encriptar_Datos</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Encriptar_Datos.Token_Desencriptar</name>
+            <description>Type defined in null.Encriptar_Datos</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Encriptar_Datos.Token_Algoritmo</name>
+            <description>Type defined in null.Encriptar_Datos</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Encriptar_Datos.Token_Envio</name>
+            <description>Type defined in null.Encriptar_Datos</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Encriptar_Datos.Token_Informacion</name>
+            <description>Type defined in null.Encriptar_Datos</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Encriptar_Datos.Token_Dato</name>
+            <description>Type defined in null.Encriptar_Datos</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Encriptar_Datos.Token_Encargado</name>
+            <description>Type defined in null.Encriptar_Datos</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Encriptar_Datos.Token_Tarea</name>
+            <description>Type defined in null.Encriptar_Datos</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Encriptar_Datos.Token_Comunicacion</name>
+            <description>Type defined in null.Encriptar_Datos</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+    </types>
+</typeSystemDescription>

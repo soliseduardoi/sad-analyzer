@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
+    <name>uima.ruta.example.Sanity_CheckingTypeSystem</name>
+    <imports>
+        <import location="../../../../../typesystems/BasicTypeSystem.xml"/>
+        <import location="../../../../../typesystems/ECoreTypeDescriptor.xml"/>
+    </imports>
+    <types>
+        <typeDescription>
+            <name>Sanity_Checking.Token_Chequear</name>
+            <description>Type defined in null.Sanity_Checking</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Sanity_Checking.Token_Salida</name>
+            <description>Type defined in null.Sanity_Checking</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Sanity_Checking.Token_Componente</name>
+            <description>Type defined in null.Sanity_Checking</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Sanity_Checking.Token_Operacion</name>
+            <description>Type defined in null.Sanity_Checking</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Sanity_Checking.Token_Chequear</name>
+            <description>Type defined in null.Sanity_Checking</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Sanity_Checking.Token_Salida</name>
+            <description>Type defined in null.Sanity_Checking</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Sanity_Checking.Token_Componente</name>
+            <description>Type defined in null.Sanity_Checking</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Sanity_Checking.Token_Operacion</name>
+            <description>Type defined in null.Sanity_Checking</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+    </types>
+</typeSystemDescription>

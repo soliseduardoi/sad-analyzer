@@ -1,8 +1,0 @@
-TYPESYSTEM typesystems.ECoreTypeDescriptor;
-
-STRINGLIST TokenList = {"concurr", "parallel", "simultan"}; 
-
-//Simple Query - Concurrence-related Keywords
-Sentence{ -> CREATE(CrosscuttingConcern,"name" = "Concurrence", "kind" = "Simple/Direct", "sentence"=Sentence)} <- {
-  (Token.stem == "concurr" | Token.stem == "parallel" |  Token.stem == "simultan");
-};
