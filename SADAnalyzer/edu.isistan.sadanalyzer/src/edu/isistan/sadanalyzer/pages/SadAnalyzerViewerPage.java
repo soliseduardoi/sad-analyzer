@@ -226,8 +226,6 @@ public class SadAnalyzerViewerPage extends FormPage {
 		listTactics = new ListViewer(client, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);		
 		listTactics.setLabelProvider(new RutaScriptLabelProvider());
 				
-//		setListViewer(listViewerSectionsSelected, listTactics);
-				
 		tactics = listTactics.getList();
 		tactics.setLayoutData(gd);	
 		
@@ -327,15 +325,6 @@ public class SadAnalyzerViewerPage extends FormPage {
 		super.setActive(active);
 	}
 	
-//	private void setListViewer(ListViewer source, ListViewer list){
-//		for(int i=0; list.getList().getItems().length > 0;){
-//			Object o = list.getElementAt(i);
-//			list.remove(o);
-//		}
-//		for(int i = 0; i < source.getList().getItems().length; i++){
-//			list.add(source.getElementAt(i));
-//		}
-//	}
 	private void setListViewerAttribute(java.util.List source, ListViewer list){
 		for(int i=0; list.getList().getItems().length > 0;){
 			Object o = list.getElementAt(i);
@@ -348,13 +337,15 @@ public class SadAnalyzerViewerPage extends FormPage {
 	
 	public void refresh(ListViewer listViewerSectionsSelected, java.util.List listQualityAttributesSelected){
 		
-//		setListViewer(listViewerSectionsSelected, listSections);
+		combo.setItems(listViewerSectionsSelected.getList().getItems());
+		combo.select(0);
+		combo.update();
 		setListViewerAttribute(listQualityAttributesSelected, listAttributes);
 		styledText.setText("");
 		styledText.update();
 		attributes.update();
 		tactics.update();
-		
+		occurrences = 0;
 		labelImage.setVisible(false);
 		labelOccurrences.setVisible(false);
 		labelOccurrences.update();
@@ -385,6 +376,7 @@ public class SadAnalyzerViewerPage extends FormPage {
 		labelOccurrences.update();
 		labelImage.update();
 		compositeLabel.update();
+		occurrences=0;
 	}
 	
 	private StyleRange createStyleRange(SentenceMark sentence, Color color) {
