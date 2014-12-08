@@ -268,14 +268,15 @@ public void executePipelineSpecific(String inputFile) {
 private void executeScript(CollectionReaderDescription reader, List<RutaScript> scriptsList) throws ResourceInitializationException, UIMAException{
 	for (int i = 0; i < scriptsList.size(); i++) {
 		
-		RutaScript sriptConcern = scriptsList.get(i);
+		RutaScript scriptConcern = scriptsList.get(i);
 		
-		if(sriptConcern.isEnable()){
-			if(!sriptConcern.getList().isEmpty()){
-				executeScript(reader, sriptConcern.getList());
+		if(scriptConcern.isEnable()){
+			scriptConcern.resetAddImpact();
+			if(!scriptConcern.getList().isEmpty()){
+				executeScript(reader, scriptConcern.getList());
 			}
 			JCasIterable iterable = SimplePipeline.iteratePipeline(reader, 
-					getRutaAA(typeSystemDescription, typePriorities,sriptConcern.getScriptCode(), true));
+					getRutaAA(typeSystemDescription, typePriorities,scriptConcern.getScriptCode(), true));
 			
 			///seguir probando con las otras librerias de dependencia
 			for(JCas jCas : iterable) {
@@ -285,7 +286,7 @@ private void executeScript(CollectionReaderDescription reader, List<RutaScript> 
 					 SentenceMark sentenceW= new SentenceMark(begin, end);
 					 ImpactWrapper impacto = new ImpactWrapper();
 					 impacto.setSentence(sentenceW);
-					 sriptConcern.addImpact(impacto);
+					 scriptConcern.addImpact(impacto);
 				 }			
 			}
 		}

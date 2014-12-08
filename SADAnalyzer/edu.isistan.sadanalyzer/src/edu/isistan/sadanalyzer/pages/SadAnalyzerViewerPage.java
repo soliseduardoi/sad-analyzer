@@ -93,7 +93,7 @@ public class SadAnalyzerViewerPage extends FormPage {
 		this.listQualityAttributesSelected=listQualityAttributesSelected;
 		this.rutaEngine = rutaEngine;
 		uimaRoot = ((SadAnalyzerEditor)getEditor()).getUimaRoot();	
-		occurrences = 0;
+//		setOccurrences(0);
 	}
 	
 	/**
@@ -345,7 +345,7 @@ public class SadAnalyzerViewerPage extends FormPage {
 		styledText.update();
 		attributes.update();
 		tactics.update();
-		occurrences = 0;
+//		setOccurrences(0);
 		labelImage.setVisible(false);
 		labelOccurrences.setVisible(false);
 		labelOccurrences.update();
@@ -356,27 +356,28 @@ public class SadAnalyzerViewerPage extends FormPage {
 
 	private void viewQueryText(){
 		if(null != sadSection && null != crossCutting){	
-			occurrences = 0;
+//			setOccurrences(0);
+			int occu = 0;
 			styledText.setText(uimaRoot.getCoveredText(sadSection));
 			for(ImpactWrapper impact : crossCutting.getImpacts()) {
 				
 				SentenceMark sentence = impact.getSentence();
 				Color color = new Color(Display.getDefault(),255, 255, 51);
 				StyleRange newStyleRange = createStyleRange(sentence, color);
-				setStyledRange(newStyleRange);
+				occu = occu + setStyledRange(newStyleRange);
 			}	
-			setOccurrences();		
+//			setOccurrences(crossCutting.getImpacts().size());
+			setMatch(occu);		
 		}
 	}
 	
-	private void setOccurrences(){	
+	private void setMatch(int occurrences){	
 		labelImage.setVisible(true);
 		labelOccurrences.setText(Messages.SadAnalyzerEditor_ViewerOccurences+ ": "+occurrences);
 		labelOccurrences.setVisible(true);
 		labelOccurrences.update();
 		labelImage.update();
 		compositeLabel.update();
-		occurrences=0;
 	}
 	
 	private StyleRange createStyleRange(SentenceMark sentence, Color color) {
@@ -391,7 +392,8 @@ public class SadAnalyzerViewerPage extends FormPage {
 		return styleRange;
 	}
 	
-	private void setStyledRange(StyleRange newStyleRange) {
+	private int setStyledRange(StyleRange newStyleRange) {
+		int match = 0;
 		try{			
 			StyleRange[] existingStyleRanges = 	styledText.getStyleRanges(newStyleRange.start, newStyleRange.length, true);			
 			if(existingStyleRanges != null && existingStyleRanges.length > 0) {
@@ -410,9 +412,18 @@ public class SadAnalyzerViewerPage extends FormPage {
 				newStyleRange.length = increment + incrementRest;
 				
 			}
+			match = match +1;
 			styledText.setStyleRange(newStyleRange);
-			occurrences = occurrences + 1;
 		}catch(Exception e){}
+		return match;
+	}
+
+	public int getOccurrences() {
+		return occurrences;
+	}
+
+	public void setOccurrences(int occurrences) {
+		this.occurrences = occurrences;
 	}
 	
 }
