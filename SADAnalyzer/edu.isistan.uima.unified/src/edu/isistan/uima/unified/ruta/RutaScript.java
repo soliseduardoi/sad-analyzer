@@ -47,6 +47,7 @@ public class RutaScript {
 	}
 	
 	public void resetAddImpact(){
+		
 		this.concernsAdapted.getImpacts().clear();
 	}
 

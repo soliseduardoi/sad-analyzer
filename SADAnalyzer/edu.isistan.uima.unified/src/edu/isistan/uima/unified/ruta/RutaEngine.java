@@ -271,7 +271,7 @@ private void executeScript(CollectionReaderDescription reader, List<RutaScript> 
 		RutaScript scriptConcern = scriptsList.get(i);
 		
 		if(scriptConcern.isEnable()){
-			scriptConcern.resetAddImpact();
+			scriptConcern.resetAddImpact();  
 			if(!scriptConcern.getList().isEmpty()){
 				executeScript(reader, scriptConcern.getList());
 			}
