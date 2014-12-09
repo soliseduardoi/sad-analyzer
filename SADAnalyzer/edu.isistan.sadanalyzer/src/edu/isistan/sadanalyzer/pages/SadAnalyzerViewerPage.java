@@ -392,6 +392,7 @@ public class SadAnalyzerViewerPage extends FormPage {
 		return styleRange;
 	}
 	
+	
 	private int setStyledRange(StyleRange newStyleRange) {
 		int match = 0;
 		try{			
