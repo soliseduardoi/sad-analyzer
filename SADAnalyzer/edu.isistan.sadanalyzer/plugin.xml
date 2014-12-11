@@ -7,7 +7,7 @@
       <editor
             name="Sad Analyzer Editor"
             extensions="sada"
-            icon="icons/sample.gif"
+            icon="icons/sada-icono.png"
             contributorClass="edu.isistan.sadanalyzer.editor.SadAnalyzerEditorContributor"
             class="edu.isistan.sadanalyzer.editor.SadAnalyzerEditor"
             id="edu.isistan.sadanalyzer.editor.SadAnalyzerEditor">
@@ -21,7 +21,7 @@
       </category>
       <wizard
             name="Sad Analyzer file"
-            icon="icons/sample.gif"
+            icon="icons/sada-icono.png"
             category="edu.isistan.sadanalyzer"
             class="edu.isistan.sadanalyzer.wizards.SadAnalyzerWizard"
             id="edu.isistan.sadanalyzer.wizards.SadAnalyzerWizard">

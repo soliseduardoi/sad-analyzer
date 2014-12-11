@@ -69,7 +69,6 @@ public class SadAnalyzerViewerPage extends FormPage {
 	private SadSection sadSection;
 	private CrosscuttingConcernAdapted crossCutting;
 	private StyledText styledText;
-	private int occurrences;
 	private Label labelOccurrences;
 	private Label labelImage;
 	private Composite compositeLabel;
@@ -345,7 +344,6 @@ public class SadAnalyzerViewerPage extends FormPage {
 		styledText.update();
 		attributes.update();
 		tactics.update();
-//		setOccurrences(0);
 		labelImage.setVisible(false);
 		labelOccurrences.setVisible(false);
 		labelOccurrences.update();
@@ -356,7 +354,6 @@ public class SadAnalyzerViewerPage extends FormPage {
 
 	private void viewQueryText(){
 		if(null != sadSection && null != crossCutting){	
-//			setOccurrences(0);
 			int occu = 0;
 			styledText.setText(uimaRoot.getCoveredText(sadSection));
 			for(ImpactWrapper impact : crossCutting.getImpacts()) {
@@ -366,7 +363,6 @@ public class SadAnalyzerViewerPage extends FormPage {
 				StyleRange newStyleRange = createStyleRange(sentence, color);
 				occu = occu + setStyledRange(newStyleRange);
 			}	
-//			setOccurrences(crossCutting.getImpacts().size());
 			setMatch(occu);		
 		}
 	}
@@ -417,14 +413,5 @@ public class SadAnalyzerViewerPage extends FormPage {
 			styledText.setStyleRange(newStyleRange);
 		}catch(Exception e){}
 		return match;
-	}
-
-	public int getOccurrences() {
-		return occurrences;
-	}
-
-	public void setOccurrences(int occurrences) {
-		this.occurrences = occurrences;
-	}
-	
+	}	
 }
