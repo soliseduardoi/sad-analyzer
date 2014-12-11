@@ -7,7 +7,7 @@
       <editor
             name="Sad Editor"
             extensions="sad"
-            icon="icons/sample.gif"
+            icon="icons/sad-icono.png"
             contributorClass="edu.isistan.sadeditor.editor.SadEditorContributor"
             class="edu.isistan.sadeditor.editor.SadEditor"
             id="edu.isistan.sadeditor.editor.SadEditor">
@@ -21,7 +21,7 @@
       </category>
       <wizard
             name="Sad Editor file"
-            icon="icons/sample.gif"
+            icon="icons/sad-icono.png"
             category="edu.isistan.sadeditor"
             class="edu.isistan.sadeditor.wizards.SadWizard"
             id="edu.isistan.sadeditor.wizards.SadWizard">
