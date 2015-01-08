@@ -1,0 +1,18 @@
+TYPESYSTEM typesystems.ECoreTypeDescriptor;
+DECLARE Token_Availability,Token_Detect,Token_Prevent,Token_Recover,Token_Fault;
+
+
+
+
+Token{Token.lemma == "availability"-> MARK(Availability.Token_Availability)};
+Token{Token.lemma == "detect"-> MARK(Availability.Token_Detect)};
+Token{Token.lemma == "prevent"-> MARK(Availability.Token_Prevent)};
+Token{Token.lemma == "recover"-> MARK(Availability.Token_Recover)};
+Token{Token.lemma == "faults"-> MARK(Availability.Token_Fault)};
+
+Sentence{ -> CREATE(CrosscuttingConcern, "name" = "Availability", "sentence"=Sentence)} <- {	
+	Availability.Token_Availability;
+	Availability.Token_Detect Availability.Token_Fault;
+	Availability.Token_Prevent Availability.Token_Fault;
+	Availability.Token_Recover from Availability.Token_Fault;
+};

@@ -1,0 +1,18 @@
+TYPESYSTEM typesystems.ECoreTypeDescriptor;
+DECLARE Token_Moificability,Token_Increase,Token_Cohesion,Token_Reduce,Token_Coupling;
+
+
+
+
+Token{Token.lemma == "moificability"-> MARK(Moificability.Token_Moificability)};
+Token{Token.lemma == "increase"-> MARK(Moificability.Token_Increase)};
+Token{Token.lemma == "cohesion"-> MARK(Moificability.Token_Cohesion)};
+Token{Token.lemma == "reduce"-> MARK(Moificability.Token_Reduce)};
+Token{Token.lemma == "coupling"-> MARK(Moificability.Token_Coupling)};
+
+Sentence{ -> CREATE(CrosscuttingConcern, "name" = "Moificability", "sentence"=Sentence)} <- {	
+	Availability.Token_Moificability;
+	Availability.Token_Increase Availability.Token_Cohesion;
+	Availability.Token_Prevent Availability.Token_Fault;
+	Availability.Token_Reduce from Availability.Token_Coupling;
+};

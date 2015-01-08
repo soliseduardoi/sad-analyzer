@@ -1,0 +1,12 @@
+TYPESYSTEM typesystems.ECoreTypeDescriptor;
+DECLARE Token_Scalability;
+
+
+
+
+Token{Token.lemma == "scalability"-> MARK(Scalability.Token_Scalability)};
+
+Sentence{ -> CREATE(CrosscuttingConcern, "name" = "Scalability", "sentence"=Sentence)} <- {	
+	Scalability.Token_Scalability;
+	
+};
