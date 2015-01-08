@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
+    <name>uima.ruta.example.AvailabilityTypeSystem</name>
+    <imports>
+        <import location="../../../BasicTypeSystem.xml"/>
+        <import location="../../../typesystems/ECoreTypeDescriptor.xml"/>
+    </imports>
+    <types>
+        <typeDescription>
+            <name>Availability.Token_Availability</name>
+            <description>Type defined in null.Availability</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Availability.Token_Detect</name>
+            <description>Type defined in null.Availability</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Availability.Token_Prevent</name>
+            <description>Type defined in null.Availability</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Availability.Token_Recover</name>
+            <description>Type defined in null.Availability</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Availability.Token_Fault</name>
+            <description>Type defined in null.Availability</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Availability.Token_From</name>
+            <description>Type defined in null.Availability</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Availability.Token_Availability</name>
+            <description>Type defined in null.Availability</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Availability.Token_Detect</name>
+            <description>Type defined in null.Availability</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Availability.Token_Prevent</name>
+            <description>Type defined in null.Availability</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Availability.Token_Recover</name>
+            <description>Type defined in null.Availability</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Availability.Token_Fault</name>
+            <description>Type defined in null.Availability</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Availability.Token_From</name>
+            <description>Type defined in null.Availability</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+    </types>
+</typeSystemDescription>

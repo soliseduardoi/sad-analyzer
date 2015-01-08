@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
+    <name>uima.ruta.example.ModifiabilityTypeSystem</name>
+    <imports>
+        <import location="../../../BasicTypeSystem.xml"/>
+        <import location="../../../typesystems/ECoreTypeDescriptor.xml"/>
+    </imports>
+    <types>
+        <typeDescription>
+            <name>Modifiability.Token_Modifiability</name>
+            <description>Type defined in null.Modifiability</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Modifiability.Token_Increase</name>
+            <description>Type defined in null.Modifiability</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Modifiability.Token_Cohesion</name>
+            <description>Type defined in null.Modifiability</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Modifiability.Token_Reduce</name>
+            <description>Type defined in null.Modifiability</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Modifiability.Token_Coupling</name>
+            <description>Type defined in null.Modifiability</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Modifiability.Token_Modifiability</name>
+            <description>Type defined in null.Modifiability</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Modifiability.Token_Increase</name>
+            <description>Type defined in null.Modifiability</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Modifiability.Token_Cohesion</name>
+            <description>Type defined in null.Modifiability</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Modifiability.Token_Reduce</name>
+            <description>Type defined in null.Modifiability</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+        <typeDescription>
+            <name>Modifiability.Token_Coupling</name>
+            <description>Type defined in null.Modifiability</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+    </types>
+</typeSystemDescription>
