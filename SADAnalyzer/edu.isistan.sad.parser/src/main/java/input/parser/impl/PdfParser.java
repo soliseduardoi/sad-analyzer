@@ -58,7 +58,7 @@ public class PdfParser implements SadParser {
 			 doc = PDDocument.load(input);         
 		     PDDocumentOutline root = doc.getDocumentCatalog().getDocumentOutline();
 		     if(root!=null){  
-			     // Se pide el primer nodo del árbol
+			     // Se pide el primer nodo del arbol
 			     PDOutlineItem item = root.getFirstChild();
 			     if(structureXml != null){
 				     if(validateTemplate(item)){
