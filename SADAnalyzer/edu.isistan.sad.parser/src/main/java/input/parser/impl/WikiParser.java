@@ -25,6 +25,7 @@ public class WikiParser implements SadParser {
 	
 	public Section getSad(String path, String urlWiki) {
 		
+		System.setProperty("jsse.enableSNIExtension", "false");
 		URL url= null;
 		try {
 			 url= new URL(urlWiki);
@@ -36,7 +37,7 @@ public class WikiParser implements SadParser {
 		urlBase= url.getProtocol()+"://"+url.getHost();
 		Source source=null;
 		try {
-			source = new Source(url);
+			source = new Source(url.openConnection());
 		} catch (IOException e) {
 			
 			e.printStackTrace();	
