@@ -373,7 +373,7 @@ public class SadWizardSettingsPage extends WizardPage {
 		}
 		
 		if(this.sadFromURLRadio.getSelection()){
-			if(getUrlPath().getText().length() <= Messages.Sad_UrlField.length()){
+			if(getUrlPath().getText().length() <= 6){
 				fields = false;
 			}
 		}	
