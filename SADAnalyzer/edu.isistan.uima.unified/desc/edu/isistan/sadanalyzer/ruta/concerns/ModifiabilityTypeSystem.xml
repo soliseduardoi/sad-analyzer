@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
     <name>uima.ruta.example.ModifiabilityTypeSystem</name>
-    <imports>
-        <import location="../../../BasicTypeSystem.xml"/>
-        <import location="../../../typesystems/ECoreTypeDescriptor.xml"/>
+        <imports>
+        <import location="../../../../../typesystems/BasicTypeSystem.xml"/>
+        <import location="../../../../../typesystems/ECoreTypeDescriptor.xml"/>
     </imports>
     <types>
         <typeDescription>

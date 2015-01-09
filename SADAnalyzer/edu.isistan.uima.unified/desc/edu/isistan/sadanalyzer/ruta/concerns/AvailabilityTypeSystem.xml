@@ -2,8 +2,8 @@
 <typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
     <name>uima.ruta.example.AvailabilityTypeSystem</name>
     <imports>
-        <import location="../../../BasicTypeSystem.xml"/>
-        <import location="../../../typesystems/ECoreTypeDescriptor.xml"/>
+        <import location="../../../../../typesystems/BasicTypeSystem.xml"/>
+        <import location="../../../../../typesystems/ECoreTypeDescriptor.xml"/>
     </imports>
     <types>
         <typeDescription>
