@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Parser
+Bundle-SymbolicName: edu.isistan.sad.parser
+Bundle-Version: 1.0.0.qualifier
+Export-Package: input.model,
+ input.model.impl,
+ input.parser,
+ input.parser.impl,
+ input.xmltemplatereader,
+ input.xmltemplatereader.resources
+Require-Bundle: edu.isistan.uima.libs;bundle-version="1.0.1"
