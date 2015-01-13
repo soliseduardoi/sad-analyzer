@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry exported="true" kind="lib" path="commons-io-2.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="jdom-2.0.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="jericho-html-3.3.jar"/>
+	<classpathentry exported="true" kind="lib" path="pdfbox-app-1.7.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="uimaj-cpe-2.4.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="uimaj-core-2.6.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="uimaj-tools-2.6.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="uimafit-core-2.1.0.jar"/>
@@ -10,7 +15,6 @@
 	<classpathentry exported="true" kind="lib" path="uima-core.jar"/>
 	<classpathentry exported="true" kind="lib" path="uimaj-adapter-vinci-2.4.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="uimaj-bootstrap.jar"/>
-	<classpathentry exported="true" kind="lib" path="uimaj-cpe-2.4.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="uimaj-document-annotation-2.4.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="antlr-runtime-3.5.jar"/>
 	<classpathentry exported="true" kind="lib" path="aopalliance-1.0.jar"/>
