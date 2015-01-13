@@ -7,8 +7,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
-import javax.script.ScriptContext;
-
 import org.apache.uima.UIMAException;
 import org.apache.uima.analysis_engine.AnalysisEngineDescription;
 import org.apache.uima.collection.CollectionReaderDescription;
@@ -55,7 +53,14 @@ public class RutaEngine {
 	
 	public RutaEngine(String languaje) {		
 		
-		this.languaje=languaje;			
+		this.languaje=languaje;		
+		try {
+			typeSystemDescription = getTypeSystemDescription();
+			typePriorities =getTypePriorities();
+		} catch (ResourceInitializationException e) {
+			System.out.println("Error al levantar los tipos de UIMA");
+			e.printStackTrace();
+		}
 		scripts = getScriptRuta(getRuleSetPath());		
 	}
 	
@@ -79,13 +84,7 @@ public class RutaEngine {
 			}
 			
 	   }
-		try {
-			typeSystemDescription = getTypeSystemDescription();
-			typePriorities =getTypePriorities();
-		} catch (ResourceInitializationException e) {
 		
-			e.printStackTrace();
-		}
 		return list;
 	}
 	
@@ -135,32 +134,32 @@ public class RutaEngine {
 	private TypeSystemDescription getTypeSystemDescription() throws ResourceInitializationException {
 		System.setProperty("org.apache.uima.fit.type.import_pattern", "classpath*:desc/**/*.xml");
 //		System.setProperty("org.uimafit.type.import_pattern", "classpath*:desc/typesystems/**/*.xml");
-		                         
+		TypeSystemDescriptionFactory.forceTypeDescriptorsScan();                      
 		return TypeSystemDescriptionFactory.createTypeSystemDescription();
 	}
 	
 	private TypePriorities getTypePriorities() throws ResourceInitializationException {
-//		return TypePrioritiesFactory.createTypePriorities(
-//		"edu.isistan.uima.unified.typesystems.sad.SadSection",
-//		"edu.isistan.uima.unified.typesystems.sad.Sad",
-//		"edu.isistan.uima.unified.typesystems.nlp.Sentence",
-//		"edu.isistan.uima.unified.typesystems.domain.CrosscuttingConcern",
-//		"edu.isistan.uima.unified.typesystems.srl.Predicate",
-//		"edu.isistan.uima.unified.typesystems.srl.Structure",
-//		"edu.isistan.uima.unified.typesystems.srl.Argument",
-//		"edu.isistan.uima.unified.typesystems.nlp.SDDependency",
-//		"edu.isistan.uima.unified.typesystems.nlp.Chunk",
-//		"edu.isistan.uima.unified.typesystems.nlp.Entity",
-//		"edu.isistan.uima.unified.typesystems.srl.Role",
-//		"edu.isistan.uima.unified.typesystems.domain.DomainNumber",
-//		"edu.isistan.uima.unified.typesystems.nlp.Token",
-//		"edu.isistan.uima.unified.typesystems.wordnet.Sense");
-		return null;
+		return TypePrioritiesFactory.createTypePriorities(
+		"edu.isistan.uima.unified.typesystems.sad.SadSection",
+		"edu.isistan.uima.unified.typesystems.sad.Sad",
+		"edu.isistan.uima.unified.typesystems.nlp.Sentence",
+		"edu.isistan.uima.unified.typesystems.domain.CrosscuttingConcern",
+		"edu.isistan.uima.unified.typesystems.srl.Predicate",
+		"edu.isistan.uima.unified.typesystems.srl.Structure",
+		"edu.isistan.uima.unified.typesystems.srl.Argument",
+		"edu.isistan.uima.unified.typesystems.nlp.SDDependency",
+		"edu.isistan.uima.unified.typesystems.nlp.Chunk",
+		"edu.isistan.uima.unified.typesystems.nlp.Entity",
+		"edu.isistan.uima.unified.typesystems.srl.Role",
+		"edu.isistan.uima.unified.typesystems.domain.DomainNumber",
+		"edu.isistan.uima.unified.typesystems.nlp.Token",
+		"edu.isistan.uima.unified.typesystems.wordnet.Sense");
+//		return null;
 	}
 	
 	private CollectionReaderDescription getXMIReaderCR(TypeSystemDescription typeSystemDescription, TypePriorities typePriorities, String inputFile) throws ResourceInitializationException, InvalidXMLException {
 		CollectionReaderDescription crDescription = 
-			CollectionReaderFactory.createDescription(XMICollectionReader.class, typeSystemDescription, typePriorities, "input", inputFile);
+			CollectionReaderFactory.createReaderDescription(XMICollectionReader.class, typeSystemDescription, typePriorities, "input", inputFile);
 		return crDescription;
 	}
 	
