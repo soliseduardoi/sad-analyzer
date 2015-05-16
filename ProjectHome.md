@@ -1,0 +1,1 @@
+Eclipse Plugin for Software Architecture Documentation Analyzer
