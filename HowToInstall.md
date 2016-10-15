@@ -9,15 +9,22 @@ Download a clean version of Eclipse Luna, and install the following "dependant" 
 First, install the following plugins:
 
 EMF (Eclipse Modeling Framework)
+
 EMF Query
+
 The plugins above can be found at the Eclipse Luna Update Site, included with eclipse.
 
 Then, add the following Update Sites and install them.
 
+
 UIMA - http://www.apache.org/dist/uima/eclipse-update-site/
+
 EMF Query2 - https://hudson.eclipse.org/hudson/job/tycho-query2-nightly/lastSuccessfulBuild/artifact/targetPlatform/
+
 AJDT - http://download.eclipse.org/tools/ajdt/37/update
+
 WindowBuilder Pro - http://dl.google.com/eclipse/inst/d2wbpro/latest/3.7
+
 Second Step
 
 Copy SADAnalyzer plugin jars (downloaded from the Downloads page) to the plugins folder of Eclipse.
